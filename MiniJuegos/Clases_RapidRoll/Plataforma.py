@@ -34,6 +34,7 @@ class Plataforma():
         else:
             return False
 
-    def actualizar(self, ventana):
-        self.rect.top -= self.velY
+    def actualizar(self, ventana, enPausa):
+        if not enPausa:
+            self.rect.top -= self.velY
         pygame.draw.rect(ventana, blanco, self.rect)

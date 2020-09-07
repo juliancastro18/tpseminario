@@ -16,17 +16,18 @@ class Bola():
         self.velY = 8
         self.velX = 10
 
-    def actualizar(self, ventana):
-        # aceleracion inicial
-        if self.velYInicial < self.velY:
-            self.rect.top += self.velYInicial
-            self.velYInicial = self.velYInicial * 1.04
-        else:
-            self.rect.top += self.velY
+    def actualizar(self, ventana, enPausa):
+        if not enPausa:
+            # aceleracion inicial
+            if self.velYInicial < self.velY:
+                self.rect.top += self.velYInicial
+                self.velYInicial = self.velYInicial * 1.04
+            else:
+                self.rect.top += self.velY
 
-        # si la bola no esta en la pantalla, se termina el juego
-        if self.rect.bottom < 0 or self.rect.top > altoPantalla:
-            return False
+            # si la bola no esta en la pantalla, se termina el juego
+            if self.rect.bottom < 0 or self.rect.top > altoPantalla:
+                return False
 
         pygame.draw.circle(ventana, blanco, self.rect.center, self.radio)
         return True
