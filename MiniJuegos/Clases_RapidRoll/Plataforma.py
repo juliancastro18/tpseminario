@@ -10,6 +10,7 @@ class Plataforma():
     def __init__(self):
         self.ancho = 200
         self.alto = 20
+        self.ultimaPlataforma = False
 
         self.posX = self.randomPosX()
         self.posY = altoPantalla+self.alto
@@ -27,6 +28,11 @@ class Plataforma():
         self.rect.right = anchoPantalla
         self.rect.top = altoPantalla + 200
 
+    def setUltimaPlataforma(self):
+        self.rect.left = (anchoPantalla/2) - (self.ancho/2)
+        self.ultimaPlataforma = True
+        self.distanciaNext = 200
+
     def permiteSiguientePlataforma(self):
         distanciaDelSuelo = self.posY - self.rect.top
         if distanciaDelSuelo > self.distanciaNext:
@@ -36,5 +42,7 @@ class Plataforma():
 
     def actualizar(self, ventana, enPausa):
         if not enPausa:
+            if self.ultimaPlataforma == True and self.rect.top < altoPantalla - 80:
+                self.velY = 0
             self.rect.top -= self.velY
         pygame.draw.rect(ventana, blanco, self.rect)

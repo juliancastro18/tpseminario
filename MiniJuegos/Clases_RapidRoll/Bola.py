@@ -45,7 +45,7 @@ class Bola():
 
     def setEnPlataforma(self, posY):
         if posY >= (self.rect.bottom-self.velY-4): # agrego esta comparación para evitar que tenga en cuenta colisiones laterales
-            self.rect.bottom = posY - self.velY # seteo el inferior de la bola para que coincida con el superior de la plataforma
+            self.rect.bottom = posY - self.velY +1 # seteo el inferior de la bola para que coincida con el superior de la plataforma
 
     def posicionXY(self):
         return self.rect.center

@@ -32,4 +32,5 @@ while True:
         #evaluar puntuacion, pantalla de game over
 '''
 
-RapidRoll(anchoPantalla-50, 40, ventana)
+enJuego, posicionXY = RapidRoll(anchoPantalla-50, 40, ventana)
+print("Juego terminado.\nGanaste: ",enJuego,"\nPosicion centro bola:",posicionXY)
