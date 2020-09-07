@@ -1,0 +1,5 @@
+La idea seria que cada juego herede de Screen y que cada objeto herede de GameObject, ambos son clases abstractas por lo que los metodos publicos se defienen
+de esta manera:
+
+def update(self):
+	pass #Ya que es abstracta :D
