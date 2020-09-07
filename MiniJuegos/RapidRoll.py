@@ -7,7 +7,7 @@ anchoPantalla, altoPantalla = 640, 480
 blanco = (255,255,255)
 negro = (0,0,0)
 
-def administradorPlataformas(plataformas, enPausa):
+def administradorPlataformas(plataformas, contadorPlataformas):
 
     plataformaAgregada = 0
 
@@ -16,9 +16,17 @@ def administradorPlataformas(plataformas, enPausa):
             plataformas.remove(plat)
 
 
-    if len(plataformas) < 6 and plataformas[len(plataformas)-1].permiteSiguientePlataforma():
-        plataformas.append( Plataforma() )
-        plataformaAgregada = 1
+    if contadorPlataformas < 10:
+        if len(plataformas) < 6 and plataformas[len(plataformas)-1].permiteSiguientePlataforma():
+            plataformas.append( Plataforma() )
+            plataformaAgregada = 1
+
+    else:
+
+        if plataformas[len(plataformas)-1].permiteSiguientePlataforma():
+            ultimaPlataforma = Plataforma()
+            plataformas.append( ultimaPlataforma )
+            ultimaPlataforma.setUltimaPlataforma()
 
     return plataformaAgregada
 
@@ -37,7 +45,7 @@ def RapidRoll(posX, posY, ventana):
     enJuego = True
     enPausa = False
        
-    while enJuego and contadorPlataformas < 20: # se ejecutará el siguiente loop hasta terminar el juego
+    while enJuego: # se ejecutará el siguiente loop hasta terminar el juego
         
         reloj.tick(60) # defino 60 frames por segundo como maximo
         
@@ -57,7 +65,7 @@ def RapidRoll(posX, posY, ventana):
         if key_input[pygame.K_RIGHT] and not enPausa:
             bolaJugador.desplazamientoHorizontal(True)
         
-        contadorPlataformas += administradorPlataformas(plataformas, enPausa)
+        contadorPlataformas += administradorPlataformas(plataformas, contadorPlataformas)
 
         for plat in plataformas:
             plat.actualizar(ventana, enPausa)
@@ -66,5 +74,10 @@ def RapidRoll(posX, posY, ventana):
 
         enJuego = bolaJugador.actualizar(ventana, enPausa)
         pygame.display.update()
+
+        # si solo queda la ultima plataforma salgo del bucle
+        if len(plataformas) == 1 and plataformas[0].ultimaPlataforma == True:
+            break
+
 
     return enJuego, bolaJugador.posicionXY()

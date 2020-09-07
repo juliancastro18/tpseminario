@@ -32,11 +32,11 @@ while True:
         #evaluar puntuacion, pantalla de game over
 '''
 
-
+#enJuego, posicionXY = RapidRoll(anchoPantalla-50, 40, ventana)
+#print("Juego terminado.\nGanaste: ",enJuego,"\nPosicion centro bola:",posicionXY)
 
 
 def main():
-    RapidRoll(anchoPantalla-50, 40, ventana)
     
     pygame.init()
     myGame = MiniJuegos.Snake.Game()
