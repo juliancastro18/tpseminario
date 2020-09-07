@@ -1,0 +1,51 @@
+Orden del juego:
+
+- Opciones
+- Pong
+- Rapid Roll
+- Ladrillos
+- Rapid Roll reverso
+- Snake
+
+------------
+
+Al iniciar el juego aparecen las opciones con las barras a los costados, la pelota indica la opcion a elegir.
+Cuando se elije empezar el juego, las opciones desaparecen y las barras se mueven a los costados de la pantalla para empezar el Pong.
+
+Cuando el oponente pierde, la pelota queda a la derecha de la pantalla y se pasan las coordenadas asi como los objetos de las barras para el proximo juego. Las barras tendrian un metodo para actualizarse con una posicion diferente hasta desaparecer, ese metodo se usaria desde el segundo juego.
+
+El Rapid Roll termina despues de haberse generado X cantidad de plataformas, en ese momento se genera una ultima plataforma que frena en la parte inferior de la pantalla, en el centro. Cuando la pelota colisiona con esa plataforma se cambia de juego, nuevamente pasando como parametro la posicion de la pelota.
+
+El juego de ladrillos finaliza cuando se colisiona con el ultimo ladrillo, la pelota se pasa por parametro al siguiente juego, que es el Rapid Roll, pero esta vez la pelota no cae (velocidad 0) y colisionar con una plataforma hace terminar al juego.
+
+Este juego termina despues de haberse generado X cantidad de plataformas, la serpiente aparece como una plataforma mas, frena en la parte inferior de la pantalla y comienza a moverse horizontalmente hasta que el jugador tome el control.
+
+Pasar de Snake a Pong ?????
+
+----
+
+Cosas a resolver:
+
+Como llamar a los juegos desde el main:
+Puede ser loop infinito en que se llame a cada juego. Cada juego devuelve un booleano, si gana true, si pierde falso.
+
+enJuego = RapidRoll()
+
+while True:
+
+	if enJuego:
+		enJuego, posXY, bloques = Pong()
+	if enJuego:
+		enJuego, posXY = RapidRoll(posXY, bloques)
+	if enJuego:
+		enJuego, posXY = Ladrillos(posXY)
+	if enJuego:
+		enJuego, posXY = RapidRollReverso(posXY)
+	if enJuego:
+		enJuego, ??? = Snake()
+
+	if !enJuego:
+		break
+
+<evalua puntuacion, etc>
+<vuelve al menu> (o sea, tendria que estar lo anterior metido dentro de otro while True)
