@@ -17,12 +17,19 @@ class Bola():
         self.velX = 10
 
     def actualizar(self, ventana):
+        # aceleracion inicial
         if self.velYInicial < self.velY:
             self.rect.top += self.velYInicial
             self.velYInicial = self.velYInicial * 1.04
         else:
             self.rect.top += self.velY
+
+        # si la bola no esta en la pantalla, se termina el juego
+        if self.rect.bottom < 0 or self.rect.top > altoPantalla:
+            return False
+
         pygame.draw.circle(ventana, blanco, self.rect.center, self.radio)
+        return True
 
     def desplazamientoHorizontal(self, esDerecha):
         if esDerecha:
@@ -38,3 +45,6 @@ class Bola():
     def setEnPlataforma(self, posY):
         if posY >= (self.rect.bottom-self.velY-4): # agrego esta comparación para evitar que tenga en cuenta colisiones laterales
             self.rect.bottom = posY - self.velY # seteo el inferior de la bola para que coincida con el superior de la plataforma
+
+    def posicionXY(self):
+        return self.rect.center

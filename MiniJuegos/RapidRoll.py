@@ -9,6 +9,8 @@ negro = (0,0,0)
 
 def administradorPlataformas(plataformas):
 
+    plataformaAgregada = 0
+
     for plat in plataformas:
         if plat.rect.bottom < 0:
             plataformas.remove(plat)
@@ -16,6 +18,9 @@ def administradorPlataformas(plataformas):
 
     if len(plataformas) < 6 and plataformas[len(plataformas)-1].permiteSiguientePlataforma():
         plataformas.append( Plataforma() )
+        plataformaAgregada = 1
+
+    return plataformaAgregada
 
 
 def RapidRoll(posX, posY, ventana):
@@ -27,8 +32,11 @@ def RapidRoll(posX, posY, ventana):
     primerPlataforma = Plataforma()
     primerPlataforma.setPrimerPlataforma()
     plataformas = [primerPlataforma]
+    contadorPlataformas = 1
+
+    enJuego = True
        
-    while True: # se ejecutará el siguiente loop hasta terminar el juego
+    while enJuego and contadorPlataformas < 10: # se ejecutará el siguiente loop hasta terminar el juego
         
         reloj.tick(60) # defino 60 frames por segundo como maximo
         
@@ -45,12 +53,14 @@ def RapidRoll(posX, posY, ventana):
         if key_input[pygame.K_RIGHT]:
             bolaJugador.desplazamientoHorizontal(True)
         
-        administradorPlataformas(plataformas)
+        contadorPlataformas += administradorPlataformas(plataformas)
 
         for plat in plataformas:
             plat.actualizar(ventana)
             if plat.rect.colliderect(bolaJugador.rect):
                 bolaJugador.setEnPlataforma(plat.rect.top)
 
-        bolaJugador.actualizar(ventana)
+        enJuego = bolaJugador.actualizar(ventana)
         pygame.display.update()
+
+    return enJuego, bolaJugador.posicionXY()
