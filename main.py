@@ -1,7 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 from MiniJuegos.RapidRoll import *
-
+import MiniJuegos.Snake
 #variables globales
 anchoPantalla, altoPantalla = 640, 480
 blanco = (255,255,255)
@@ -32,4 +32,19 @@ while True:
         #evaluar puntuacion, pantalla de game over
 '''
 
-RapidRoll(anchoPantalla-50, 40, ventana)
+
+
+
+def main():
+    RapidRoll(anchoPantalla-50, 40, ventana)
+    
+    pygame.init()
+    myGame = MiniJuegos.Snake.Game()
+    
+    while not myGame.get_game_state()["done"] and myGame.get_game_state()["snake_is_alive"]:
+        myGame.process()
+        myGame.display_frame()
+
+
+if __name__ == "__main__":
+    main()
