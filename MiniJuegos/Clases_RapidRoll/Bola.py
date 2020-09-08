@@ -1,12 +1,9 @@
 import pygame
-
-anchoPantalla, altoPantalla = 640, 480
-blanco = (255,255,255)
-negro = (0,0,0)
+from MiniJuegos import color, forma, configuration
 
 class Bola():
     
-    radio = 14
+    radio = forma.BOLA_RADIO
 
     def __init__(self, posX, posY):
 
@@ -26,26 +23,26 @@ class Bola():
                 self.rect.top += self.velY
 
             # si la bola no esta en la pantalla, se termina el juego
-            if self.rect.bottom < 0 or self.rect.top > altoPantalla:
+            if self.rect.bottom < 0 or self.rect.top > configuration.SCREEN_HEIGHT:
                 return False
 
-        pygame.draw.circle(ventana, blanco, self.rect.center, self.radio)
+        pygame.draw.circle(ventana, color.WHITE, self.rect.center, self.radio)
         return True
 
     def desplazamientoHorizontal(self, esDerecha):
         if esDerecha:
             self.rect.right += self.velX
-            if self.rect.right > anchoPantalla:
-                self.rect.right = anchoPantalla
+            if self.rect.right > configuration.SCREEN_WIDTH:
+                self.rect.right = configuration.SCREEN_WIDTH
 
         else:
             self.rect.left -= self.velX
             if self.rect.left < 0:
                 self.rect.left = 0
 
-    def setEnPlataforma(self, posY):
-        if posY >= (self.rect.bottom-self.velY-4): # agrego esta comparación para evitar que tenga en cuenta colisiones laterales
-            self.rect.bottom = posY - self.velY +1 # seteo el inferior de la bola para que coincida con el superior de la plataforma
+    def setEnPlataforma(self, platPosY, platVelY):
+        if platPosY >= (self.rect.bottom - self.velY - platVelY): # agrego esta comparación para evitar que tenga en cuenta colisiones laterales
+            self.rect.bottom = platPosY - self.velY + 1 # seteo el inferior de la bola para que coincida con el superior de la plataforma
 
     def posicionXY(self):
         return self.rect.center

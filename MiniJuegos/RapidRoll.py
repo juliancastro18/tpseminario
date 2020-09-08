@@ -1,11 +1,9 @@
 import pygame, sys
 from pygame.locals import *
+
+from MiniJuegos import color
 from MiniJuegos.Clases_RapidRoll.Plataforma import *
 from MiniJuegos.Clases_RapidRoll.Bola import *
-
-anchoPantalla, altoPantalla = 640, 480
-blanco = (255,255,255)
-negro = (0,0,0)
 
 def administradorPlataformas(plataformas, contadorPlataformas):
 
@@ -49,7 +47,7 @@ def RapidRoll(posX, posY, ventana):
         
         reloj.tick(60) # defino 60 frames por segundo como maximo
         
-        ventana.fill(negro)
+        ventana.fill(color.BLACK)
 
         # para cada evento que reciba pygame...
         for evento in pygame.event.get():
@@ -59,6 +57,7 @@ def RapidRoll(posX, posY, ventana):
             if evento.type == pygame.KEYDOWN:
                 if evento.key == K_ESCAPE:
                     enPausa^=True
+                    
         key_input = pygame.key.get_pressed()   
         if key_input[pygame.K_LEFT] and not enPausa:
             bolaJugador.desplazamientoHorizontal(False)
@@ -70,7 +69,7 @@ def RapidRoll(posX, posY, ventana):
         for plat in plataformas:
             plat.actualizar(ventana, enPausa)
             if plat.rect.colliderect(bolaJugador.rect):
-                bolaJugador.setEnPlataforma(plat.rect.top)
+                bolaJugador.setEnPlataforma(plat.rect.top, plat.velY)
 
         enJuego = bolaJugador.actualizar(ventana, enPausa)
         pygame.display.update()
