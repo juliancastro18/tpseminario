@@ -1,19 +1,21 @@
 import pygame
 from MiniJuegos import color, forma, configuration
+from MiniJuegos.GameObject import *
 
 class Bola():
     
     radio = forma.BOLA_RADIO
 
-    def __init__(self, posX, posY):
+    def __init__(self, posXY):
 
-        self.rect = pygame.Rect(posX, posY, self.radio*2, self.radio*2) # rectángulo en el que se inscribe el círculo
+        self.posX, self.posY = posXY
+        self.rect = pygame.Rect(self.posX, self.posY, self.radio*2, self.radio*2) # rectángulo en el que se inscribe el círculo
 
         self.velYInicial = 0.5
         self.velY = 8
         self.velX = 10
 
-    def actualizar(self, ventana, enPausa):
+    def actualizar(self, enPausa):
         if not enPausa:
             # aceleracion inicial
             if self.velYInicial < self.velY:
@@ -22,12 +24,17 @@ class Bola():
             else:
                 self.rect.top += self.velY
 
-            # si la bola no esta en la pantalla, se termina el juego
-            if self.rect.bottom < 0 or self.rect.top > configuration.SCREEN_HEIGHT:
-                return False
+        # si la bola no esta en la pantalla, se termina el juego
+        if self.rect.bottom < 0 or self.rect.top > configuration.SCREEN_HEIGHT:
+            return False
 
-        pygame.draw.circle(ventana, color.WHITE, self.rect.center, self.radio)
         return True
+
+    def setEnPlataforma(self, platPosY):
+        self.rect.bottom = platPosY + 1
+
+    def dibujar(self, ventana):
+        pygame.draw.circle(ventana, color.WHITE, self.rect.center, self.radio)
 
     def desplazamientoHorizontal(self, esDerecha):
         if esDerecha:
@@ -39,10 +46,6 @@ class Bola():
             self.rect.left -= self.velX
             if self.rect.left < 0:
                 self.rect.left = 0
-
-    def setEnPlataforma(self, platPosY, platVelY):
-        if platPosY >= (self.rect.bottom - self.velY - platVelY): # agrego esta comparación para evitar que tenga en cuenta colisiones laterales
-            self.rect.bottom = platPosY - self.velY + 1 # seteo el inferior de la bola para que coincida con el superior de la plataforma
 
     def posicionXY(self):
         return self.rect.center

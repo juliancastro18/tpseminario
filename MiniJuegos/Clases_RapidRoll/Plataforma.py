@@ -5,6 +5,7 @@ from random import randint
 class Plataforma():
 
     def __init__(self):
+
         self.ancho = forma.BARRA_LADO_MAYOR
         self.alto = forma.BARRA_LADO_MENOR
         self.ultimaPlataforma = False
@@ -36,6 +37,12 @@ class Plataforma():
             return True
         else:
             return False
+
+    def colisionSuperior(self, bola):
+        if self.rect.colliderect(bola.rect):
+            if not bola.rect.collidepoint(self.rect.bottomleft) and not bola.rect.collidepoint(self.rect.bottomright):
+                return True
+        return False
 
     def actualizar(self, ventana, enPausa):
         if not enPausa:
