@@ -1,19 +1,22 @@
 import pygame
 from pygame import draw
+from MiniJuegos.GameObject import GameObject
 import MiniJuegos.configuration
-class Square():
+class Square(GameObject):
     _MAX_SPEED = 1
-    def __init__(self, color = (0,0,0), pos = (0,0)):
+    def __init__(self, color = (0,0,0), pos = (0,0), width = 25, height = 25):
         self.__color = color
         self.__pos = pos
-        self.__width = 25
-        self.__height = 25
+        self.__width = width
+        self.__height = height
         self.__speed_x = Square._MAX_SPEED
         self.__speed_y = 0
         self.collider = pygame.Rect(0,0,0,0)
     
     def get_pos(self):
         return self.__pos
+    def set_pos(self, x = 0, y = 0):
+        self.__pos = (x,y)
     
     def get_speed(self):
         return (self.__speed_x, self.__speed_y)
@@ -27,20 +30,28 @@ class Square():
 
     
     def draw(self, screen):
-        self.out_screen()
+        result = self.out_screen()
         self.collider = draw.rect(screen,self.__color,(self.__pos[0],self.__pos[1],self.__width,self.__height))
-
+        return result
+    
     def out_screen(self):
+        out = False
         if self.__pos[0]<0:
-            self.__pos = (MiniJuegos.configuration.SCREEN_WIDTH, self.__pos[1])
+            # self.__pos = (MiniJuegos.configuration.SCREEN_WIDTH, self.__pos[1])
+            out = True
             
-        if self.__pos[0]>MiniJuegos.configuration.SCREEN_WIDTH:
-            self.__pos = (0, self.__pos[1])
+        if self.__pos[0]>MiniJuegos.configuration.SCREEN_WIDTH - 25:
+            # self.__pos = (0, self.__pos[1])
+            out = True
             
         if self.__pos[1]<0:
-            self.__pos = (self.__pos[0], MiniJuegos.configuration.SCREEN_HEIGHT)
+            # self.__pos = (self.__pos[0], MiniJuegos.configuration.SCREEN_HEIGHT)
+            out = True
             
-        if self.__pos[1]>MiniJuegos.configuration.SCREEN_HEIGHT:
-            self.__pos = (self.__pos[0],0)
+        if self.__pos[1]>MiniJuegos.configuration.SCREEN_HEIGHT - 25:
+            # self.__pos = (self.__pos[0],0)
+            out = True
+        return out
+
     
     

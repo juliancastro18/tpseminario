@@ -3,9 +3,9 @@ import pygame
 from pygame import draw, display, event, time, font, mixer
 import MiniJuegos.configuration, MiniJuegos.color
 from MiniJuegos.Clases_Snake.snake import Snake, Square
-
-class Game():
-    def __init__(self):
+from MiniJuegos.Scene import Scene
+class Game(Scene):
+    def __init__(self, player_pos = (0,0)):
         self.__game_state = {"done":False,"win":False, "snake_is_alive":True}
     
         self.__clock = time.Clock()
@@ -45,14 +45,7 @@ class Game():
             if event_.type == pygame.KEYDOWN:
                 if event_.key == pygame.K_ESCAPE:
                     self.__game_state["done"] = True
-                if event_.key == pygame.K_w:
-                    key = pygame.K_w
-                if event_.key == pygame.K_a:
-                    key = pygame.K_a
-                if event_.key == pygame.K_s:
-                    key = pygame.K_s
-                if event_.key == pygame.K_d:
-                    key = pygame.K_d
+                key = event_.key
             if event_.type == pygame.KEYUP:
                 pass
             
@@ -60,7 +53,7 @@ class Game():
         self.__game_state["snake_is_alive"] = self.__snake.update(key)
         if self.__time > self.__inital_time * self.__iteration:
             self.__iteration+=1
-            self.spawn_green_square()
+            self.spawn_food()
             
         index = -1
         aux = 0
@@ -115,7 +108,7 @@ class Game():
         display.flip()
         self.__clock.tick(120 + self.extra_speed)
         
-    def spawn_green_square(self):
-        x = random.randint(0,MiniJuegos.configuration.SCREEN_WIDTH)
-        y = random.randint(0,MiniJuegos.configuration.SCREEN_HEIGHT)
-        self.__green_squares.append(Square(color = MiniJuegos.color.YELLOW, pos = (x,y)))
+    def spawn_food(self):
+        x = random.randint(20,MiniJuegos.configuration.SCREEN_WIDTH - 20)
+        y = random.randint(20,MiniJuegos.configuration.SCREEN_HEIGHT - 20)
+        self.__green_squares.append(Square(color = MiniJuegos.color.WHITE, pos = (x,y)))
