@@ -1,7 +1,7 @@
 import pygame
 from pygame import draw
-from MiniJuegos.GameObject import GameObject
-import MiniJuegos.configuration
+from minijuegos.gameobject import GameObject
+import minijuegos.configuration
 class Square(GameObject):
     _MAX_SPEED = 1
     def __init__(self, color = (0,0,0), pos = (0,0), width = 25, height = 25):
@@ -37,18 +37,18 @@ class Square(GameObject):
     def out_screen(self):
         out = False
         if self.__pos[0]<0:
-            # self.__pos = (MiniJuegos.configuration.SCREEN_WIDTH, self.__pos[1])
+            # self.__pos = (minijuegos.configuration.SCREEN_WIDTH, self.__pos[1])
             out = True
             
-        if self.__pos[0]>MiniJuegos.configuration.SCREEN_WIDTH - 25:
+        if self.__pos[0]>minijuegos.configuration.SCREEN_WIDTH - 25:
             # self.__pos = (0, self.__pos[1])
             out = True
             
         if self.__pos[1]<0:
-            # self.__pos = (self.__pos[0], MiniJuegos.configuration.SCREEN_HEIGHT)
+            # self.__pos = (self.__pos[0], minijuegos.configuration.SCREEN_HEIGHT)
             out = True
             
-        if self.__pos[1]>MiniJuegos.configuration.SCREEN_HEIGHT - 25:
+        if self.__pos[1]>minijuegos.configuration.SCREEN_HEIGHT - 25:
             # self.__pos = (self.__pos[0],0)
             out = True
         return out

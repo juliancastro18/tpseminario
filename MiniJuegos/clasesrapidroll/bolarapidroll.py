@@ -1,7 +1,7 @@
 import pygame
-from MiniJuegos import color, forma, configuration
-from MiniJuegos.GameObject import *
-from MiniJuegos.Bola import *
+from minijuegos import color, forma, configuration
+from minijuegos.gameobject import *
+from minijuegos.bola import *
 
 class BolaRapidRoll(Bola):
     

@@ -1,10 +1,10 @@
 import pygame, sys
 from pygame.locals import *
 
-from MiniJuegos import color
-from MiniJuegos.Scene import Scene
-from MiniJuegos.Clases_RapidRoll.Plataforma import *
-from MiniJuegos.Clases_RapidRoll.BolaRapidRoll import *
+from minijuegos import color
+from minijuegos.scene import Scene
+from minijuegos.clasesrapidroll.plataforma import *
+from minijuegos.clasesrapidroll.bolarapidroll import *
 
 class RapidRoll(Scene):
 

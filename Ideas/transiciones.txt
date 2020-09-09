@@ -20,32 +20,4 @@ El juego de ladrillos finaliza cuando se colisiona con el ultimo ladrillo, la pe
 
 Este juego termina despues de haberse generado X cantidad de plataformas, la serpiente aparece como una plataforma mas, frena en la parte inferior de la pantalla y comienza a moverse horizontalmente hasta que el jugador tome el control.
 
-Pasar de Snake a Pong ?????
-
-----
-
-Cosas a resolver:
-
-Como llamar a los juegos desde el main:
-Puede ser loop infinito en que se llame a cada juego. Cada juego devuelve un booleano, si gana true, si pierde falso.
-
-enJuego = RapidRoll()
-
-while True:
-
-	if enJuego:
-		enJuego, posXY, bloques = Pong()
-	if enJuego:
-		enJuego, posXY = RapidRoll(posXY, bloques)
-	if enJuego:
-		enJuego, posXY = Ladrillos(posXY)
-	if enJuego:
-		enJuego, posXY = RapidRollReverso(posXY)
-	if enJuego:
-		enJuego, ??? = Snake()
-
-	if !enJuego:
-		break
-
-<evalua puntuacion, etc>
-<vuelve al menu> (o sea, tendria que estar lo anterior metido dentro de otro while True)
+Pasar de Snake a Pong ????

@@ -1,15 +1,15 @@
 import random
 import pygame
 from pygame import draw, display, event, time, font, mixer
-import MiniJuegos.configuration, MiniJuegos.color
-from MiniJuegos.Clases_Snake.snake import Snake, Square
-from MiniJuegos.Scene import Scene
+import minijuegos.configuration, minijuegos.color
+from minijuegos.clasessnake.snake import Snake, Square
+from minijuegos.scene import Scene
 class Game(Scene):
     def __init__(self, player_pos = (0,0)):
         self.__game_state = {"done":False,"win":False, "snake_is_alive":True}
     
         self.__clock = time.Clock()
-        self.__screen = display.set_mode(size=(MiniJuegos.configuration.SCREEN_WIDTH, MiniJuegos.configuration.SCREEN_HEIGHT))
+        self.__screen = display.set_mode(size=(minijuegos.configuration.SCREEN_WIDTH, minijuegos.configuration.SCREEN_HEIGHT))
         
         self.__snake = Snake()
         
@@ -23,7 +23,7 @@ class Game(Scene):
         
         
         self.font = font.Font('data\\font\\dpcomic.ttf', 20)
-        self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,MiniJuegos.color.WHITE)
+        self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,minijuegos.color.WHITE)
         self.textRect = self.score_text.get_rect()
         self.textRect.center = (40,20)
         
@@ -69,7 +69,7 @@ class Game(Scene):
         self.update_score_text()
 
     def update_score_text(self):
-        self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,MiniJuegos.color.WHITE)
+        self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,minijuegos.color.WHITE)
         self.textRect = self.score_text.get_rect()
         self.textRect.center = (40,20)
         # END LOGIC ZONE
@@ -98,7 +98,7 @@ class Game(Scene):
             
         
     def display_frame(self):
-        self.__screen.fill(MiniJuegos.color.BLACK)
+        self.__screen.fill(minijuegos.color.BLACK)
         
         for element in self.__green_squares:
             element.draw(self.__screen)
@@ -109,6 +109,6 @@ class Game(Scene):
         self.__clock.tick(120 + self.extra_speed)
         
     def spawn_food(self):
-        x = random.randint(20,MiniJuegos.configuration.SCREEN_WIDTH - 20)
-        y = random.randint(20,MiniJuegos.configuration.SCREEN_HEIGHT - 20)
-        self.__green_squares.append(Square(color = MiniJuegos.color.WHITE, pos = (x,y)))
+        x = random.randint(20,minijuegos.configuration.SCREEN_WIDTH - 20)
+        y = random.randint(20,minijuegos.configuration.SCREEN_HEIGHT - 20)
+        self.__green_squares.append(Square(color = minijuegos.color.WHITE, pos = (x,y)))

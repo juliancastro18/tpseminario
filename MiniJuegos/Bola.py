@@ -1,6 +1,6 @@
 import pygame
-from MiniJuegos import color, forma, configuration
-from MiniJuegos.GameObject import *
+from minijuegos import color, forma, configuration
+from minijuegos.gameobject import *
 
 class Bola(GameObject):
     

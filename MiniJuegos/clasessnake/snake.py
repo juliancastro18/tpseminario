@@ -1,15 +1,15 @@
 import pygame
 from pygame import draw, mixer
-from MiniJuegos.Clases_Snake.square import Square,GameObject
-import MiniJuegos.color
+from minijuegos.clasessnake.square import Square,GameObject
+import minijuegos.color
 
 class Snake(GameObject):
     _MAX_SPEED = 1
     def __init__(self):
-        self.__head = Square(color=MiniJuegos.color.WHITE,pos=(70,25))
+        self.__head = Square(color=minijuegos.color.WHITE,pos=(70,25))
         self.__eyes = (
-            Square(color=MiniJuegos.color.BLACK, pos=self.__head.get_pos(), width=5,height=5),
-            Square(color=MiniJuegos.color.BLACK, pos=self.__head.get_pos(), width=5,height=5)
+            Square(color=minijuegos.color.BLACK, pos=self.__head.get_pos(), width=5,height=5),
+            Square(color=minijuegos.color.BLACK, pos=self.__head.get_pos(), width=5,height=5)
         )
         self.body = []
         self.__initial_body()
@@ -19,8 +19,8 @@ class Snake(GameObject):
 
     def __initial_body(self):
         self.body.insert(0, self.__head)
-        self.body.insert(0, Square(color=MiniJuegos.color.WHITE,pos=(45,25)))
-        self.body.insert(0, Square(color=MiniJuegos.color.WHITE,pos=(20,25)))
+        self.body.insert(0, Square(color=minijuegos.color.WHITE,pos=(45,25)))
+        self.body.insert(0, Square(color=minijuegos.color.WHITE,pos=(20,25)))
         
     def load_sounds(self):
         self.sounds.append(mixer.Sound('data\\sound\\coin.wav'))
@@ -31,7 +31,7 @@ class Snake(GameObject):
         pos = self.body[0].get_pos()
         speed = self.body[0].get_speed()
         pos = self.relative_to_speed(speed, pos)
-        self.body.insert(0, Square(color=MiniJuegos.color.WHITE,pos = pos))
+        self.body.insert(0, Square(color=minijuegos.color.WHITE,pos = pos))
         self.sounds[0].play()
 
     def relative_to_speed(self, speed, pos):

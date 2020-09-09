@@ -1,5 +1,5 @@
 import pygame
-from MiniJuegos import color, forma, configuration
+from minijuegos import color, forma, configuration
 from random import randint
 
 class Plataforma():
