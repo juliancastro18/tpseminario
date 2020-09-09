@@ -4,14 +4,14 @@ from pygame.locals import *
 from MiniJuegos import color
 from MiniJuegos.Scene import Scene
 from MiniJuegos.Clases_RapidRoll.Plataforma import *
-from MiniJuegos.Clases_RapidRoll.Bola import *
+from MiniJuegos.Clases_RapidRoll.BolaRapidRoll import *
 
 class RapidRoll(Scene):
 
     def __init__(self, posXY):
 
-        Scene.__init__(self)
-        self._bolaJugador = Bola(posXY)
+        super().__init__()
+        self._bolaJugador = BolaRapidRoll(posXY)
         self._plataformas = []
         self._contadorPlataformas = 0
         self._maximoPlataformas = 10
@@ -49,13 +49,13 @@ class RapidRoll(Scene):
         for plat in self._plataformas:
             plat.actualizar(self.screen, self.getIsPaused())
 
-        self._state['alive'] = self._bolaJugador.actualizar(self.getIsPaused())
+        self._state['alive'] = self._bolaJugador.update(self.getIsPaused())
 
         for plat in self._plataformas:
             if plat.colisionSuperior(self._bolaJugador):
                 self._bolaJugador.setEnPlataforma(plat.rect.top)
 
-        self._bolaJugador.dibujar(self.screen)
+        self._bolaJugador.draw(self.screen)
         pygame.display.update()
 
 

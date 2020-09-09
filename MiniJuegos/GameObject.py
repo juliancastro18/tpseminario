@@ -5,7 +5,7 @@ class GameObject():
 	def __init__(self):
 		self._color = MiniJuegos.color.WHITE
 
-	def update(self):
+	def update(self,*parametros):
 		pass
 
 	def draw(self, screen):
