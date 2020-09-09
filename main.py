@@ -21,6 +21,7 @@ def main():
             rapidroll.display_frame()
             
         snake = MiniJuegos.Snake.Game()
+        #snake.primerComida(rapidroll.getBola())
         while not snake.get_game_state()["done"] and snake.get_game_state()["snake_is_alive"]:
            snake.process()
            snake.display_frame()
