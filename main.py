@@ -26,7 +26,7 @@ def main():
            snake.process()
            snake.display_frame()
 
-        enJuego = rapidroll.get_game_state()['alive'] # and skake.get_game_state()['snake_is_alive'] etc etc.
+        enJuego = rapidroll.get_game_state()['alive'] and snake.get_game_state()['snake_is_alive'] # etc etc
 
     print("Fin del programa")
 

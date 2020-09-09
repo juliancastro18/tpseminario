@@ -97,3 +97,6 @@ class RapidRoll(Scene):
 
     def togglePause(self):
         self._state['pause'] ^= True
+
+    def getBola(self):
+        return self._bolaJugador
