@@ -19,11 +19,11 @@ def main():
         while rapidroll.get_game_state()['alive'] and rapidroll.get_game_state()['playing']:
             rapidroll.process()
             rapidroll.display_frame()
-
-        #snake = MiniJuegos.Snake.Game()
-        #while not snake.get_game_state()["done"] and snake.get_game_state()["snake_is_alive"]:
-        #    snake.process()
-        #    snake.display_frame()
+            
+        snake = MiniJuegos.Snake.Game()
+        while not snake.get_game_state()["done"] and snake.get_game_state()["snake_is_alive"]:
+           snake.process()
+           snake.display_frame()
 
         enJuego = rapidroll.get_game_state()['alive'] # and skake.get_game_state()['snake_is_alive'] etc etc.
 

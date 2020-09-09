@@ -1,12 +1,16 @@
 import pygame
 from pygame import draw, mixer
-from MiniJuegos.Clases_Snake.square import Square
+from MiniJuegos.Clases_Snake.square import Square,GameObject
 import MiniJuegos.color
 
-class Snake():
+class Snake(GameObject):
     _MAX_SPEED = 1
     def __init__(self):
-        self.__head = Square(color=MiniJuegos.color.WHITE,pos=(50,10))
+        self.__head = Square(color=MiniJuegos.color.WHITE,pos=(70,25))
+        self.__eyes = (
+            Square(color=MiniJuegos.color.BLACK, pos=self.__head.get_pos(), width=5,height=5),
+            Square(color=MiniJuegos.color.BLACK, pos=self.__head.get_pos(), width=5,height=5)
+        )
         self.body = []
         self.__initial_body()
         self.__is_alive = True
@@ -15,8 +19,8 @@ class Snake():
 
     def __initial_body(self):
         self.body.insert(0, self.__head)
-        self.body.insert(0, Square(color=MiniJuegos.color.WHITE,pos=(25,10)))
-        self.body.insert(0, Square(color=MiniJuegos.color.WHITE,pos=(0,10)))
+        self.body.insert(0, Square(color=MiniJuegos.color.WHITE,pos=(45,25)))
+        self.body.insert(0, Square(color=MiniJuegos.color.WHITE,pos=(20,25)))
         
     def load_sounds(self):
         self.sounds.append(mixer.Sound('data\\sound\\coin.wav'))
@@ -74,6 +78,24 @@ class Snake():
             self.change_speed(index)
             self.body[index].update()
         self.__head.update()
+        
+        
+        
+        head_speed_x, head_speed_y = self.__head.get_speed()
+        head_x, head_y = self.__head.get_pos()
+        index = 0
+        for eye in self.__eyes:
+            eye.set_speed(head_speed_x,head_speed_y)
+            if head_speed_x>0:
+                eye.set_pos(head_x + 14,head_y + 2 + index*15)
+            elif head_speed_x<0:
+                eye.set_pos(head_x + 6 ,head_y + 2 + index*15)
+            elif head_speed_y<0:
+                eye.set_pos(head_x + 2 + index*15 , head_y + 4) 
+            elif head_speed_y>0:
+                eye.set_pos(head_x + 2 + index*15 , head_y + 12)
+            index +=1
+            eye.update()
         return self.__is_alive
 
     def change_speed(self, index):
@@ -96,22 +118,22 @@ class Snake():
                 self.__is_alive = False
               
     def __change_direction(self,key : int):
-        if(key == pygame.K_w):
+        if(key == pygame.K_UP):
             if self.__head.get_speed()[1] == Snake._MAX_SPEED:
                 Snake.is_alive = False
             else :
                 self.__head.set_speed(0,-Snake._MAX_SPEED)
-        if(key == pygame.K_s):
+        if(key == pygame.K_DOWN):
             if self.__head.get_speed()[1] == -Snake._MAX_SPEED:
                 Snake.is_alive = False
             else:
                 self.__head.set_speed(0,Snake._MAX_SPEED)
-        if(key == pygame.K_a):
+        if(key == pygame.K_LEFT):
             if self.__head.get_speed()[0] == Snake._MAX_SPEED:
                 Snake.is_alive = False
             else :
                 self.__head.set_speed(-Snake._MAX_SPEED, 0)
-        if(key == pygame.K_d):
+        if(key == pygame.K_RIGHT):
             if self.__head.get_speed()[0] == -Snake._MAX_SPEED:
                 Snake.is_alive = False
             else :
@@ -119,7 +141,10 @@ class Snake():
     
     def draw(self, screen):
         for index in range(len(self.body)):
-            self.body[index].draw(screen)
+            if(self.body[index].draw(screen)):
+                self.__is_alive = False
+        for eye in self.__eyes:
+            eye.draw(screen)
     def get_len(self):
         return len(self.body)
         
