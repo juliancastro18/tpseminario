@@ -6,7 +6,7 @@ from minijuegos.scene import Scene
 from minijuegos.clasesrapidroll.plataforma import *
 from minijuegos.clasesrapidroll.bolarapidroll import *
 
-class RapidRoll(Scene):
+class ReverseRoll(Scene):
 
     def __init__(self, posXY):
 
@@ -43,7 +43,7 @@ class RapidRoll(Scene):
             for plat in self._plataformas:
                 plat.update(self.screen)
 
-            self._state['alive'] = self._bolaJugador.update()
+            self._bolaJugador.update()
 
             # si solo queda la ultima plataforma y el jugador esta colisionando con ella, indico que terminó el juego
             if len(self._plataformas) == 1 and self._plataformas[0].ultimaPlataforma == True and self._bolaJugador.rect.colliderect(self._plataformas[0]):
@@ -55,6 +55,8 @@ class RapidRoll(Scene):
 
         for plat in self._plataformas:
             plat.draw(self.screen)
+
+        for plat in self._plataformas:
             if plat.colisionSuperior(self._bolaJugador):
                 self._bolaJugador.setEnPlataforma(plat.rect.top)
 

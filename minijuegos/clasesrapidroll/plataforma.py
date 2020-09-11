@@ -1,8 +1,9 @@
 import pygame
 from minijuegos import color, forma, configuration
 from random import randint
+from minijuegos.gameobject import *
 
-class Plataforma():
+class Plataforma(GameObject):
 
     def __init__(self):
 
@@ -44,10 +45,10 @@ class Plataforma():
                 return True
         return False
 
-    def actualizar(self, ventana, enPausa):
-        if not enPausa:
-            if self.ultimaPlataforma == True and self.rect.top < configuration.SCREEN_HEIGHT - 80:
-                self.velY = 0
-            self.rect.top -= self.velY
+    def update(self, ventana):
+        if self.ultimaPlataforma == True and self.rect.top < configuration.SCREEN_HEIGHT - 80:
+            self.velY = 0
+        self.rect.top -= self.velY
 
+    def draw(self, ventana):
         pygame.draw.rect(ventana, color.WHITE, self.rect)

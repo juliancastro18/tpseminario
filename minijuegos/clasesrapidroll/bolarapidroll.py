@@ -15,14 +15,13 @@ class BolaRapidRoll(Bola):
         self.velY = 8
         self.velX = 10
 
-    def update(self, enPausa):
-        if not enPausa:
-            # aceleracion inicial
-            if self.velYInicial < self.velY:
-                self.rect.top += self.velYInicial
-                self.velYInicial = self.velYInicial * 1.04
-            else:
-                self.rect.top += self.velY
+    def update(self):
+        # aceleracion inicial
+        if self.velYInicial < self.velY:
+            self.rect.top += self.velYInicial
+            self.velYInicial = self.velYInicial * 1.04
+        else:
+            self.rect.top += self.velY
 
         # si la bola no esta en la pantalla, se termina el juego
         if self.rect.bottom < 0 or self.rect.top > configuration.SCREEN_HEIGHT:
