@@ -43,8 +43,6 @@ class ReverseRoll(Scene):
             for plat in self._plataformas:
                 plat.update(self.screen)
 
-            self._bolaJugador.update()
-
             # si solo queda la ultima plataforma y el jugador esta colisionando con ella, indico que terminó el juego
             if len(self._plataformas) == 1 and self._plataformas[0].ultimaPlataforma == True and self._bolaJugador.rect.colliderect(self._plataformas[0]):
                 self._state['playing'] = False
@@ -55,10 +53,8 @@ class ReverseRoll(Scene):
 
         for plat in self._plataformas:
             plat.draw(self.screen)
-
-        for plat in self._plataformas:
             if plat.colisionSuperior(self._bolaJugador):
-                self._bolaJugador.setEnPlataforma(plat.rect.top)
+                self._state['alive'] = False
 
         self._bolaJugador.draw(self.screen)
         pygame.display.update()
@@ -103,5 +99,5 @@ class ReverseRoll(Scene):
     def togglePause(self):
         self._state['pause'] ^= True
 
-    def getBola(self):
-        return self._bolaJugador
+    def getJugadorPosXY(self):
+        return self._bolaJugador.getPosicionXY()
