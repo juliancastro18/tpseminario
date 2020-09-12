@@ -12,9 +12,7 @@ class Game(Scene):
     
         self.__clock = time.Clock()
         self.__screen = display.set_mode(size=(minijuegos.configuration.SCREEN_WIDTH, minijuegos.configuration.SCREEN_HEIGHT))
-        
-        self.__snake = Snake()
-        
+        self.__snake = Snake(pos=player_pos)
         self.__green_squares = []
         if ball_position==None:
             self.__green_squares.append(Bola((100,100)))
@@ -30,7 +28,7 @@ class Game(Scene):
         self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,minijuegos.color.WHITE)
         self.textRect = self.score_text.get_rect()
         self.textRect.center = (40,20)
-        
+        self.score_to_win = 5 + loop*1
         self.sounds = []
         self.load_sounds()
         
@@ -69,7 +67,8 @@ class Game(Scene):
         if not index == -1:
             self.__green_squares.pop(index)
             self.__snake.add_square()
-        
+        if len(self.__snake.body) > self.score_to_win:
+            self.__game_state['win'] = True
         self.update_score_text()
 
     def update_score_text(self):

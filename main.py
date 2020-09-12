@@ -41,7 +41,7 @@ def main():
 
 
         snake = minijuegos.snake.Game(loop=loopContador,ball_position=reverseroll.getJugadorPosXY(), player_pos=reverseroll.getUltimaPlataformaPosXY())
-        while enJuego and not snake.get_game_state()["done"]:
+        while enJuego and not snake.get_game_state()["done"] and not snake.get_game_state()['win']:
            snake.process()
            snake.display_frame()
            enJuego = snake.get_game_state()["snake_is_alive"]

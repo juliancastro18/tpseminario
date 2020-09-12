@@ -1,26 +1,32 @@
 import pygame
-from pygame import draw, mixer
+from pygame import draw, mixer, time
 from minijuegos.clasessnake.square import Square,GameObject
 import minijuegos.color
 
 class Snake(GameObject):
     _MAX_SPEED = 1
-    def __init__(self):
-        self.__head = Square(color=minijuegos.color.WHITE,pos=(70,25))
+    def __init__(self, pos=(70,25)):
+        pos=pos[0] + 25, pos[1]
+        self.__head = Square(color=minijuegos.color.WHITE,pos=pos)
+
         self.__eyes = (
             Square(color=minijuegos.color.BLACK, pos=self.__head.get_pos(), width=5,height=5),
             Square(color=minijuegos.color.BLACK, pos=self.__head.get_pos(), width=5,height=5)
         )
+
         self.body = []
-        self.__initial_body()
+        self.__initial_body(x=pos[0],y=pos[1])
         self.__is_alive = True
         self.sounds = []
         self.load_sounds()
 
-    def __initial_body(self):
+        self.time = -1
+        self.iteration = 0
+
+    def __initial_body(self,x = 75, y = 25):
         self.body.insert(0, self.__head)
-        self.body.insert(0, Square(color=minijuegos.color.WHITE,pos=(45,25)))
-        self.body.insert(0, Square(color=minijuegos.color.WHITE,pos=(20,25)))
+        self.body.insert(0, Square(color=minijuegos.color.WHITE,pos=(x-25,y)))
+        self.body.insert(0, Square(color=minijuegos.color.WHITE,pos=(x-50,y)))
         
     def load_sounds(self):
         self.sounds.append(mixer.Sound('data\\sound\\coin.wav'))
@@ -143,8 +149,23 @@ class Snake(GameObject):
         for index in range(len(self.body)):
             if(self.body[index].draw(screen)):
                 self.__is_alive = False
-        for eye in self.__eyes:
-            eye.draw(screen)
+        
+        if self.time < time.get_ticks() and self.time==-1:
+            self.time = time.get_ticks() + 300
+        elif self.time < time.get_ticks():
+            self.iteration+=1
+            self.time = -1
+
+        if self.iteration==0:
+            self.__eyes[0].draw(screen)
+        elif self.iteration==1:
+            self.__eyes[0].draw(screen)
+            self.__eyes[1].draw(screen)
+        else:
+            for eye in self.__eyes:
+                eye.draw(screen)
+
+
     def get_len(self):
         return len(self.body)
         
