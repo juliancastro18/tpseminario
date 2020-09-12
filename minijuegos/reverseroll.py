@@ -14,7 +14,7 @@ class ReverseRoll(Scene):
         self._bolaJugador = BolaRapidRoll(posXY, loop)
         self._plataformas = []
         self._contadorPlataformas = 0
-        self._maximoPlataformas = 10
+        self._maximoPlataformas = 10 + (loop * 3)
         self._velPlataformas = 3 + loop
         self._largoPlataformas = forma.BARRA_LADO_MAYOR - 50 + (loop*20)
 
@@ -46,7 +46,7 @@ class ReverseRoll(Scene):
                 plat.update(self.screen)
 
             # si solo queda la ultima plataforma y el jugador esta colisionando con ella, indico que terminó el juego
-            if len(self._plataformas) == 1 and self._plataformas[0].getUltimaPlataforma() == True and self._bolaJugador.rect.colliderect(self._plataformas[0].getRect()):
+            if len(self._plataformas) == 0 and self._contadorPlataformas > 0:
                 self._state['playing'] = False
 
 
@@ -64,8 +64,8 @@ class ReverseRoll(Scene):
 
     def administradorPlataformas(self):
 
-        if self._contadorPlataformas == 0:
-            self.agregarPrimerPlataforma()
+        if len(self._plataformas) == 0 and self._contadorPlataformas == 0:
+            self._plataformas.append( Plataforma(self._velPlataformas, self._largoPlataformas) )
 
         # elimino plataformas que ya no estén en pantalla
         for plat in self._plataformas:
@@ -78,14 +78,6 @@ class ReverseRoll(Scene):
             if len(self._plataformas) < 6 and self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
                 self._plataformas.append( Plataforma(self._velPlataformas, self._largoPlataformas) )
                 self._contadorPlataformas += 1
-
-        else:
-
-            # si llego al maximo de plataformas, agrego a la lista la ultima plataforma
-            if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
-                ultimaPlataforma = Plataforma(self._velPlataformas, self._largoPlataformas)
-                self._plataformas.append( ultimaPlataforma )
-                ultimaPlataforma.setUltimaPlataforma()
 
 
     def agregarPrimerPlataforma(self):
