@@ -7,12 +7,12 @@ class BolaRapidRoll(Bola):
     
     radio = forma.BOLA_RADIO
 
-    def __init__(self, posXY):
+    def __init__(self, posXY, loop):
 
         super().__init__(posXY)
 
         self.velYInicial = 0.5
-        self.velY = 8
+        self.velY = 8 + loop
         self.velX = 10
 
     def update(self):

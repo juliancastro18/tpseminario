@@ -11,6 +11,7 @@ def main():
     
     pygame.init()
     enJuego = True
+    loopContador = 0
     
     while enJuego:
 
@@ -20,7 +21,7 @@ def main():
         # y tambien otro que devuelva una lista con las barras del pong
 
 
-        rapidroll = minijuegos.rapidroll.RapidRoll((configuration.SCREEN_WIDTH-50, 40))
+        rapidroll = minijuegos.rapidroll.RapidRoll((configuration.SCREEN_WIDTH-50, 40), loopContador)
         while enJuego and rapidroll.get_game_state()['playing']:
             rapidroll.process()
             rapidroll.display_frame()
@@ -28,6 +29,8 @@ def main():
             
 
         # << acá iría el de los ladrillos >>
+        # tendría que pasarle al reverse roll la posicion de la bola que rompe los ladrillos al romper el ultimo
+        # y la barra que maneja el jugador
 
 
         reverseroll = minijuegos.reverseroll.ReverseRoll(rapidroll.getJugadorPosXY())
@@ -43,6 +46,9 @@ def main():
            snake.process()
            snake.display_frame()
            enJuego = snake.get_game_state()["snake_is_alive"]
+
+
+        loopContador += 1
 
 
     print("Fin del programa")
