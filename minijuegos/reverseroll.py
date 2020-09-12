@@ -80,14 +80,14 @@ class ReverseRoll(Scene):
 
         # verifico si la ultima plataforma permite agregar una nueva, si es así la agrego
         if self._contadorPlataformas < self._maximoPlataformas:
-            if len(self._plataformas) < 6 and self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
-                if self._plataformas[len(self._plataformas)-1].getDistanciaNext() >= 180:
+            if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
+                if self._plataformas[len(self._plataformas)-1].getDistanciaNext() >= 145:
                     self._plataformas.append ( PlataformaMovil(self._velPlataformas, self._largoPlataformas) )
                 else:
                     self._plataformas.append( Plataforma(self._velPlataformas, self._largoPlataformas) )
                 self._contadorPlataformas += 1
         else:
-            if len(self._plataformas) < 6 and self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
+            if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
                 ultimaPlataforma = Plataforma(self._velPlataformas, 75)
                 ultimaPlataforma.setUltimaPlataforma()
                 ultimaPlataforma.setGrosor(25)

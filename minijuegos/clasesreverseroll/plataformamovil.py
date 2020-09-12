@@ -11,6 +11,7 @@ class PlataformaMovil(Plataforma):
         random_bit = random.getrandbits(1)
         self._esDerecha = bool(random_bit)
         self._velX = self._velY*2
+        self._distanciaNext = randint(80,160)
 
 
     def update(self, ventana):
