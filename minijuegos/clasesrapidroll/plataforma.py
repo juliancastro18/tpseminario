@@ -24,17 +24,20 @@ class Plataforma(Barra):
         posX = cuartoDePantalla * randint(0, 4)
         return posX
 
+
     def setPrimerPlataforma(self):
         self._rect.right = configuration.SCREEN_WIDTH
         self._rect.top = configuration.SCREEN_HEIGHT + 200
 
     def setUltimaPlataforma(self):
         self._rect.left = (configuration.SCREEN_WIDTH/2) - (self._ancho/2)
+        self._posX = self._rect.left
         self._ultimaPlataforma = True
         self._distanciaNext = 200
 
     def setSinDistanciaNext(self):
         self.distanciaNext = 0
+
 
     def getTop(self):
         return self._rect.top
@@ -47,6 +50,7 @@ class Plataforma(Barra):
 
     def getRect(self):
         return self._rect
+
 
     def permiteSiguientePlataforma(self):
         distanciaDelSuelo = self._posY - self._rect.top

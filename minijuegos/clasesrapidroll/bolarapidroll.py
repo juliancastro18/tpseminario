@@ -13,7 +13,7 @@ class BolaRapidRoll(Bola):
 
         self.velYInicial = 0.5
         self.velY = 8 + loop
-        self.velX = 10
+        self.velX = 10 + loop
 
     def update(self):
         # aceleracion inicial
@@ -37,7 +37,6 @@ class BolaRapidRoll(Bola):
             self.rect.right += self.velX
             if self.rect.right > configuration.SCREEN_WIDTH:
                 self.rect.right = configuration.SCREEN_WIDTH
-
         else:
             self.rect.left -= self.velX
             if self.rect.left < 0:

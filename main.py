@@ -11,7 +11,7 @@ def main():
     
     pygame.init()
     enJuego = True
-    loopContador = 0
+    loopContador = 5
     
     while enJuego:
 
@@ -40,7 +40,7 @@ def main():
             enJuego = reverseroll.get_game_state()['alive']
 
 
-        snake = minijuegos.snake.Game(loop=loopContador,ball_position=reverseroll.getJugadorPosXY(), player_pos=(0,0))
+        snake = minijuegos.snake.Game(loop=loopContador,ball_position=reverseroll.getJugadorPosXY(), player_pos=reverseroll.getUltimaPlataformaPosXY())
         while enJuego and not snake.get_game_state()["done"]:
            snake.process()
            snake.display_frame()

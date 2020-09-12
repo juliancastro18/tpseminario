@@ -14,9 +14,9 @@ class RapidRoll(Scene):
         self._bolaJugador = BolaRapidRoll(posXY, loop)
         self._plataformas = []
         self._contadorPlataformas = 0
-        self._maximoPlataformas = 10 + (loop * 3)
-        self._velPlataformas = 3 + loop
-        self._largoPlataformas = forma.BARRA_LADO_MAYOR - (loop*20)
+        self._maximoPlataformas = 10 + (loop * 2)
+        self._velPlataformas = 3 + int(loop*0.5)
+        self._largoPlataformas = forma.BARRA_LADO_MAYOR - (loop*10)
 
 
     def process(self):

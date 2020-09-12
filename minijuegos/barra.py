@@ -28,13 +28,41 @@ class Barra(GameObject):
 
         self._rect = pygame.Rect(self._posX, self._posY, self._ancho, self._alto)
 
+
     def getLargo(self):
         largo = 0
-        if esVertical:
+        if self._esVertical:
             largo = self._alto
         else:
             largo = self._ancho
         return largo
+
+    def getGrosor(self):
+        grosor = 0
+        if self._esVertical:
+            grosor = self._ancho
+        else:
+            grosor = self._alto
+        return grosor
+
+    def getPosXY(self):
+        return self._rect.topleft
+
+
+    def setLargo(self, largo):
+        if self._esVertical:
+            self._alto = largo
+        else:
+            self._ancho = largo
+        self._rect = pygame.Rect(self._posX, self._posY, self._ancho, self._alto)
+
+    def setGrosor(self, grosor):
+        if self._esVertical:
+            self._ancho = grosor
+        else:
+            self._alto = grosor
+        self._rect = pygame.Rect(self._posX, self._posY, self._ancho, self._alto)
+
 
     def update(self,*parametros):
         pass
