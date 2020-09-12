@@ -8,13 +8,15 @@ from minijuegos.clasesrapidroll.bolarapidroll import *
 
 class ReverseRoll(Scene):
 
-    def __init__(self, posXY):
+    def __init__(self, posXY, loop = 0):
 
         super().__init__()
-        self._bolaJugador = BolaRapidRoll(posXY)
+        self._bolaJugador = BolaRapidRoll(posXY, loop)
         self._plataformas = []
         self._contadorPlataformas = 0
         self._maximoPlataformas = 10
+        self._velPlataformas = 3 + loop
+        self._largoPlataformas = forma.BARRA_LADO_MAYOR - 50 + (loop*20)
 
 
     def process(self):
@@ -44,7 +46,7 @@ class ReverseRoll(Scene):
                 plat.update(self.screen)
 
             # si solo queda la ultima plataforma y el jugador esta colisionando con ella, indico que terminó el juego
-            if len(self._plataformas) == 1 and self._plataformas[0].ultimaPlataforma == True and self._bolaJugador.rect.colliderect(self._plataformas[0]):
+            if len(self._plataformas) == 1 and self._plataformas[0].getUltimaPlataforma() == True and self._bolaJugador.rect.colliderect(self._plataformas[0].getRect()):
                 self._state['playing'] = False
 
 
@@ -67,27 +69,27 @@ class ReverseRoll(Scene):
 
         # elimino plataformas que ya no estén en pantalla
         for plat in self._plataformas:
-            if plat.rect.bottom < 0:
+            if plat.getBottom() < 0:
                 self._plataformas.remove(plat)
 
 
         # verifico si la ultima plataforma permite agregar una nueva, si es así la agrego
         if self._contadorPlataformas < self._maximoPlataformas:
             if len(self._plataformas) < 6 and self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
-                self._plataformas.append( Plataforma() )
+                self._plataformas.append( Plataforma(self._velPlataformas, self._largoPlataformas) )
                 self._contadorPlataformas += 1
 
         else:
 
             # si llego al maximo de plataformas, agrego a la lista la ultima plataforma
             if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
-                ultimaPlataforma = Plataforma()
+                ultimaPlataforma = Plataforma(self._velPlataformas, self._largoPlataformas)
                 self._plataformas.append( ultimaPlataforma )
                 ultimaPlataforma.setUltimaPlataforma()
 
 
     def agregarPrimerPlataforma(self):
-        primerPlataforma = Plataforma()
+        primerPlataforma = Plataforma(self._velPlataformas, self._largoPlataformas)
         primerPlataforma.setPrimerPlataforma()
         self._plataformas.append(primerPlataforma)
         self._contadorPlataformas += 1

@@ -33,7 +33,7 @@ def main():
         # y la barra que maneja el jugador
 
 
-        reverseroll = minijuegos.reverseroll.ReverseRoll(rapidroll.getJugadorPosXY())
+        reverseroll = minijuegos.reverseroll.ReverseRoll(rapidroll.getJugadorPosXY(), loopContador)
         while enJuego and reverseroll.get_game_state()['playing']:
             reverseroll.process()
             reverseroll.display_frame()

@@ -45,6 +45,9 @@ class Plataforma(Barra):
     def getUltimaPlataforma(self):
         return self._ultimaPlataforma
 
+    def getRect(self):
+        return self._rect
+
     def permiteSiguientePlataforma(self):
         distanciaDelSuelo = self._posY - self._rect.top
         if distanciaDelSuelo > self._distanciaNext:

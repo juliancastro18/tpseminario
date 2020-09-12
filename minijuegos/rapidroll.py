@@ -48,7 +48,7 @@ class RapidRoll(Scene):
             self._state['alive'] = self._bolaJugador.update()
 
             # si solo queda la ultima plataforma y el jugador esta colisionando con ella, indico que terminó el juego
-            if len(self._plataformas) == 1 and self._plataformas[0].getUltimaPlataforma() == True and self._bolaJugador.rect.colliderect(self._plataformas[0]):
+            if len(self._plataformas) == 1 and self._plataformas[0].getUltimaPlataforma() == True and self._bolaJugador.rect.colliderect(self._plataformas[0].getRect()):
                 self._state['playing'] = False
 
 
