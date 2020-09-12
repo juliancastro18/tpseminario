@@ -59,19 +59,19 @@ class Snake(GameObject):
                 pos = (pos[0], pos[1]+25)
         return pos
     
-    def update_head(self, key):
+    def update_head(self):
         #La cabeza depende del input
-        self.__change_direction(key)
+        self.__change_direction()
     
-    def update(self,key):
+    def update(self):
         same_speed_x = self.__head.get_speed()[0] == self.body[len(self.body)-2].get_speed()[0] 
         same_speed_y = self.__head.get_speed()[1] == self.body[len(self.body)-2].get_speed()[1]
         
         #Esto lo hago para evitar bugs
         if same_speed_x:
-            self.update_head(key)
+            self.update_head()
         elif same_speed_y:
-            self.update_head(key)
+            self.update_head()
             
         #cada parte depende de la siguiente y copia su velocidad(todas excepto la cabeza)
         for index in range(len(self.body)-1):
@@ -100,7 +100,6 @@ class Snake(GameObject):
 
     def change_speed(self, index):
         #Es un caos ahre, pero permite que las partes sigan a la que les corresponde
-        
         if self.body[index].get_pos()[0] == self.body[index + 1].get_pos()[0]:
             if self.body[index + 1].get_speed()[1] == -Snake._MAX_SPEED:
                 self.body[index].set_speed(0,-Snake._MAX_SPEED)
@@ -117,28 +116,29 @@ class Snake(GameObject):
             if not self.body[index] == self.body[len(self.body)-2]:
                 self.__is_alive = False
               
-    def __change_direction(self,key : int):
-        if(key == pygame.K_UP):
-            if self.__head.get_speed()[1] == Snake._MAX_SPEED:
-                Snake.is_alive = False
-            else :
-                self.__head.set_speed(0,-Snake._MAX_SPEED)
-        if(key == pygame.K_DOWN):
-            if self.__head.get_speed()[1] == -Snake._MAX_SPEED:
-                Snake.is_alive = False
-            else:
-                self.__head.set_speed(0,Snake._MAX_SPEED)
-        if(key == pygame.K_LEFT):
+    def __change_direction(self):
+        key_input = pygame.key.get_pressed()   
+        if key_input[pygame.K_LEFT]:
             if self.__head.get_speed()[0] == Snake._MAX_SPEED:
                 Snake.is_alive = False
             else :
                 self.__head.set_speed(-Snake._MAX_SPEED, 0)
-        if(key == pygame.K_RIGHT):
+        if key_input[pygame.K_RIGHT]:
             if self.__head.get_speed()[0] == -Snake._MAX_SPEED:
                 Snake.is_alive = False
             else :
                 self.__head.set_speed(Snake._MAX_SPEED, 0)
-    
+        if key_input[pygame.K_UP]:
+            if self.__head.get_speed()[1] == Snake._MAX_SPEED:
+                Snake.is_alive = False
+            else :
+                self.__head.set_speed(0,-Snake._MAX_SPEED)
+        if key_input[pygame.K_DOWN]:
+            if self.__head.get_speed()[1] == -Snake._MAX_SPEED:
+                Snake.is_alive = False
+            else:
+                self.__head.set_speed(0,Snake._MAX_SPEED)
+
     def draw(self, screen):
         for index in range(len(self.body)):
             if(self.body[index].draw(screen)):
