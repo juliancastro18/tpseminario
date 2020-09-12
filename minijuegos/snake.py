@@ -55,7 +55,7 @@ class Game(Scene):
                 pass
             
         # LOGIC ZONE
-        self.__game_state["snake_is_alive"] = self.__snake.update(key)
+        self.__game_state["snake_is_alive"] = self.__snake.update()
         if self.__time > self.__inital_time * self.__iteration:
             self.__iteration+=1
             self.spawn_food()
@@ -93,6 +93,6 @@ class Game(Scene):
         
     def spawn_food(self):
         if len(self.__green_squares)==0:
-            x = random.randint(20,minijuegos.configuration.SCREEN_WIDTH - 20)
-            y = random.randint(20,minijuegos.configuration.SCREEN_HEIGHT - 20)
+            x = random.randint(20,minijuegos.configuration.SCREEN_WIDTH - 50)
+            y = random.randint(20,minijuegos.configuration.SCREEN_HEIGHT - 50)
             self.__green_squares.append(Bola((x,y)))
