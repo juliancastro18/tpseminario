@@ -4,17 +4,18 @@ from pygame.locals import *
 from minijuegos import color
 from minijuegos.scene import Scene
 from minijuegos.clasesrapidroll.plataforma import *
-from minijuegos.clasesrapidroll.bolarapidroll import *
+from minijuegos.clasesreverseroll.bolareverseroll import *
+from minijuegos.clasesreverseroll.plataformamovil import *
 
 class ReverseRoll(Scene):
 
     def __init__(self, posXY, loop = 0):
 
         super().__init__()
-        self._bolaJugador = BolaRapidRoll(posXY, loop)
+        self._bolaJugador = BolaReverseRoll(posXY, loop)
         self._plataformas = []
         self._contadorPlataformas = 0
-        self._maximoPlataformas = 10 + (loop * 2)
+        self._maximoPlataformas = 10 + (loop * 3)
         self._velPlataformas = 3 + int(loop*0.5)
         self._largoPlataformas = forma.BARRA_LADO_MAYOR - 50 + (loop*5)
 
@@ -39,6 +40,10 @@ class ReverseRoll(Scene):
                 self._bolaJugador.desplazamientoHorizontal(False)
             if key_input[pygame.K_RIGHT]:
                 self._bolaJugador.desplazamientoHorizontal(True)
+            if key_input[pygame.K_UP]:
+                self._bolaJugador.desplazamientoVertical(True)
+            if key_input[pygame.K_DOWN]:
+                self._bolaJugador.desplazamientoVertical(False)
 
             self.administradorPlataformas()
 
@@ -76,7 +81,10 @@ class ReverseRoll(Scene):
         # verifico si la ultima plataforma permite agregar una nueva, si es así la agrego
         if self._contadorPlataformas < self._maximoPlataformas:
             if len(self._plataformas) < 6 and self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
-                self._plataformas.append( Plataforma(self._velPlataformas, self._largoPlataformas) )
+                if self._plataformas[len(self._plataformas)-1].getDistanciaNext() >= 180:
+                    self._plataformas.append ( PlataformaMovil(self._velPlataformas, self._largoPlataformas) )
+                else:
+                    self._plataformas.append( Plataforma(self._velPlataformas, self._largoPlataformas) )
                 self._contadorPlataformas += 1
         else:
             if len(self._plataformas) < 6 and self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():

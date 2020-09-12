@@ -51,6 +51,9 @@ class Plataforma(Barra):
     def getRect(self):
         return self._rect
 
+    def getDistanciaNext(self):
+        return self._distanciaNext
+
 
     def permiteSiguientePlataforma(self):
         distanciaDelSuelo = self._posY - self._rect.top
