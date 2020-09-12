@@ -11,7 +11,7 @@ def main():
     
     pygame.init()
     enJuego = True
-    loopContador = 5
+    loopContador = 0
     
     while enJuego:
 
@@ -32,7 +32,7 @@ def main():
         # tendría que pasarle al reverse roll la posicion de la bola que rompe los ladrillos al romper el ultimo
         # y la barra que maneja el jugador
 
-        posJugadorAux = (rapidroll.getJugadorPosXY()[0], rapidroll.getJugadorPosXY()[1]-200) #LINEA PROVISIONAL
+        posJugadorAux = (rapidroll.getJugadorPosXY()[0], rapidroll.getJugadorPosXY()[1]-200) #LINEA PROVISIONAL!!!!!!
         reverseroll = minijuegos.reverseroll.ReverseRoll(posJugadorAux, loopContador)
         while enJuego and reverseroll.get_game_state()['playing']:
             reverseroll.process()

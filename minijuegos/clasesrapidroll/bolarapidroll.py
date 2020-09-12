@@ -12,8 +12,8 @@ class BolaRapidRoll(Bola):
         super().__init__(posXY)
 
         self.velYInicial = 0.5
-        self.velY = 8 + loop
-        self.velX = 10 + loop
+        self.velY = 8 + int(loop*0.5)
+        self.velX = 10 + int(loop*0.5)
 
     def update(self):
         # aceleracion inicial
