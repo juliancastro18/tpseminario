@@ -21,7 +21,7 @@ class Snake(GameObject):
         self.load_sounds()
 
         self.time = -1
-        self.iteration = 0
+        self.iteration = 1
 
     def __initial_body(self,x = 75, y = 25):
         self.body.insert(0, self.__head)
@@ -149,21 +149,19 @@ class Snake(GameObject):
         for index in range(len(self.body)):
             if(self.body[index].draw(screen)):
                 self.__is_alive = False
-        
-        if self.time < time.get_ticks() and self.time==-1:
-            self.time = time.get_ticks() + 300
-        elif self.time < time.get_ticks():
-            self.iteration+=1
-            self.time = -1
 
-        if self.iteration==0:
-            self.__eyes[0].draw(screen)
-        elif self.iteration==1:
-            self.__eyes[0].draw(screen)
-            self.__eyes[1].draw(screen)
+        if self.time==-1:
+            self.time= 2000 + time.get_ticks()
         else:
-            for eye in self.__eyes:
-                eye.draw(screen)
+            dt = self.time - time.get_ticks()
+            if 1<dt<1000:
+                for eye in self.__eyes:
+                    eye.draw(screen)
+            elif dt<0:
+                self.time=-1
+        
+
+
 
 
     def get_len(self):

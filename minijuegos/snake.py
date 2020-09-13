@@ -88,7 +88,7 @@ class Game(Scene):
         self.__screen.blit(self.score_text, self.textRect)
         # UPDATE
         display.flip()
-        self.__clock.tick(120 + self.extra_speed * 2)
+        self.__clock.tick(160 + self.extra_speed * 2)
         
     def spawn_food(self):
         if len(self.__green_squares)==0:
