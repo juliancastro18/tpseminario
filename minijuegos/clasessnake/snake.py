@@ -134,31 +134,33 @@ class Snake(GameObject):
                 Snake.is_alive = False
             else :
                 self.__head.set_speed(Snake._MAX_SPEED, 0)
-        if key_input[pygame.K_UP]:
+        elif key_input[pygame.K_UP]:
             if self.__head.get_speed()[1] == Snake._MAX_SPEED:
                 Snake.is_alive = False
             else :
                 self.__head.set_speed(0,-Snake._MAX_SPEED)
-        if key_input[pygame.K_DOWN]:
+        elif key_input[pygame.K_DOWN]:
             if self.__head.get_speed()[1] == -Snake._MAX_SPEED:
                 Snake.is_alive = False
             else:
                 self.__head.set_speed(0,Snake._MAX_SPEED)
 
-    def draw(self, screen):
+    def draw(self, screen, pause = False):
         for index in range(len(self.body)):
             if(self.body[index].draw(screen)):
                 self.__is_alive = False
-
-        if self.time==-1:
-            self.time= 2000 + time.get_ticks()
+        if pause:
+            self.time==-1
         else:
-            dt = self.time - time.get_ticks()
-            if 1<dt<1000:
-                for eye in self.__eyes:
-                    eye.draw(screen)
-            elif dt<0:
-                self.time=-1
+            if self.time==-1:
+                self.time= 2000 + time.get_ticks()
+            else:
+                dt = self.time - time.get_ticks()
+                if 1<dt<1000:
+                    for eye in self.__eyes:
+                        eye.draw(screen)
+                elif dt<0:
+                    self.time=-1
         
 
 

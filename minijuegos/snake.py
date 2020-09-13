@@ -8,10 +8,10 @@ from minijuegos.clasessnake.snake import Snake, Square
 from minijuegos.scene import Scene
 class Game(Scene):
     def __init__(self, player_pos = (0,0), ball_position = None, loop = 0):
-        self.__game_state = {"done":False,"win":False, "snake_is_alive":True}
-    
+        # self.__game_state = {"done":False,"win":False, "snake_is_alive":True, "pause":False}
+        self._state = {'alive':True, 'playing':True, 'pause':False}
         self.__clock = time.Clock()
-        self.__screen = display.set_mode(size=(minijuegos.configuration.SCREEN_WIDTH, minijuegos.configuration.SCREEN_HEIGHT))
+        self.screen = display.set_mode(size=(minijuegos.configuration.SCREEN_WIDTH, minijuegos.configuration.SCREEN_HEIGHT))
         self.__snake = Snake(pos=player_pos)
         self.__green_squares = []
         if ball_position==None:
@@ -28,6 +28,7 @@ class Game(Scene):
         self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,minijuegos.color.WHITE)
         self.textRect = self.score_text.get_rect()
         self.textRect.center = (40,20)
+        self.win = False
         self.score_to_win = 5 + loop*1
         self.sounds = []
         self.load_sounds()
@@ -36,7 +37,7 @@ class Game(Scene):
         self.sounds.append(mixer.Sound('data\\sound\\power_up.wav'))
   
     def get_game_state(self):
-        return self.__game_state
+        return self._state
     
     def process(self):
         self.__time = time.get_ticks()
@@ -47,29 +48,29 @@ class Game(Scene):
                 sys.exit()
             if event_.type == pygame.KEYDOWN:
                 if event_.key == pygame.K_ESCAPE:
-                    self.__game_state["done"] = True
-                key = event_.key
+                    self._state['pause'] = not self._state['pause']
             if event_.type == pygame.KEYUP:
                 pass
-            
-        # LOGIC ZONE
-        self.__game_state["snake_is_alive"] = self.__snake.update()
-        if self.__time > self.__inital_time * self.__iteration:
-            self.__iteration+=1
-            self.spawn_food()
-            
-        index = -1
-        aux = 0
-        for element in self.__green_squares:
-            if self.__snake.get_head().collider.colliderect(element.rect):
-                index = aux
-            aux+=1
-        if not index == -1:
-            self.__green_squares.pop(index)
-            self.__snake.add_square()
-        if len(self.__snake.body) > self.score_to_win:
-            self.__game_state['win'] = True
-        self.update_score_text()
+
+        if not self._state['pause']:
+            # LOGIC ZONE
+            self._state["alive"] = self.__snake.update()
+
+            if len(self.__green_squares)==0:
+                self.spawn_food()
+                
+            index = -1
+            aux = 0
+            for element in self.__green_squares:
+                if self.__snake.get_head().collider.colliderect(element.rect):
+                    index = aux
+                aux+=1
+            if not index == -1:
+                self.__green_squares.pop(index)
+                self.__snake.add_square()
+            if len(self.__snake.body) > self.score_to_win:
+                self._state['playing'] = False
+            self.update_score_text()
 
     def update_score_text(self):
         self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,minijuegos.color.WHITE)
@@ -80,15 +81,16 @@ class Game(Scene):
             
         
     def display_frame(self):
-        self.__screen.fill(minijuegos.color.BLACK)
+        self.screen.fill(minijuegos.color.BLACK)
         
         for element in self.__green_squares:
-            element.draw(self.__screen)
-        self.__snake.draw(self.__screen)
-        self.__screen.blit(self.score_text, self.textRect)
+            element.draw(self.screen)
+        self.__snake.draw(self.screen, pause=self._state['pause'])
+        self.screen.blit(self.score_text, self.textRect)
         # UPDATE
-        display.flip()
-        self.__clock.tick(160 + self.extra_speed * 2)
+        self.__clock.tick(200 + self.extra_speed * 2)
+        if not self._state['pause']:
+            pygame.display.update()
         
     def spawn_food(self):
         if len(self.__green_squares)==0:
