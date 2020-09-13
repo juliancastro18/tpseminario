@@ -79,26 +79,27 @@ class ReverseRoll(Scene):
 
 
         # verifico si la ultima plataforma permite agregar una nueva, si es así la agrego
-        if self._contadorPlataformas < self._maximoPlataformas:
-            if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
-                if self._plataformas[len(self._plataformas)-1].getDistanciaNext() >= 145:
+        plataformaAnterior = self._plataformas[len(self._plataformas)-1]
+
+        if plataformaAnterior.permiteSiguientePlataforma():
+            
+            if self._contadorPlataformas < self._maximoPlataformas: # si todavia no se llego al maximo de plataformas agrego una común
+                # si la plataformaAnterior pide cierta distancia y no es una plataforma movil, agrego una movil
+                if plataformaAnterior.getDistanciaNext() >= 150 and not isinstance(plataformaAnterior, PlataformaMovil):
                     self._plataformas.append ( PlataformaMovil(self._velPlataformas, self._largoPlataformas) )
                 else:
-                    self._plataformas.append( Plataforma(self._velPlataformas, self._largoPlataformas) )
+                    plataforma_nueva = Plataforma(self._velPlataformas, self._largoPlataformas)
+                    plataforma_nueva.checkPosX(plataformaAnterior.getLeft())
+                    self._plataformas.append( plataforma_nueva )
+
                 self._contadorPlataformas += 1
-        else:
-            if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
+            
+            else: # sino, agrego la ultima con sus características
+
                 ultimaPlataforma = Plataforma(self._velPlataformas, 75)
                 ultimaPlataforma.setUltimaPlataforma()
                 ultimaPlataforma.setGrosor(25)
                 self._plataformas.append( ultimaPlataforma )
-
-
-    def agregarPrimerPlataforma(self):
-        primerPlataforma = Plataforma(self._velPlataformas, self._largoPlataformas)
-        primerPlataforma.setPrimerPlataforma()
-        self._plataformas.append(primerPlataforma)
-        self._contadorPlataformas += 1
 
 
     def getIsPaused(self):
@@ -106,7 +107,7 @@ class ReverseRoll(Scene):
 
     def getUltimaPlataformaPosXY(self):
         if len(self._plataformas) == 1:
-            return self._plataformas[0].getPosXYCentro()
+            return self._plataformas[0].getPosXYMidTop()
         else:
             return (0,0)
 

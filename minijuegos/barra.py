@@ -48,7 +48,7 @@ class Barra(GameObject):
     def getPosXY(self):
         return self._rect.topleft
 
-    def getPosXYCentro(self):
+    def getPosXYMidTop(self):
         return self._rect.midtop
 
 

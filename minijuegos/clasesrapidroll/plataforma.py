@@ -38,12 +38,20 @@ class Plataforma(Barra):
     def setSinDistanciaNext(self):
         self.distanciaNext = 0
 
+    def checkPosX(self, leftAnterior):
+        while self._posX == leftAnterior:
+            self._posX = self.randomPosX(self._ancho)
+        self._rect = pygame.Rect(self._posX, self._posY, self._ancho, self._alto)
+
 
     def getTop(self):
         return self._rect.top
 
     def getBottom(self):
         return self._rect.bottom
+
+    def getLeft(self):
+        return self._rect.left
 
     def getUltimaPlataforma(self):
         return self._ultimaPlataforma

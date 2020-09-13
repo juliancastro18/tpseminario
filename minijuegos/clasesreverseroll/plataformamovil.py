@@ -6,12 +6,12 @@ class PlataformaMovil(Plataforma):
 
     def __init__(self, velY, largo = None):
 
-        super().__init__(velY - int(velY/2), largo)
+        super().__init__(velY, largo)
 
         random_bit = random.getrandbits(1)
         self._esDerecha = bool(random_bit)
         self._velX = self._velY*2
-        self._distanciaNext = randint(80,160)
+        self._distanciaNext = randint(80,200)
 
 
     def update(self, ventana):

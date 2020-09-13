@@ -33,20 +33,20 @@ def main():
         # tendría que pasarle al reverse roll la posicion de la bola que rompe los ladrillos al romper el ultimo
         # y la barra que maneja el jugador
 
-        posJugadorAux = (rapidroll.getJugadorPosXY()[0], rapidroll.getJugadorPosXY()[1]-200) #LINEA PROVISIONAL!!!!!!
+        posJugadorAux = (rapidroll.getJugadorPosXY()[0], rapidroll.getJugadorPosXY()[1]) #LINEA PROVISIONAL!!!!!!
         reverseroll = minijuegos.reverseroll.ReverseRoll(posJugadorAux, loopContador)
         while enJuego and reverseroll.get_game_state()['playing']:
             reverseroll.process()
             reverseroll.display_frame()
             enJuego = reverseroll.get_game_state()['alive']
 
-
+        
         snake = minijuegos.snake.Game(loop=loopContador,ball_position=reverseroll.getJugadorPosXY(), player_pos=reverseroll.getUltimaPlataformaPosXY())
         while enJuego and not snake.get_game_state()["done"] and not snake.get_game_state()['win']:
            snake.process()
            snake.display_frame()
            enJuego = snake.get_game_state()["snake_is_alive"]
-
+        
 
         loopContador += 1
 
