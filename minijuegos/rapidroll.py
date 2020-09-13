@@ -61,7 +61,9 @@ class RapidRoll(Scene):
                 self._bolaJugador.setEnPlataforma(plat.getTop())
 
         self._bolaJugador.draw(self.screen)
-        pygame.display.update()
+        
+        if not self.getIsPaused():
+            pygame.display.update()
 
 
     def administradorPlataformas(self):
