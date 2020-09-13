@@ -6,7 +6,7 @@ class PlataformaMovil(Plataforma):
 
     def __init__(self, velY, largo = None):
 
-        super().__init__(velY, largo)
+        super().__init__(velY - int(velY/2), largo)
 
         random_bit = random.getrandbits(1)
         self._esDerecha = bool(random_bit)

@@ -11,7 +11,7 @@ class BolaReverseRoll(Bola):
 
         super().__init__(posXY)
 
-        self.vel = 10 + int(loop*0.5)
+        self.vel = 8 + int(loop*0.5)
 
     def update(self):
         pass

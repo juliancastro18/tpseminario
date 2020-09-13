@@ -106,7 +106,7 @@ class ReverseRoll(Scene):
 
     def getUltimaPlataformaPosXY(self):
         if len(self._plataformas) == 1:
-            return self._plataformas[0].getPosXY()
+            return self._plataformas[0].getPosXYCentro()
         else:
             return (0,0)
 
