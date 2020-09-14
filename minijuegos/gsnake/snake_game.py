@@ -10,6 +10,7 @@ from minijuegos.scene import Scene
 class Game(Scene):
     def __init__(self, player_pos = (0,0), ball_position = None, loop = 0):
         # self.__game_state = {"done":False,"win":False, "snake_is_alive":True, "pause":False}
+        super().__init__()
         self._state = {'alive':True, 'playing':True, 'pause':False}
         self.__clock = time.Clock()
         self.screen = display.set_mode(size=(configuration.SCREEN_WIDTH, configuration.SCREEN_HEIGHT))
@@ -20,11 +21,12 @@ class Game(Scene):
         else:
             self.__green_squares.append(Bola(posXY=ball_position))
         
-        self.__time = 0
-        self.__inital_time = 7000
-        self.__iteration = 1
-        self.extra_speed = 10*loop
+        self.time = 0
+        self.limit_time = 3000 + 200*loop
+        self.extra_speed = 20*loop
         
+        self.flicker = False
+
         self.font = font.Font('data\\font\\dpcomic.ttf', 20)
         self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,color.WHITE)
         self.textRect = self.score_text.get_rect()
@@ -33,6 +35,7 @@ class Game(Scene):
         self.score_to_win = 5 + loop*1
         self.sounds = []
         self.load_sounds()
+
         
     def load_sounds(self):
         self.sounds.append(mixer.Sound('data\\sound\\power_up.wav'))
@@ -41,8 +44,6 @@ class Game(Scene):
         return self._state
     
     def process(self):
-        self.__time = time.get_ticks()
-        key = -1000
         for event_ in event.get():
             if event_.type == pygame.QUIT:
                 pygame.quit()
@@ -57,21 +58,30 @@ class Game(Scene):
             # LOGIC ZONE
             self._state["alive"] = self.__snake.update()
 
+            
+            
+            if self.__snake.get_head().collider.colliderect(self.__green_squares[0]):
+                self.__green_squares.pop(0)
+                self.__snake.add_square()
+            
             if len(self.__green_squares)==0:
                 self.spawn_food()
-                
-            index = -1
-            aux = 0
-            for element in self.__green_squares:
-                if self.__snake.get_head().collider.colliderect(element.rect):
-                    index = aux
-                aux+=1
-            if not index == -1:
-                self.__green_squares.pop(index)
-                self.__snake.add_square()
+                self.limit_time+=100
+
             if len(self.__snake.body) > self.score_to_win:
                 self._state['playing'] = False
+
             self.update_score_text()
+            if self.time>self.limit_time:
+                self._state['alive'] = False
+            else:
+                print(self.time)
+                self.time+=1
+
+            dt = self.limit_time - self.time
+            self.flicker = 1<dt<1000 and dt%8==0
+           
+            
 
     def update_score_text(self):
         self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,color.WHITE)
@@ -83,13 +93,13 @@ class Game(Scene):
         
     def display_frame(self):
         self.screen.fill(color.BLACK)
-        
-        for element in self.__green_squares:
-            element.draw(self.screen)
+        if not self.flicker:
+            for element in self.__green_squares:
+                    element.draw(self.screen)
         self.__snake.draw(self.screen, pause=self._state['pause'])
         # self.screen.blit(self.score_text, self.textRect)
         # UPDATE
-        self.__clock.tick(200 + self.extra_speed * 2)
+        self.__clock.tick(200 + self.extra_speed)
         
         
     def spawn_food(self):

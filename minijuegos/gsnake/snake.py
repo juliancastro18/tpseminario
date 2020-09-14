@@ -150,10 +150,10 @@ class Snake(GameObject):
             if(self.body[index].draw(screen)):
                 self.__is_alive = False
         if pause:
-            self.time==-1
+            self.time=-1
         else:
-            if self.time==-1:
-                self.time= 2000 + time.get_ticks()
+            if self.time == -1:
+                self.time = 2000 + time.get_ticks()
             else:
                 dt = self.time - time.get_ticks()
                 if 1<dt<1000:
