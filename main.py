@@ -10,7 +10,13 @@ import ui.gameover.gameover
 
 def main():
 
+    pygame.mixer.pre_init(44100, -16, 2, 512)
+    pygame.mixer.init()
     pygame.init() # inicio pygame
+    pygame.display.set_caption('5in1')
+    a = pygame.image.load("data\\img\\ico.png")
+    pygame.display.set_icon(a)
+
 
 
     while True: # loop infinito hasta que se cierre pygame
@@ -22,6 +28,8 @@ def main():
 
         admin.iniciarCronometro() # comienzo a contar el tiempo transcurrido
         while admin.getEnJuego():
+
+            admin.reproducirNuevoLoop()
 
             # << acá iría el pong >>
             # el pong tendria que tener un metodo para obtener la pos de la bola cuando terminó de ejecutar

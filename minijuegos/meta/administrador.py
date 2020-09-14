@@ -15,7 +15,6 @@ class Administrador():
 		self._font = pygame.font.Font('data\\font\\dpcomic.ttf', 30)
 
 		self._sound_new_loop = pygame.mixer.Sound('data\\sound\\power_up.wav')
-		self._sound_over = pygame.mixer.Sound('data\\sound\\gameOver.ogg')
 
 	def ejecutarJuego(self, juego):
 
@@ -77,6 +76,3 @@ class Administrador():
 
 	def reproducirNuevoLoop(self):
 		self._sound_new_loop.play()
-
-	def reproducirFinJuego(self):
-		self._sound_over.play()

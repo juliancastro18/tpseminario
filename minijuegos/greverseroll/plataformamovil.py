@@ -16,9 +16,9 @@ class PlataformaMovil(Plataforma):
 
         self._esDerecha = bool(random_bit)
         if self._esDerecha == True:
-            self._sound_rl.play()
-        else:
             self._sound_lr.play()
+        else:
+            self._sound_rl.play()
 
 
     def update(self, ventana):
