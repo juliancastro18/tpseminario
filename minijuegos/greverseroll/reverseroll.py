@@ -65,9 +65,6 @@ class ReverseRoll(Scene):
 
         self._bolaJugador.draw(self.screen)
 
-        if not self.getIsPaused():
-            pygame.display.update()
-
 
     def administradorPlataformas(self):
 

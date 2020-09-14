@@ -17,7 +17,12 @@ class Pause():
 		screen.blit(self._background, (0,0))
 
 		if self._displayText:
-			text_Obj = self._font.render(self._texto,1,color.WHITE,screen)
+			text_Obj = self._font.render(self._texto,0,color.BLACK,screen)
+			text_rect = text_Obj.get_rect()
+			text_rect.center = ((configuration.SCREEN_WIDTH/2)+5, (configuration.SCREEN_HEIGHT/2)+5)
+			screen.blit(text_Obj, text_rect)
+
+			text_Obj = self._font.render(self._texto,0,color.WHITE,screen)
 			text_rect = text_Obj.get_rect()
 			text_rect.center = (configuration.SCREEN_WIDTH/2, configuration.SCREEN_HEIGHT/2)
 			screen.blit(text_Obj, text_rect)
@@ -25,5 +30,3 @@ class Pause():
 		if self._timer > 20:
 			self._timer = 0
 			self._displayText ^= True
-
-		pygame.display.update()

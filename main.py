@@ -20,7 +20,7 @@ def main():
         # << acá iría el menú >>
         # opciones: comenzar, puntuaciones, controles, salir
 
-
+        admin.iniciarCronometro() # comienzo a contar el tiempo transcurrido
         while admin.getEnJuego():
 
             # << acá iría el pong >>
@@ -59,7 +59,7 @@ def main():
 
 #TO_DO_LIST:
 # Los que usan vs code pueden instalar: Todo Tree para ver esta clase de comentarios :)
-#TODO: Hacer la escena del hight_score_local (eze)
+#TODO: Hacer la escena del high_score_local (eze)
 #TODO: Hacer la escena de introducir nombre y puntuacion (eze)
 
 if __name__ == "__main__":

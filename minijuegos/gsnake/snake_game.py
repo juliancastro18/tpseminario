@@ -90,8 +90,7 @@ class Game(Scene):
         # self.screen.blit(self.score_text, self.textRect)
         # UPDATE
         self.__clock.tick(200 + self.extra_speed * 2)
-        if not self._state['pause']:
-            pygame.display.update()
+        
         
     def spawn_food(self):
         if len(self.__green_squares)==0:
