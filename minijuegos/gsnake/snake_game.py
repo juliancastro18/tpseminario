@@ -76,7 +76,7 @@ class Game(Scene):
             if self.time>self.limit_time:
                 self._state['alive'] = False
             else:
-                print(self.time)
+                # print(self.time)
                 self.time+=1
 
             dt = self.limit_time - self.time
