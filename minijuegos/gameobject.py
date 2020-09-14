@@ -1,9 +1,9 @@
-import minijuegos.color
+from minijuegos.constantes import color
 
 class GameObject():
 
 	def __init__(self):
-		self._color = minijuegos.color.WHITE
+		self._color = color.WHITE
 
 	def update(self,*parametros):
 		pass

@@ -1,4 +1,4 @@
-from minijuegos import configuration, color
+from minijuegos.constantes import configuration, color
 import pygame
 
 class Scene():

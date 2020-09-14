@@ -1,70 +1,62 @@
 import pygame, sys
 from pygame.locals import *
 
-import minijuegos.rapidroll
-import minijuegos.snake
-import minijuegos.reverseroll
-from minijuegos import configuration
-from minijuegos import pause
+from minijuegos.grapidroll import rapidroll
+from minijuegos.greverseroll import reverseroll
+from minijuegos.gsnake import snake_game
+from minijuegos.constantes import configuration
+from minijuegos.meta import administrador
 
 
 def main():
 
-    def ejecutarJuego(juego):
-        pantallaPausa = pause.Pause()
-        enJuego = True
-
-        while enJuego and juego.get_game_state()['playing']:
-            juego.process()
-            juego.display_frame()
-            if juego.get_game_state()['pause']:
-                pantallaPausa.display(juego.screen)
-            enJuego = juego.get_game_state()['alive']
-
-        return enJuego
-    
-
-    # inicio pygame y mis variables
-    pygame.init()
-    enJuego = True
-    loopContador = 0
-
-    # << acá iría el menú >>
+    pygame.init() # inicio pygame
 
 
-    while enJuego:
+    while True: # loop infinito hasta que se cierre pygame
 
-        # << acá iría el pong >>
-        # el pong tendria que tener un metodo para obtener la pos de la bola cuando terminó de ejecutar
-        # (ver getJugadorPosXY() en RapidRoll como referencia)
-        # y tambien otro que devuelva una lista con las barras del pong
+        admin = administrador.Administrador() # inicio el administrador de juegos
 
-
-        if enJuego:
-            rapidroll = minijuegos.rapidroll.RapidRoll((600, 40), loopContador)
-            enJuego = ejecutarJuego(rapidroll)
-        
-
-        # << acá iría el de los ladrillos >>
-        # tendría que pasarle al reverse roll la posicion de la bola que rompe los ladrillos al romper el ultimo
-        # y la barra que maneja el jugador
+        # << acá iría el menú >>
+        # opciones: comenzar, puntuaciones, controles, salir
 
 
-        if enJuego:
-            posJugadorAux = (rapidroll.getJugadorPosXY()[0], rapidroll.getJugadorPosXY()[1]-200) #LINEA PROVISIONAL!!!!!!
-            reverseroll = minijuegos.reverseroll.ReverseRoll(posJugadorAux, loopContador)
-            enJuego = ejecutarJuego(reverseroll)
+        while admin.getEnJuego():
 
-        
-        if enJuego:
-            snake = minijuegos.snake.Game(loop=loopContador,ball_position=reverseroll.getJugadorPosXY(), player_pos=reverseroll.getUltimaPlataformaPosXY())
-            enJuego = ejecutarJuego(snake)
-        
-
-        loopContador += 1
+            # << acá iría el pong >>
+            # el pong tendria que tener un metodo para obtener la pos de la bola cuando terminó de ejecutar
+            # (ver getJugadorPosXY() en RapidRoll como referencia)
+            # y tambien otro que devuelva una lista con las barras del pong
 
 
-    print("Fin del programa")
+            rapid = rapidroll.RapidRoll((600, 40), admin.getLoopContador())
+            admin.ejecutarJuego(rapid)
+            
+
+            # << acá iría el de los ladrillos >>
+            # tendría que pasarle al reverse roll la posicion de la bola que rompe los ladrillos al romper el ultimo
+            # y la barra que maneja el jugador
+
+
+            posJugadorAux = (rapid.getJugadorPosXY()[0], rapid.getJugadorPosXY()[1]-200) # LINEA PROVISIONAL!!!!!!
+            reverse = reverseroll.ReverseRoll(posJugadorAux, admin.getLoopContador())
+            admin.ejecutarJuego(reverse)
+
+            
+            snake = snake_game.Game(loop=admin.getLoopContador(),ball_position=reverse.getJugadorPosXY(),
+                                         player_pos=reverse.getUltimaPlataformaPosXY())
+            admin.ejecutarJuego(snake)
+            
+
+            admin.agregarLoopContador()
+
+
+        # << acá mostraría el score >>
+        # apretando ESC vuelve al menu
+        # apretando ENTER te pide nombre y guarda la puntuación, luego vuelve al menu
+
+        print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
+
 
 
 if __name__ == "__main__":
