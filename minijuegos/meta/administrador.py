@@ -7,7 +7,7 @@ class Administrador():
 	def __init__(self):
 
 		self._enJuego = True
-		self._loopContador = 0
+		self._loopContador = 4
 		self._pantallaPausa = pause.Pause()
 
 		self._score = 0

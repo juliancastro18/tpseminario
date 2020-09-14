@@ -49,6 +49,8 @@ class PlataformaMovil(Plataforma):
 
         centro = int(configuration.SCREEN_HEIGHT/2)
         posPlat = self.getTop() + int(tamformas.BARRA_LADO_MENOR/2)
+        if posPlat > configuration.SCREEN_HEIGHT:
+            posPlat = self._velY * 30
         distancia_al_centro = abs(centro - posPlat)
 
         if posPlat == centro:
