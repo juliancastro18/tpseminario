@@ -26,7 +26,7 @@ class Administrador():
 	            self._pantallaPausa.display(juego.screen)
 	        else:
 	        	# si no está pausado, actualizo el score
-	        	self.update_score()
+	        	self._update_score()
 
 	        self.display_score(juego.screen) # dibujo el score
 	        pygame.display.update() # actualizo la pantalla
@@ -51,7 +51,7 @@ class Administrador():
 		text_rect.topleft = (10,10)
 		screen.blit(text_obj, text_rect)
 
-	def update_score(self):
+	def _update_score(self):
 		tiempo_actual = pygame.time.get_ticks()
 		if tiempo_actual - self._reloj > 500: # si paso mas de medio seg
 			self._score += 25 * (self._loopContador+1)
