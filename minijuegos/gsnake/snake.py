@@ -153,10 +153,10 @@ class Snake(GameObject):
             self.time=-1
         else:
             if self.time == -1:
-                self.time = 2000 + time.get_ticks()
+                self.time = 700 + time.get_ticks()
             else:
                 dt = self.time - time.get_ticks()
-                if 1<dt<1000:
+                if 1<dt<400:
                     for eye in self.__eyes:
                         eye.draw(screen)
                 elif dt<0:
