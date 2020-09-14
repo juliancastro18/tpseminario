@@ -6,7 +6,7 @@ from minijuegos.greverseroll import reverseroll
 from minijuegos.gsnake import snake_game
 from minijuegos.constantes import configuration
 from minijuegos.meta import administrador
-
+import ui.gameover.gameover
 
 def main():
 
@@ -57,6 +57,7 @@ def main():
 
         print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
         print("Tu puntaje: ", admin.getScore())
+        return admin.getScore()
 
 #TO_DO_LIST:
 # Los que usan vs code pueden instalar: Todo Tree para ver esta clase de comentarios :)
@@ -64,4 +65,13 @@ def main():
 #TODO: Hacer la escena de introducir nombre y puntuacion (eze)
 
 if __name__ == "__main__":
-    main()
+    score = main()
+    
+    name_and_save = ui.gameover.gameover.main(score=score)
+    name = name_and_save[0]
+    save = name_and_save[1]
+    if save and not name == "":
+        print("Se guarda y vuelve al menu")
+        #clase que guarda en un archivo local las puntuaciones al estilo => name:score (por ejemplo)
+    else:
+        print("No se guarda y vuelve al menu")
