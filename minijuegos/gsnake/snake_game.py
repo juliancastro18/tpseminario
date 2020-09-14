@@ -64,12 +64,13 @@ class Game(Scene):
                 self.__green_squares.pop(0)
                 self.__snake.add_square()
             
-            if len(self.__green_squares)==0:
-                self.spawn_food()
-                self.limit_time+=100
 
             if len(self.__snake.body) > self.score_to_win:
                 self._state['playing'] = False
+            else:
+                if len(self.__green_squares)==0:
+                    self.spawn_food()
+                    self.limit_time+=100
 
             self.update_score_text()
             if self.time>self.limit_time:
