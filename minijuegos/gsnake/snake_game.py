@@ -87,7 +87,7 @@ class Game(Scene):
         for element in self.__green_squares:
             element.draw(self.screen)
         self.__snake.draw(self.screen, pause=self._state['pause'])
-        self.screen.blit(self.score_text, self.textRect)
+        # self.screen.blit(self.score_text, self.textRect)
         # UPDATE
         self.__clock.tick(200 + self.extra_speed * 2)
         if not self._state['pause']:
