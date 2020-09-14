@@ -14,25 +14,28 @@ class Administrador():
 		self._reloj = 0
 		self._font = pygame.font.Font('data\\font\\dpcomic.ttf', 30)
 
+		self._sound_new_loop = pygame.mixer.Sound('data\\sound\\power_up.wav')
+		self._sound_over = pygame.mixer.Sound('data\\sound\\gameOver.ogg')
+
 	def ejecutarJuego(self, juego):
 
-	    while self._enJuego and juego.get_game_state()['playing']:
+		while self._enJuego and juego.get_game_state()['playing']:
 
-	        juego.process() # proceso el juego
-	        juego.display_frame() # lo dibujo en la pantalla
+			juego.process() # proceso el juego
+			juego.display_frame() # lo dibujo en la pantalla
 
-	        if juego.get_game_state()['pause']:
-	        	# si el juego esta pausado, muestro msj en pantalla
-	            self._pantallaPausa.display(juego.screen)
-	        else:
-	        	# si no está pausado, actualizo el score
-	        	self._update_score()
+			if juego.get_game_state()['pause']:
+				# si el juego esta pausado, muestro msj en pantalla
+				self._pantallaPausa.display(juego.screen)
+			else:
+				# si no está pausado, actualizo el score
+				self._update_score()
 
-	        self.display_score(juego.screen) # dibujo el score
-	        pygame.display.update() # actualizo la pantalla
+			self.display_score(juego.screen) # dibujo el score
+			pygame.display.update() # actualizo la pantalla
 
-	       	# reviso si el jugador está vivo
-	        self._enJuego = juego.get_game_state()['alive']
+			# reviso si el jugador está vivo
+			self._enJuego = juego.get_game_state()['alive']
 
 
 	def display_score(self, screen):
@@ -71,3 +74,9 @@ class Administrador():
 
 	def iniciarCronometro(self):
 		self._reloj = pygame.time.get_ticks()
+
+	def reproducirNuevoLoop(self):
+		self._sound_new_loop.play()
+
+	def reproducirFinJuego(self):
+		self._sound_over.play()

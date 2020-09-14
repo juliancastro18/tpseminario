@@ -9,7 +9,8 @@ from minijuegos.meta import administrador
 
 
 def main():
-
+    pygame.mixer.pre_init(44100, -16, 2, 512)
+    pygame.mixer.init()
     pygame.init() # inicio pygame
 
 
@@ -22,6 +23,8 @@ def main():
 
         admin.iniciarCronometro() # comienzo a contar el tiempo transcurrido
         while admin.getEnJuego():
+
+            admin.reproducirNuevoLoop()
 
             # << acá iría el pong >>
             # el pong tendria que tener un metodo para obtener la pos de la bola cuando terminó de ejecutar
@@ -51,12 +54,13 @@ def main():
             admin.agregarLoopContador()
 
 
+        admin.reproducirFinJuego()
+        print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
+        print("Tu puntaje: ", admin.getScore())
+
         # << acá mostraría el score >>
         # apretando ESC vuelve al menu
         # apretando ENTER te pide nombre y guarda la puntuación, luego vuelve al menu
-
-        print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
-        print("Tu puntaje: ", admin.getScore())
 
 #TO_DO_LIST:
 # Los que usan vs code pueden instalar: Todo Tree para ver esta clase de comentarios :)

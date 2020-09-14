@@ -17,6 +17,7 @@ class RapidRoll(Scene):
         self._maximoPlataformas = 10 + (loop * 2)
         self._velPlataformas = 3 + int(loop*0.5)
         self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - (loop*10)
+        self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
 
 
     def process(self):
@@ -55,10 +56,20 @@ class RapidRoll(Scene):
     def display_frame(self):
         self.screen.fill(color.BLACK)
 
+        colisionandoAhora = False
         for plat in self._plataformas:
             plat.draw(self.screen)
             if plat.colisionSuperior(self._bolaJugador):
                 self._bolaJugador.setEnPlataforma(plat.getTop())
+                colisionandoAhora = True
+
+        if colisionandoAhora == False:
+            self._bolaJugador.colisionando = False
+
+        if self._bolaJugador.colisionando == False and colisionandoAhora == True:
+            self._sonidoColision.play()
+            self._bolaJugador.colisionando = True
+
 
         self._bolaJugador.draw(self.screen)
 
