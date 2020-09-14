@@ -56,7 +56,6 @@ class Administrador():
 		if tiempo_actual - self._reloj > 500: # si paso mas de medio seg
 			self._score += 25 * (self._loopContador+1)
 			self._reloj = tiempo_actual
-			print(self._score)
 
 	def getLoopContador(self):
 		return self._loopContador

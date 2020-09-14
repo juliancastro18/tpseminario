@@ -56,6 +56,7 @@ def main():
         # apretando ENTER te pide nombre y guarda la puntuación, luego vuelve al menu
 
         print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
+        print("Tu puntaje: ", admin.getScore())
 
 #TO_DO_LIST:
 # Los que usan vs code pueden instalar: Todo Tree para ver esta clase de comentarios :)
