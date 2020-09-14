@@ -14,8 +14,8 @@ def main():
     pygame.mixer.init()
     pygame.init() # inicio pygame
     pygame.display.set_caption('5in1')
-    a = pygame.image.load("data\\img\\ico.png")
-    pygame.display.set_icon(a)
+    icono = pygame.image.load("data\\img\\ico.png")
+    pygame.display.set_icon(icono)
 
 
 
