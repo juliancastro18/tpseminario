@@ -1,7 +1,7 @@
 from minijuegos.constantes import configuration, color
 import pygame as pg
 class InputBox:
-
+    #TODO: Hacer sin el recuadro :D
     def __init__(self, x, y, w, h, text='', limit_len_txt = 9):
         self.rect = pg.Rect(x, y, w, h)
         self.color = color.WHITE
