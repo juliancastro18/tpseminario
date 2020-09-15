@@ -5,10 +5,13 @@ from minijuegos.gameobject import *
 
 class Barra(GameObject):
 
+
     def __init__(self, esVertical, posXY, largo = None):
 
         super().__init__()
 
+        #se usa el booleano esVertical para distinguir que parte de la barra es la más angosta
+        #luego se asigna el parametro "largo" al alto o al ancho segun corresponda
         self._esVertical = esVertical
 
         if self._esVertical:  

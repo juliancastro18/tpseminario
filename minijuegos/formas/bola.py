@@ -14,7 +14,6 @@ class Bola(GameObject):
         self.rect = pygame.Rect(self.posX, self.posY, self.radio*2, self.radio*2) # rectángulo en el que se inscribe el círculo
 
     def draw(self, ventana):
-        #pygame.draw.circle(ventana, color.WHITE, self.rect.center, self.radio)
         ventana.blit(self.img_bola, self.rect.topleft)
 
     def getPosicionXY(self):

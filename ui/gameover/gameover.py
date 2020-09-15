@@ -13,8 +13,6 @@ class GameOver(Scene):
         self.name_font = font.Font('data\\font\\dpcomic.ttf',55)
         self.score_font = font.Font('data\\font\\dpcomic.ttf',20)
         
-        self.game_over_clip = mixer.Sound('data\\sound\\gameOver.ogg')
-        self.game_over_clip.play()
         self.score = score
         
     

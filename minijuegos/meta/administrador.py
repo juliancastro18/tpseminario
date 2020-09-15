@@ -6,17 +6,24 @@ class Administrador():
 
 	def __init__(self):
 
+		# parametros generales
 		self._enJuego = True
 		self._loopContador = 0
-		self._pantallaPausa = pause.Pause()
+		self._clock = pygame.time.Clock()
 
+		# manejo de pausa
+		self._pantallaPausa = pause.Pause()
+		self.initial_pic_post_pause = False
+
+		# manejo de puntuacion
 		self._score = 0
 		self._reloj = 0
 		self._font = pygame.font.Font('data\\font\\dpcomic.ttf', 30)
 
+		# otros
 		self._sound_new_loop = pygame.mixer.Sound('data\\sound\\power_up.wav')
-
-		self.initial_pic_post_pause = False
+		self.game_over_clip = pygame.mixer.Sound('data\\sound\\gameOver.ogg')
+		self._array_transicion = self._cargar_ruido()
 
 	def ejecutarJuego(self, juego):
 
@@ -43,6 +50,16 @@ class Administrador():
 			# reviso si el jugador está vivo
 			self._enJuego = juego.get_game_state()['alive']
 
+			# si el jugador perdió
+			if self._enJuego == False:
+				self.game_over_clip.play()
+				for i in range(0,6):
+					self._clock.tick(15)
+					juego.display_frame()
+					self.display_score(juego.screen)
+					juego.screen.blit(self._array_transicion[i], (0,0))
+					pygame.display.update()
+
 
 	def display_score(self, screen):
 
@@ -65,6 +82,17 @@ class Administrador():
 		if tiempo_actual - self._reloj > 500: # si paso mas de medio seg
 			self._score += 25 * (self._loopContador+1)
 			self._reloj = tiempo_actual
+
+	def _cargar_ruido(self):
+		lista_img = []
+		for i in range(0,6):
+			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r0.png"))
+			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r1.png"))
+			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r2.png"))
+			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r3.png"))
+			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r4.png"))
+			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r5.png"))
+		return lista_img
 
 	def getLoopContador(self):
 		return self._loopContador

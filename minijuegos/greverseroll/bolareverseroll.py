@@ -16,9 +16,6 @@ class BolaReverseRoll(Bola):
     def update(self):
         pass
 
-    def setEnPlataforma(self, platPosY):
-        self.rect.bottom = platPosY + 1
-
     def desplazamientoHorizontal(self, esDerecha):
         if esDerecha:
             self.rect.right += self.vel
