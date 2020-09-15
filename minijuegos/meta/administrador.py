@@ -53,12 +53,13 @@ class Administrador():
 			# si el jugador perdió
 			if self._enJuego == False:
 				self.game_over_clip.play()
-				for i in range(0,6):
-					self._clock.tick(15)
+				for i in range(0,7):
+					self._clock.tick(12)
 					juego.display_frame()
 					self.display_score(juego.screen)
 					juego.screen.blit(self._array_transicion[i], (0,0))
 					pygame.display.update()
+				self._clock.tick(2)
 
 
 	def display_score(self, screen):
@@ -85,13 +86,14 @@ class Administrador():
 
 	def _cargar_ruido(self):
 		lista_img = []
-		for i in range(0,6):
+		for i in range(0,7):
 			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r0.png"))
 			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r1.png"))
 			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r2.png"))
 			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r3.png"))
 			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r4.png"))
 			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r5.png"))
+			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r6.png"))
 		return lista_img
 
 	def getLoopContador(self):
