@@ -6,6 +6,7 @@ from minijuegos.greverseroll import reverseroll
 from minijuegos.gsnake import snake_game
 from minijuegos.constantes import configuration
 from minijuegos.meta import administrador
+from scorefile.filemanager import ScoreFile
 import ui.gameover.gameover
 
 def main():
@@ -65,10 +66,17 @@ def main():
         
         score = admin.getScore()
         name_and_save = ui.gameover.gameover.main(score=score)
+        
         name = name_and_save[0]
         save = name_and_save[1]
+        override = False
         if save and not name == "":
             print("Se guarda y vuelve al menu")
+            score_file = ScoreFile()
+            score_file.save_score(name,score,override=override)
+            #TABLA DE PUNTUACIONES
+            for element in score_file.__str__int__():
+                print(element)
             #clase que guarda en un archivo local las puntuaciones al estilo => name:score (por ejemplo)
         else:
             print("No se guarda y vuelve al menu")
