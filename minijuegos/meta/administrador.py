@@ -16,6 +16,8 @@ class Administrador():
 
 		self._sound_new_loop = pygame.mixer.Sound('data\\sound\\power_up.wav')
 
+		self.initial_pic_post_pause = False
+
 	def ejecutarJuego(self, juego):
 
 		while self._enJuego and juego.get_game_state()['playing']:
@@ -26,8 +28,13 @@ class Administrador():
 			if juego.get_game_state()['pause']:
 				# si el juego esta pausado, muestro msj en pantalla
 				self._pantallaPausa.display(juego.screen)
+				self.initial_pic_post_pause = True
 			else:
 				# si no está pausado, actualizo el score
+				if self.initial_pic_post_pause:
+					self._pantallaPausa._sound_pause_out.play()
+					self.initial_pic_post_pause = False
+					self._pantallaPausa.initial_pic = True
 				self._update_score()
 
 			self.display_score(juego.screen) # dibujo el score

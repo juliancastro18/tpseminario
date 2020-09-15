@@ -2,7 +2,7 @@ from minijuegos.constantes import configuration, color
 import pygame as pg
 class InputBox:
 
-    def __init__(self, x, y, w, h, text=''):
+    def __init__(self, x, y, w, h, text='', limit_len_txt = 9):
         self.rect = pg.Rect(x, y, w, h)
         self.color = color.WHITE
         self.text = text
@@ -11,6 +11,7 @@ class InputBox:
         self.active = False
         self.end = False
         self.save = True
+        self.limit_len_txt = limit_len_txt
 
     def handle_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
@@ -28,7 +29,7 @@ class InputBox:
                     self.text = self.text[:-1]
                 elif event.key == pg.K_ESCAPE:
                     self.active = False
-                elif len(self.text)<9:
+                elif len(self.text)<self.limit_len_txt:
                     self.text += event.unicode
                     self.text = self.text.upper()
                 # Re-render the text.
