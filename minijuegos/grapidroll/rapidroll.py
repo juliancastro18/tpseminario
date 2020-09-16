@@ -16,7 +16,7 @@ class RapidRoll(Scene):
         self._contadorPlataformas = 0
         self._maximoPlataformas = 10 + (loop * 2)
         self._velPlataformas = 3 + int(loop*0.5)
-        self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - (loop*10)
+        self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - (int(loop/2)*20)
         self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
 
 

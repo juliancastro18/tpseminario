@@ -17,7 +17,7 @@ class ReverseRoll(Scene):
         self._contadorPlataformas = 0
         self._maximoPlataformas = 10 + (loop * 3)
         self._velPlataformas = 3 + int(loop*0.5)
-        self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - 50 + (loop*5)
+        self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - 60 + (int(loop/4)*20)
 
 
     def process(self):

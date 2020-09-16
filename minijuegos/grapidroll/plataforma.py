@@ -77,6 +77,10 @@ class Plataforma(Barra):
         return False
 
     def update(self, ventana):
-        if self._ultimaPlataforma == True and self._rect.top < configuration.SCREEN_HEIGHT - 80:
-            self._velY = 0
+
+        if self._ultimaPlataforma == True:
+            distancia_del_suelo = 80
+            porcentaje_distancia = ( self._rect.top - configuration.SCREEN_HEIGHT - distancia_del_suelo ) / distancia_del_suelo
+            self._velY = 3 * porcentaje_distancia
+
         self._rect.top -= self._velY
