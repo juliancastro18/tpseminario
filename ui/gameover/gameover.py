@@ -7,7 +7,7 @@ from ui.input_box import InputBox
 class GameOver(Scene):
     def __init__(self, score : int):
         super().__init__()
-        self.input_box = InputBox(260,120,30,60)
+        self.input_box = InputBox(260,120,30,60,size_font=55, limit_char='|')
         self.tittle_text = "GAME OVER"
         self.tittle_font = font.Font('data\\font\\dpcomic.ttf',100)
         self.name_font = font.Font('data\\font\\dpcomic.ttf',55)
