@@ -18,6 +18,7 @@ class Plataforma(Barra):
         self._ultimaPlataforma = False
         self._distanciaNext = randint(80,200)
         self._velY = velY
+        self._velInicial = velY #usado para plataforma que desacelera
 
     def randomPosX(self, largo):
         cuartoDePantalla = int((configuration.SCREEN_WIDTH-largo)/4)
@@ -76,7 +77,18 @@ class Plataforma(Barra):
                 return True
         return False
 
+    def _desacelerar(self):
+        comienzo_freno_desde_bottom = 40
+        distancia_final_desde_bottom = 100
+
+        if self._rect.top <= (configuration.SCREEN_HEIGHT - comienzo_freno_desde_bottom):
+            falta_para_llegar = self._rect.top - configuration.SCREEN_HEIGHT + distancia_final_desde_bottom
+            distancia_total = distancia_final_desde_bottom - comienzo_freno_desde_bottom
+            self._velY = self._velInicial * ( falta_para_llegar / distancia_total )
+
+
     def update(self, ventana):
-        if self._ultimaPlataforma == True and self._rect.top < configuration.SCREEN_HEIGHT - 80:
-            self._velY = 0
+        if self._ultimaPlataforma == True:
+            self._desacelerar()
+
         self._rect.top -= self._velY
