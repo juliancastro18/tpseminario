@@ -9,7 +9,7 @@ class InputBox:
         self.__font = pg.font.Font('data\\font\\dpcomic.ttf', size_font)
         self.txt_surface = self.__font.render(text, True, self.color)
         
-        self.active = False
+        self.active = True
         self.end = False
         self.save = True
         self.script_activated = True
@@ -22,13 +22,6 @@ class InputBox:
        
 
     def handle_event(self, event):
-        if event.type == pg.MOUSEBUTTONDOWN:
-            # If the user clicked on the input_box rect.
-            if self.rect.collidepoint(event.pos):
-                # Toggle the active variable.
-                self.active = not self.active
-            else:
-                self.active = False
         if event.type == pg.KEYDOWN:
             if self.active:
                 if event.key == pg.K_RETURN:
@@ -36,7 +29,8 @@ class InputBox:
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]
                 elif event.key == pg.K_ESCAPE:
-                    self.active = False
+                    self.save = False
+                    self.end = True
                 elif len(self.text)<self.limit_len_txt:
                     self.text += event.unicode
                     self.text = self.text.upper()
