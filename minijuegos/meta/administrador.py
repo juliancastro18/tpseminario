@@ -53,12 +53,14 @@ class Administrador():
 			# si el jugador perdió
 			if self._enJuego == False:
 				self.game_over_clip.play()
-				for i in range(0,7):
+				for i in range(0,6):
 					self._clock.tick(12)
 					juego.display_frame()
 					self.display_score(juego.screen)
 					juego.screen.blit(self._array_transicion[i], (0,0))
 					pygame.display.update()
+				juego.screen.fill(color.BLACK)
+				pygame.display.update()
 				self._clock.tick(2)
 
 
@@ -93,7 +95,6 @@ class Administrador():
 			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r3.png"))
 			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r4.png"))
 			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r5.png"))
-			lista_img.append(pygame.image.load("data\\img\\ruido_transicion\\r6.png"))
 		return lista_img
 
 	def getLoopContador(self):
