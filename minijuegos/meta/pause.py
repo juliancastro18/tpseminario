@@ -6,8 +6,7 @@ class Pause():
 	def __init__(self):
 		self._font = pygame.font.Font('data\\font\\dpcomic.ttf', 80)
 		self._background = pygame.image.load("data\\img\\grid.png")
-		self._sound_pause = pygame.mixer.Sound('data\\sound\\pause.wav')
-		self._sound_pause.set_volume(0.5)
+		
 		self._sound_pause_in = pygame.mixer.Sound('data\\sound\\pause\\sfx_sounds_pause4_in.wav')
 		self._sound_pause_out = pygame.mixer.Sound('data\\sound\\pause\\sfx_sounds_pause4_out.wav')
 		self._texto = "PAUSA"
@@ -30,7 +29,6 @@ class Pause():
 		if self._displayText:
 
 			if self._mostrandoTexto == False:
-				# self._sound_pause.play()
 				
 				self._mostrandoTexto = True
 
