@@ -18,6 +18,8 @@ class RapidRoll(Scene):
         self._velPlataformas = 3 + int(loop*0.5)
         self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - (int(loop/2)*20)
         self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
+        self._ultimaPlat = None
+        self._degrade = pygame.image.load("data\\img\\gradient.png")
 
 
     def process(self):
@@ -49,19 +51,27 @@ class RapidRoll(Scene):
             self._state['alive'] = self._bolaJugador.update()
 
             # si solo queda la ultima plataforma y el jugador esta colisionando con ella, indico que terminó el juego
-            if len(self._plataformas) == 1 and self._plataformas[0].getUltimaPlataforma() == True and self._bolaJugador.rect.colliderect(self._plataformas[0].getRect()):
+            if len(self._plataformas) > 1 and self._ultimaPlat is not None and self._sumarVelocidadesPlat() == 0:
                 self._state['playing'] = False
 
 
     def display_frame(self):
         self.screen.fill(color.BLACK)
 
+        for plat in self._plataformas:
+            if not plat.getEsColisionable():
+                plat.draw(self.screen)
+
+        if self._ultimaPlat is not None:
+            self.screen.blit(self._degrade, (0,0))
+
         colisionandoAhora = False
         for plat in self._plataformas:
-            plat.draw(self.screen)
-            if plat.colisionSuperior(self._bolaJugador):
-                self._bolaJugador.setEnPlataforma(plat.getTop())
-                colisionandoAhora = True
+            if plat.getEsColisionable():
+                plat.draw(self.screen)
+                if plat.colisionSuperior(self._bolaJugador):
+                    self._bolaJugador.setEnPlataforma(plat.getTop())
+                    colisionandoAhora = True
 
         if colisionandoAhora == False:
             self._bolaJugador.colisionando = False
@@ -94,10 +104,18 @@ class RapidRoll(Scene):
         else:
 
             # si llego al maximo de plataformas, agrego a la lista la ultima plataforma
-            if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
-                ultimaPlataforma = Plataforma(self._velPlataformas, self._largoPlataformas)
+            if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma() and self._ultimaPlat is None:
+                ultimaPlataforma = Plataforma(self._velPlataformas, self._largoPlataformas, posicionFinal = 380)
                 self._plataformas.append( ultimaPlataforma )
                 ultimaPlataforma.setUltimaPlataforma()
+                self._ultimaPlat = ultimaPlataforma
+                self._contadorPlataformas += 1
+
+
+        # agrego plataformas no colisionables si existe ultimaPlataforma
+        if self._ultimaPlat is not None and self._bolaJugador.rect.colliderect(self._ultimaPlat.getRect()):
+            if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma() and len(self._plataformas)<=18:
+                self.agregarNoColisionable()
 
 
     def agregarPrimerPlataforma(self):
@@ -106,6 +124,25 @@ class RapidRoll(Scene):
         self._plataformas.append(primerPlataforma)
         self._contadorPlataformas += 1
 
+    def agregarNoColisionable(self):
+        cantNoColisionables = self._cantNoColisionables()
+        fila = (int(cantNoColisionables/6) * tamformas.BARRA_LADO_MENOR) + 50 + int(cantNoColisionables/6) * 5
+        nuevaPlataforma = Plataforma(self._velPlataformas*1.35, 90, colisionable = False, posicionFinal = fila)
+        nuevaPlataforma.setNoColisionable(self._plataformas[len(self._plataformas)-1])
+        self._plataformas.append(nuevaPlataforma)
+
+    def _sumarVelocidadesPlat(self):
+        sumaVelocidad = 0
+        for plat in self._plataformas:
+            sumaVelocidad += plat._velY
+        return sumaVelocidad
+
+    def _cantNoColisionables(self):
+        cont = 0
+        for plat in self._plataformas:
+            if not plat.getEsColisionable():
+                cont += 1
+        return cont
 
     def getIsPaused(self):
         return self._state['pause']

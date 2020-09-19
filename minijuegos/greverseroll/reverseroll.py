@@ -18,6 +18,7 @@ class ReverseRoll(Scene):
         self._maximoPlataformas = 10 + (loop * 3)
         self._velPlataformas = 3 + int(loop*0.5)
         self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - 60 + (int(loop/4)*20)
+        self._existeUltimaPlat = False
 
 
     def process(self):
@@ -50,7 +51,7 @@ class ReverseRoll(Scene):
             for plat in self._plataformas:
                 plat.update(self.screen)
 
-            # si solo queda la ultima plataforma y el jugador esta colisionando con ella, indico que terminó el juego
+            # si solo queda la ultima plataforma, indico que terminó el juego
             if len(self._plataformas) == 1 and self._plataformas[0].getUltimaPlataforma():
                 self._state['playing'] = False
 
@@ -93,12 +94,13 @@ class ReverseRoll(Scene):
 
                 self._contadorPlataformas += 1
             
-            else: # sino, agrego la ultima con sus características
+            elif not self._existeUltimaPlat: # sino, agrego la ultima con sus características
 
-                ultimaPlataforma = Plataforma(self._velPlataformas, 75)
+                ultimaPlataforma = Plataforma(self._velPlataformas, 75, posicionFinal = 380)
                 ultimaPlataforma.setUltimaPlataforma()
                 ultimaPlataforma.setGrosor(25)
                 self._plataformas.append( ultimaPlataforma )
+                self._existeUltimaPlat = True
 
 
     def getIsPaused(self):
