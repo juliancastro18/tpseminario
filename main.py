@@ -63,23 +63,26 @@ def main():
         # << acá mostraría el score >>
         # apretando ESC vuelve al menu
         # apretando ENTER te pide nombre y guarda la puntuación, luego vuelve al menu
+        score_file = ScoreFile()
         
         score = admin.getScore()
-        name_and_save = ui.gameover.gameover.main(score=score)
-        
-        name = name_and_save[0]
-        save = name_and_save[1]
-        override = False
-        if save and not name == "":
-            print("Se guarda y vuelve al menu")
-            score_file = ScoreFile()
-            score_file.save_score(name,score,override=override)
-            #TABLA DE PUNTUACIONES
-            for element in score_file.__str__int__():
-                print(element)
-            #clase que guarda en un archivo local las puntuaciones al estilo => name:score (por ejemplo)
+        if score_file.check_min_score(score):
+            print('No entras en el top 10 y se va a el menu :P')
         else:
-            print("No se guarda y vuelve al menu")
+            name_and_save = ui.gameover.gameover.main(score=score)
+            
+            name = name_and_save[0]
+            save = name_and_save[1]
+            override = False
+            if save and not name == "":
+                print("Se guarda y vuelve al menu")
+                score_file.save_score(name,score,override=override)
+                #TABLA DE PUNTUACIONES
+                for element in score_file.__str__int__():
+                    print(element)
+                #clase que guarda en un archivo local las puntuaciones al estilo => name:score (por ejemplo)
+            else:
+                print("No se guarda y vuelve al menu")
 
         print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
         

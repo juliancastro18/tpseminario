@@ -3,6 +3,15 @@ from io import open
 class ScoreFile():
     def __init__(self):
         self.path = 'data\\score.txt'
+    def check_min_score(self, player_score:int):
+        result = True
+        score_lst = self.__str__int__()
+        if len(score_lst)>10:
+            result = player_score <= score_lst[9][1]
+        else:
+           result = False
+        return result
+     
     
     def save_score(self, name : str, score : int, override = False):
         open_ = False
@@ -70,9 +79,10 @@ class ScoreFile():
 
 def main():
     file_ =  ScoreFile()
-    for element in file_.__str__int__():
-        print(element)
-    file_.save_score('pepe_grillo',100,override=True)
+    if file_.check_min_score(11):
+        print("No entra en el top 10")
+    else:
+        print("Entra en el top 10")
     
 if __name__ == "__main__":
     main()
