@@ -100,7 +100,7 @@ class Game(Scene):
         self.__snake.draw(self.screen, pause=self._state['pause'])
         # self.screen.blit(self.score_text, self.textRect)
         # UPDATE
-        self.__clock.tick(200 + self.extra_speed)
+        self.__clock.tick(300 + self.extra_speed)
         
         
     def spawn_food(self):
