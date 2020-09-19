@@ -144,11 +144,28 @@ class RapidRoll(Scene):
                 cont += 1
         return cont
 
+
     def getIsPaused(self):
         return self._state['pause']
 
     def togglePause(self):
         self._state['pause'] ^= True
 
+
+    # METODOS PARA QUE OTROS JUEGOS USEN SUS ELEMENTOS
+    def getListaBarrasProxJuego(self):
+        listaBarras = []
+        for plat in self._plataformas:
+            if not plat.getUltimaPlataforma():
+                nuevaBarra = Barra.new_from(plat)
+                listaBarras.append(nuevaBarra)
+        return listaBarras
+
     def getJugadorPosXY(self):
         return self._bolaJugador.getPosicionXY()
+
+    def getJugadorBola(self):
+        return Bola.new_from(self._bolaJugador)
+
+    def getUltimaPlataforma(self):
+        return Barra.new_from(self._ultimaPlat)

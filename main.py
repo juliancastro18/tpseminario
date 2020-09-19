@@ -41,8 +41,11 @@ def main():
             rapid = rapidroll.RapidRoll((600, 40), admin.getLoopContador())
             admin.ejecutarJuego(rapid)
             
-
             # << acá iría el de los ladrillos >>
+            # para obtener las barras: rapid.getListaBarrasProxJuego()
+            # para obtener la bola: rapid.getJugadorPosXY() o rapid.getJugadorBola()
+            # para obtener la barra que moverá el jugador: rapid.getUltimaPlataforma()
+
             # tendría que pasarle al reverse roll la posicion de la bola que rompe los ladrillos al romper el ultimo
             # y la barra que maneja el jugador
 
