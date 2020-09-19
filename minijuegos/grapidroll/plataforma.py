@@ -40,7 +40,6 @@ class Plataforma(Barra):
 
     def setNoColisionable(self, plataformaAnterior):
 
-        #self._posY = 380
         self._distanciaNext = 20
         if plataformaAnterior._ultimaPlataforma or plataformaAnterior._posX==515:
             self._posX = 40

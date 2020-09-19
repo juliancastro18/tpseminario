@@ -21,6 +21,8 @@ class RapidRoll(Scene):
         self._ultimaPlat = None
         self._degrade = pygame.image.load("data\\img\\gradient.png")
 
+        self._sonidoAscenso = pygame.mixer.Sound('data\\sound\\platup.wav')
+
 
     def process(self):
 
@@ -52,6 +54,7 @@ class RapidRoll(Scene):
 
             # si solo queda la ultima plataforma y el jugador esta colisionando con ella, indico que terminó el juego
             if len(self._plataformas) > 1 and self._ultimaPlat is not None and self._sumarVelocidadesPlat() == 0:
+                self._sonidoAscenso.stop()
                 self._state['playing'] = False
 
 
@@ -126,6 +129,10 @@ class RapidRoll(Scene):
 
     def agregarNoColisionable(self):
         cantNoColisionables = self._cantNoColisionables()
+
+        if cantNoColisionables == 1:
+            self._sonidoAscenso.play()
+
         fila = (int(cantNoColisionables/6) * tamformas.BARRA_LADO_MENOR) + 50 + int(cantNoColisionables/6) * 5
         nuevaPlataforma = Plataforma(self._velPlataformas*1.35, 90, colisionable = False, posicionFinal = fila)
         nuevaPlataforma.setNoColisionable(self._plataformas[len(self._plataformas)-1])
