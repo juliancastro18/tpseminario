@@ -158,9 +158,6 @@ class RapidRoll(Scene):
     def getIsPaused(self):
         return self._state['pause']
 
-    def togglePause(self):
-        self._state['pause'] ^= True
-
     def agregarScore(self, puntos = 1):
         self._score += puntos
 
