@@ -71,6 +71,7 @@ class ReverseRoll(Scene):
 
         if len(self._plataformas) == 0 and self._contadorPlataformas == 0:
             self._plataformas.append( Plataforma(self._velPlataformas, self._largoPlataformas) )
+            self.agregarScore()
 
         # elimino plataformas que ya no estén en pantalla
         for plat in self._plataformas:
@@ -87,10 +88,12 @@ class ReverseRoll(Scene):
                 # si la plataformaAnterior pide cierta distancia y no es una plataforma movil, agrego una movil
                 if plataformaAnterior.getDistanciaNext() >= 150 and not isinstance(plataformaAnterior, PlataformaMovil):
                     self._plataformas.append ( PlataformaMovil(self._velPlataformas, self._largoPlataformas) )
+                    self.agregarScore(2)
                 else:
                     plataforma_nueva = Plataforma(self._velPlataformas, self._largoPlataformas)
                     plataforma_nueva.checkPosX(plataformaAnterior.getLeft())
                     self._plataformas.append( plataforma_nueva )
+                    self.agregarScore()
 
                 self._contadorPlataformas += 1
             
@@ -101,7 +104,11 @@ class ReverseRoll(Scene):
                 ultimaPlataforma.setGrosor(25)
                 self._plataformas.append( ultimaPlataforma )
                 self._existeUltimaPlat = True
+                self.agregarScore()
 
+
+    def agregarScore(self, puntos = 1):
+        self._score += puntos
 
     def getIsPaused(self):
         return self._state['pause']

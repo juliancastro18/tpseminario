@@ -16,8 +16,7 @@ class Administrador():
 		self.initial_pic_post_pause = False
 
 		# manejo de puntuacion
-		self._score = 0
-		self._reloj = 0
+		self._total_score = 0
 		self._font = pygame.font.Font('data\\font\\dpcomic.ttf', 30)
 
 		# otros
@@ -31,20 +30,19 @@ class Administrador():
 
 			juego.process() # proceso el juego
 			juego.display_frame() # lo dibujo en la pantalla
+			self._total_score += juego.get_score() * (self._loopContador+1) #actualizo score
 
 			if juego.get_game_state()['pause']:
 				# si el juego esta pausado, muestro msj en pantalla
 				self._pantallaPausa.display(juego.screen)
 				self.initial_pic_post_pause = True
 			else:
-				# si no está pausado, actualizo el score
 				if self.initial_pic_post_pause:
 					self._pantallaPausa._sound_pause_out.play()
 					self.initial_pic_post_pause = False
 					self._pantallaPausa.initial_pic = True
-				self._update_score()
 
-			self.display_score(juego.screen) # dibujo el score
+			self.display_total_score(juego.screen) # dibujo el score
 			pygame.display.update() # actualizo la pantalla
 
 			# reviso si el jugador está vivo
@@ -56,7 +54,7 @@ class Administrador():
 				for i in range(0,6):
 					self._clock.tick(12)
 					juego.display_frame()
-					self.display_score(juego.screen)
+					self.display_total_score(juego.screen)
 					juego.screen.blit(self._array_transicion[i], (0,0))
 					pygame.display.update()
 				juego.screen.fill(color.BLACK)
@@ -64,9 +62,9 @@ class Administrador():
 				self._clock.tick(2)
 
 
-	def display_score(self, screen):
+	def display_total_score(self, screen):
 
-		score_str = str(self._score)
+		score_str = str(self._total_score)
 		while len(score_str) < 6:
 			score_str = '0' + score_str
 
@@ -80,11 +78,6 @@ class Administrador():
 		text_rect.topleft = (10,10)
 		screen.blit(text_obj, text_rect)
 
-	def _update_score(self):
-		tiempo_actual = pygame.time.get_ticks()
-		if tiempo_actual - self._reloj > 500: # si paso mas de medio seg
-			self._score += 25 * (self._loopContador+1)
-			self._reloj = tiempo_actual
 
 	def _cargar_ruido(self):
 		lista_img = []
@@ -104,13 +97,10 @@ class Administrador():
 		return self._enJuego
 
 	def getScore(self):
-		return self._score
+		return self._total_score
 
 	def agregarLoopContador(self):
 		self._loopContador += 1
-
-	def iniciarCronometro(self):
-		self._reloj = pygame.time.get_ticks()
 
 	def reproducirNuevoLoop(self):
 		self._sound_new_loop.play()

@@ -103,6 +103,7 @@ class RapidRoll(Scene):
             if len(self._plataformas) < 6 and self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma():
                 self._plataformas.append( Plataforma(self._velPlataformas, self._largoPlataformas) )
                 self._contadorPlataformas += 1
+                self.agregarScore()
 
         else:
 
@@ -113,6 +114,7 @@ class RapidRoll(Scene):
                 ultimaPlataforma.setUltimaPlataforma()
                 self._ultimaPlat = ultimaPlataforma
                 self._contadorPlataformas += 1
+                self.agregarScore()
 
 
         # agrego plataformas no colisionables si existe ultimaPlataforma
@@ -126,6 +128,7 @@ class RapidRoll(Scene):
         primerPlataforma.setPrimerPlataforma()
         self._plataformas.append(primerPlataforma)
         self._contadorPlataformas += 1
+        self.agregarScore()
 
     def agregarNoColisionable(self):
         cantNoColisionables = self._cantNoColisionables()
@@ -158,6 +161,8 @@ class RapidRoll(Scene):
     def togglePause(self):
         self._state['pause'] ^= True
 
+    def agregarScore(self, puntos = 1):
+        self._score += puntos
 
     # METODOS PARA QUE OTROS JUEGOS USEN SUS ELEMENTOS
     def getListaBarrasProxJuego(self):

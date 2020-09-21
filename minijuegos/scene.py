@@ -8,6 +8,7 @@ class Scene():
 		self._state = {'alive':True, 'playing':True, 'pause':False}
 		self._clock = pygame.time.Clock()
 		self._fps = 60
+		self._score = 0
 
 	def process(self):
 		pass
@@ -23,3 +24,8 @@ class Scene():
 
 	def get_game_state(self):
 		return self._state
+
+	def get_score(self):
+		points = self._score
+		self._score = 0
+		return points

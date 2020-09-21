@@ -19,7 +19,6 @@ def main():
     pygame.display.set_icon(icono)
 
 
-
     while True: # loop infinito hasta que se cierre pygame
 
         admin = administrador.Administrador() # inicio el administrador de juegos
@@ -27,7 +26,6 @@ def main():
         # << acá iría el menú >>
         # opciones: comenzar, puntuaciones, controles, salir
 
-        admin.iniciarCronometro() # comienzo a contar el tiempo transcurrido
         while admin.getEnJuego():
 
             admin.reproducirNuevoLoop()
