@@ -13,7 +13,7 @@ class Pause():
 		self._mostrandoTexto = False
 		self._displayText = True
 		self._timer = 0
-  
+
 		self.initial_pic = True
 
 
@@ -24,6 +24,7 @@ class Pause():
   
 		if self.initial_pic:
 			self.initial_pic = False
+			pygame.mixer.pause()
 			self._sound_pause_in.play()
    
 		if self._displayText:

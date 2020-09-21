@@ -4,8 +4,11 @@ from pygame.locals import *
 from minijuegos.grapidroll import rapidroll
 from minijuegos.greverseroll import reverseroll
 from minijuegos.gsnake import snake_game
-from minijuegos.constantes import configuration
+from minijuegos.constantes import configuration, tamformas, color
 from minijuegos.meta import administrador
+from minijuegos.gubicadorpong import ubicadorpong
+from minijuegos.formas import barra, bola
+from minijuegos import scene
 from scorefile.filemanager import ScoreFile
 import ui.gameover.gameover
 
@@ -23,8 +26,20 @@ def main():
 
         admin = administrador.Administrador() # inicio el administrador de juegos
 
+        ubicador_pong = ubicadorpong.UbicadorPong(150, fondo_transparente = True, bloqueo = True)
+        escena_aux = scene.Scene()
+        fuente_aux = pygame.font.Font('data\\font\\dpcomic.ttf', 80)
+
+        while ubicador_pong.get_game_state()['playing']:
+            escena_aux.screen.fill(color.BLACK)
+            escena_aux._draw_text(fuente_aux, "holissss", configuration.SCREEN_WIDTH/2-100, configuration.SCREEN_HEIGHT/2+20)
+            ubicador_pong.process()
+            ubicador_pong.display_frame()
+            pygame.display.update()
+
         # << acá iría el menú >>
         # opciones: comenzar, puntuaciones, controles, salir
+
 
         while admin.getEnJuego():
 

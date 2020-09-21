@@ -38,6 +38,7 @@ class Administrador():
 				self.initial_pic_post_pause = True
 			else:
 				if self.initial_pic_post_pause:
+					pygame.mixer.unpause()
 					self._pantallaPausa._sound_pause_out.play()
 					self.initial_pic_post_pause = False
 					self._pantallaPausa.initial_pic = True
