@@ -11,6 +11,7 @@ from minijuegos.formas import barra, bola
 from minijuegos import scene
 from scorefile.filemanager import ScoreFile
 import ui.gameover.gameover
+import ui.highscore.highscore
 
 def main():
 
@@ -109,9 +110,13 @@ def main():
                 for element in score_file.__str__int__():
                     print(element)
                 #clase que guarda en un archivo local las puntuaciones al estilo => name:score (por ejemplo)
+                score_file.override_file()
             else:
                 print("No se guarda y vuelve al menu")
-
+        
+        #PUNTUACIONES, LLAMAR CUANDO SEA NECESARIO
+        ui.highscore.highscore.main(score_file.__str__int__())
+        
         print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
         
 

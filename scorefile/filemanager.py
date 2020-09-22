@@ -75,7 +75,16 @@ class ScoreFile():
                 lst.append((aux_name,aux_score))
                 index+=1
             return sorted(lst,key = lambda x : x[1],reverse = True)
-
+    def override_file(self):
+        scores = self.__str__int__()
+        try:
+            file_ = open(self.path,'w')
+            for e in scores:
+                file_.write('{}:{}\n'.format(e[0],e[1]))
+        except:
+            raise Exception('[WARNING] Not found or empty txt')
+        finally:
+            file_.close()
 
 def main():
     file_ =  ScoreFile()

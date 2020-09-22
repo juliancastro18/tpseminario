@@ -63,6 +63,7 @@ class Game(Scene):
             if self.__snake.get_head().collider.colliderect(self.__green_squares[0]):
                 self.__green_squares.pop(0)
                 self.__snake.add_square()
+                self._score = 1
             
 
             if len(self.__snake.body) > self.score_to_win:
