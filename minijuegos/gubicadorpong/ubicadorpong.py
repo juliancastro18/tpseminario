@@ -1,4 +1,4 @@
-# esta clase que funciona como un juego, toma por parametro 2 barras y 1 bola
+# esta clase que se estructura como un juego, toma por parametro 2 barras y 1 bola
 # y las mueve desde su posicion actual hasta la posicion indicada
 # realizando un efecto de aceleración/desaceleración
 # si no se le pasan elementos, por defecto los crea en el centro
@@ -11,9 +11,12 @@ from minijuegos.constantes import color, tamformas, configuration
 
 class UbicadorPong(Scene):
 
-	# distancia_final_screen_left es la distancia a la que quedará
-	# la barra izquierda del borde izq de la pantalla
-	def __init__(self, distancia_final_screen_left, barras : tuple = None, bola_param = None, auto = True, fondo_transparente = False, bloqueo = False):
+	# distancia_final_screen_left es la distancia a la que quedará la barra izq del borde izq de la pantalla
+	# auto es True si deja de ejecutar al terminar la animacion
+	# fondo_transparente True se usa si se combina con otra screen
+	# bloqueo se usa cuando se combina con otra screen y se quiere tapar lo que esta atrás al juntarse las barras
+	def __init__(self, distancia_final_screen_left, barras : tuple = None, bola_param = None,
+		        auto = True, fondo_transparente = False, bloqueo = False):
 
 		super().__init__()
 		self._barra_izquierda = None
@@ -38,6 +41,10 @@ class UbicadorPong(Scene):
 		
 		self._termina_auto = auto
 		self._fondo_transparente = fondo_transparente
+		self._in_out = True
+
+		if self._barra_izquierda.getRect().left < distancia_final_screen_left:
+			self._in_out = False
 
 	def process(self):
 
@@ -100,11 +107,11 @@ class UbicadorPong(Scene):
 			self._bloqueo_der = self._barra_derecha.getRect().copy().inflate(500,0)
 
 
-	def calcular_velocidad(self):
+	def calcular_velocidad_in_out(self):
 		fin_aceleracion_pos = self._pos_inicial_izq - self._distancia_aceleracion
 		inicio_desaceleracion_pos = self._pos_final_izq + self._distancia_aceleracion
 
-		if fin_aceleracion_pos <= self._barra_izquierda.getRect().left: # and self._vel_actual < self._vel_max:
+		if fin_aceleracion_pos <= self._barra_izquierda.getRect().left:
 			self._porcentaje_vel = (self._barra_izquierda.getRect().left - fin_aceleracion_pos) / self._distancia_aceleracion
 			if self._porcentaje_vel == 1:
 				self._porcentaje_vel = 0.95
@@ -116,15 +123,40 @@ class UbicadorPong(Scene):
 		#print(self._porcentaje_vel)
 		return self._porcentaje_vel * self._vel_max
 
+	def calcular_velocidad_out_in(self):
+		fin_aceleracion_pos = self._pos_inicial_izq + self._distancia_aceleracion
+		inicio_desaceleracion_pos = self._pos_final_izq - self._distancia_aceleracion
+
+		if fin_aceleracion_pos >= self._barra_izquierda.getRect().left:
+			self._porcentaje_vel = (fin_aceleracion_pos - self._barra_izquierda.getRect().left) / self._distancia_aceleracion
+			if self._porcentaje_vel == 1:
+				self._porcentaje_vel = 0.95
+			self._porcentaje_vel = 1 - self._porcentaje_vel
+
+		elif inicio_desaceleracion_pos <= self._barra_izquierda.getRect().left:
+			self._porcentaje_vel = (self._pos_final_izq - self._barra_izquierda.getRect().left) / self._distancia_aceleracion
+
+		#print(self._porcentaje_vel)
+		return self._porcentaje_vel * self._vel_max
+
 	def mover_formas(self):
-		self._vel_actual = self.calcular_velocidad()
-		self._barra_izquierda.getRect().left -= math.ceil(self._vel_actual)
-		self._barra_derecha.getRect().right += math.ceil(self._vel_actual)
+
+		if self._in_out == True:
+			self._vel_actual = self.calcular_velocidad_in_out() 
+			self._barra_izquierda.getRect().left -= math.ceil(self._vel_actual)
+			self._barra_derecha.getRect().right += math.ceil(self._vel_actual)
+		else:
+			self._vel_actual = self.calcular_velocidad_out_in()
+			self._barra_izquierda.getRect().left += math.ceil(self._vel_actual)
+			self._barra_derecha.getRect().right -= math.ceil(self._vel_actual)			
 
 		if self._bloqueo_izq is not None:
 			self._bloqueo_izq.right = self._barra_izquierda.getRect().left + 2
 			self._bloqueo_der.left = self._barra_derecha.getRect().right - 2
 		#print(self._vel_actual, " // ", self._barra_izquierda.getRect().left, " // ", self._barra_derecha.getRect().right)
+
+	def get_barras(self):
+		return (self._barra_izquierda, self._barra_derecha)
 
 
 	def set_posicion_bola(self, posXY):
