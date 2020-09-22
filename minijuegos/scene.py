@@ -17,7 +17,7 @@ class Scene():
 		pass
 
 	def _draw_text(self, font, text : str, x : int, y : int):
-		text_Obj = font.render(text,1,color.WHITE,self.screen)
+		text_Obj = font.render(text,0,color.WHITE,self.screen)
 		text_rect = text_Obj.get_rect()
 		text_rect.topleft = (x,y)
 		self.screen.blit(text_Obj, text_rect)

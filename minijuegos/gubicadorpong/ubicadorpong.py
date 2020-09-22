@@ -12,11 +12,10 @@ from minijuegos.constantes import color, tamformas, configuration
 class UbicadorPong(Scene):
 
 	# distancia_final_screen_left es la distancia a la que quedará la barra izq del borde izq de la pantalla
-	# auto es True si deja de ejecutar al terminar la animacion
 	# fondo_transparente True se usa si se combina con otra screen
 	# bloqueo se usa cuando se combina con otra screen y se quiere tapar lo que esta atrás al juntarse las barras
-	def __init__(self, distancia_final_screen_left, barras : tuple = None, bola_param = None,
-		        auto = True, fondo_transparente = False, bloqueo = False):
+	def __init__(self, distancia_final_screen_left = None, barras : tuple = None, bola_param = None,
+		        fondo_transparente = False, bloqueo = False, tick = True):
 
 		super().__init__()
 		self._barra_izquierda = None
@@ -28,7 +27,11 @@ class UbicadorPong(Scene):
 		self._set_bloqueo(bloqueo)
 
 		self._pos_inicial_izq = self._barra_izquierda.getRect().left
-		self._pos_final_izq = distancia_final_screen_left
+		self._pos_final_izq = None
+		if distancia_final_screen_left is not None:
+			self._pos_final_izq = distancia_final_screen_left
+		else:
+			self._pos_final_izq = (configuration.SCREEN_WIDTH/2) - (tamformas.BARRA_LADO_MENOR/2)
 
 		self._vel_actual = 0
 		self._vel_max = 4
@@ -39,16 +42,17 @@ class UbicadorPong(Scene):
 		self._set_bola(bola_param)
 		self._bola_visible = True
 		
-		self._termina_auto = auto
+		self._tick = tick
 		self._fondo_transparente = fondo_transparente
 		self._in_out = True
 
-		if self._barra_izquierda.getRect().left < distancia_final_screen_left:
+		if self._barra_izquierda.getRect().left < self._pos_final_izq:
 			self._in_out = False
 
 	def process(self):
 
-		self._clock.tick(self._fps)  # defino 60 frames por segundo como maximo
+		if self._tick:
+			self._clock.tick(self._fps)  # defino 60 frames por segundo como maximo
 
         # para cada evento que reciba pygame...
 		for evento in pygame.event.get():
@@ -57,9 +61,10 @@ class UbicadorPong(Scene):
 				sys.exit()
 
 		self.mover_formas()
-
-		if self._termina_auto and self._pos_final_izq == self._barra_izquierda.getRect().left:
+		
+		if self._pos_final_izq == self._barra_izquierda.getRect().left:
 			self._state['playing'] = False
+		
 
 
 	def display_frame(self):
@@ -67,15 +72,15 @@ class UbicadorPong(Scene):
 		if not self._fondo_transparente:
 			self.screen.fill(color.BLACK)
 
+		if self._bola_visible:
+			self._bola.draw(self.screen)
+
 		if self._bloqueo_izq is not None:
 			pygame.draw.rect(self.screen, color.BLACK, self._bloqueo_izq)
 			pygame.draw.rect(self.screen, color.BLACK, self._bloqueo_der)
 
 		self._barra_izquierda.draw(self.screen)
 		self._barra_derecha.draw(self.screen)
-
-		if self._bola_visible:
-			self._bola.draw(self.screen)
 
 
 	def _set_barras(self, barras):
@@ -99,7 +104,7 @@ class UbicadorPong(Scene):
 			bola_y = (configuration.SCREEN_HEIGHT/2) - tamformas.BOLA_RADIO
 			self._bola = bola.Bola((bola_x,bola_y))
 		else:
-			self._bola = bola
+			self._bola = bola_param
 
 	def _set_bloqueo(self, bloqueo):
 		if bloqueo:
@@ -164,6 +169,9 @@ class UbicadorPong(Scene):
 
 	def get_posicion_bola(self):
 		return self._bola.getPosicionXY()
+
+	def get_bola(self):
+		return self._bola
 
 	def mostrar_bola(self):
 		self._bola_visible = True

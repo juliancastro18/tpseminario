@@ -7,6 +7,7 @@ from minijuegos.gsnake import snake_game
 from minijuegos.constantes import configuration, tamformas, color
 from minijuegos.meta import administrador
 from minijuegos.gubicadorpong import ubicadorpong
+from ui.menu import menu
 from minijuegos.formas import barra, bola
 from minijuegos import scene
 from scorefile.filemanager import ScoreFile
@@ -30,29 +31,13 @@ def main():
 
         admin = administrador.Administrador() # inicio el administrador de juegos
 
-        ubicador_pong = ubicadorpong.UbicadorPong(180, fondo_transparente = True, bloqueo = True)
-        escena_aux = scene.Scene()
-        fuente_aux = pygame.font.Font('data\\font\\dpcomic.ttf', 80)
+        menu_principal = menu.Menu()
+        menu_principal.main()
 
-        while ubicador_pong.get_game_state()['playing']:
-            escena_aux.screen.fill(color.BLACK)
-            escena_aux._draw_text(fuente_aux, "5in1", configuration.SCREEN_WIDTH/2-100, configuration.SCREEN_HEIGHT/2+20)
-            ubicador_pong.process()
-            ubicador_pong.display_frame()
-            pygame.display.update()
-
-        tupla_barras = ubicador_pong.get_barras()
-        ubicador_pong2 = ubicadorpong.UbicadorPong(310, barras = tupla_barras, fondo_transparente = True, bloqueo = True)
-        while ubicador_pong2.get_game_state()['playing']:
-            escena_aux.screen.fill(color.BLACK)
-            escena_aux._draw_text(fuente_aux, "nosviii", configuration.SCREEN_WIDTH/2-100, configuration.SCREEN_HEIGHT/2+20)
-            ubicador_pong2.process()
-            ubicador_pong2.display_frame()
-            pygame.display.update()        
-
-        # << acá iría el menú >>
-        # opciones: comenzar, puntuaciones, controles, salir
-
+        barras_inicio = menu_principal.ubicador_pong.get_barras()
+        bola_inicio = menu_principal.ubicador_pong.get_bola()
+        ubicador_inicio = ubicadorpong.UbicadorPong(30, barras = barras_inicio, bola_param = bola_inicio)
+        admin.ejecutarJuego(ubicador_inicio)
 
         while admin.getEnJuego():
 
