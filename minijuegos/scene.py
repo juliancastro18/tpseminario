@@ -29,3 +29,6 @@ class Scene():
 		points = self._score
 		self._score = 0
 		return points
+
+	def togglePause(self):
+		self._state['pause'] ^= True

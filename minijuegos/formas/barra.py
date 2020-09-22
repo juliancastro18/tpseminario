@@ -54,6 +54,9 @@ class Barra(GameObject):
     def getPosXYMidTop(self):
         return self._rect.midtop
 
+    def getRect(self):
+        return self._rect
+
 
     def setLargo(self, largo):
         if self._esVertical:

@@ -26,5 +26,10 @@ class Bola(GameObject):
     def draw(self, ventana):
         ventana.blit(self.img_bola, self.rect.topleft)
 
+
     def getPosicionXY(self):
         return self.rect.topleft
+
+    def setPosicionXY(self, posXY):
+        self.posX, self.posY = posXY
+        self.rect = pygame.Rect(self.posX, self.posY, self.radio*2, self.radio*2)
