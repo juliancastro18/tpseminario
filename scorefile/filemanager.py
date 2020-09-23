@@ -79,8 +79,12 @@ class ScoreFile():
         scores = self.__str__int__()
         try:
             file_ = open(self.path,'w')
+            index = 0
             for e in scores:
                 file_.write('{}:{}\n'.format(e[0],e[1]))
+                index+=1
+                if index>4:
+                    break
         except:
             raise Exception('[WARNING] Not found or empty txt')
         finally:

@@ -5,6 +5,7 @@ from minijuegos.gubicadorpong import *
 from minijuegos.constantes import tamformas, configuration
 from scorefile.filemanager import ScoreFile
 import ui.highscore.highscore
+# from ui.gameover.gameover import GameOver
 class Menu(Scene):
 
 	def __init__(self):
@@ -119,6 +120,23 @@ class Menu(Scene):
 			ubicador_controles.display_frame()
 			pygame.display.update()
 			tecla_presionada = self.detectar_key()
+		return ubicador_controles
+
+	def game_over(self,game_over_):
+
+		ubicador_controles = ubicadorpong.UbicadorPong(190, fondo_transparente = True, bloqueo = True, tick = False)
+		ubicador_controles.ocultar_bola()
+		end = False
+	
+		while end != True:
+			self.screen.fill(color.BLACK)
+			game_over_.process()
+			game_over_.draw_texts()
+			ubicador_controles.process()
+			ubicador_controles.display_frame()
+			end = game_over_.input_box.end
+			pygame.display.update()
+			self._clock.tick(60)
 		return ubicador_controles
 
 	def hiscore(self,hiscore : ui.highscore.highscore.HighScore):

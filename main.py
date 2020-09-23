@@ -84,7 +84,7 @@ def main():
         if score_file.check_min_score(score):
             print('No entras en el top 10 y se va a el menu :P')
         else:
-            name_and_save = ui.gameover.gameover.main(score=score)
+            name_and_save = ui.gameover.gameover.main(score=score, menu=menu_principal)
             
             name = name_and_save[0]
             save = name_and_save[1]
@@ -104,7 +104,6 @@ def main():
         # ui.highscore.highscore.main(score_file.__str__int__())
         
         print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
-        
 
 #TO_DO_LIST:
 # Los que usan vs code pueden instalar: Todo Tree para ver esta clase de comentarios :)
