@@ -15,11 +15,12 @@ class UbicadorPong(Scene):
 	# fondo_transparente True se usa si se combina con otra screen
 	# bloqueo se usa cuando se combina con otra screen y se quiere tapar lo que esta atrás al juntarse las barras
 	def __init__(self, distancia_final_screen_left = None, barras : tuple = None, bola_param = None,
-		        fondo_transparente = False, bloqueo = False, tick = True):
+		        fondo_transparente = False, bloqueo = False, tick = True, barras_desde_afuera = False):
 
 		super().__init__()
 		self._barra_izquierda = None
 		self._barra_derecha = None
+		self._barras_desde_afuera = barras_desde_afuera
 		self._set_barras(barras)
 
 		self._bloqueo_izq = None
@@ -85,11 +86,22 @@ class UbicadorPong(Scene):
 
 	def _set_barras(self, barras):
 		if barras == None:
-			centro_barra_x = (configuration.SCREEN_WIDTH/2) - (tamformas.BARRA_LADO_MENOR/2)
+			if self._barras_desde_afuera:
+				centro_barra_x = -tamformas.BARRA_LADO_MENOR
+			else:
+				centro_barra_x = (configuration.SCREEN_WIDTH/2) - (tamformas.BARRA_LADO_MENOR/2)
+
 			centro_barra_y = (configuration.SCREEN_HEIGHT/2) - (tamformas.BARRA_LADO_MAYOR/2)
+
 			self._barra_izquierda = barra.Barra(True,(centro_barra_x, centro_barra_y))
+
+			if self._barras_desde_afuera:
+				centro_barra_x = configuration.SCREEN_WIDTH
+
 			self._barra_derecha = barra.Barra(True,(centro_barra_x, centro_barra_y))
+
 		else:
+
 			if barras[0].getPosXY()[0] < barras[1].getPosXY()[0]:
 				self._barra_izquierda = barras[0]
 				self._barra_derecha = barras[1]
