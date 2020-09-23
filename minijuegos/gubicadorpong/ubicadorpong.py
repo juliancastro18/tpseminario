@@ -35,7 +35,7 @@ class UbicadorPong(Scene):
 			self._pos_final_izq = (configuration.SCREEN_WIDTH/2) - (tamformas.BARRA_LADO_MENOR/2)
 
 		self._vel_actual = 0
-		self._vel_max = 4
+		self._vel_max = 6
 		self._distancia_aceleracion = 40
 		self._porcentaje_vel = 0
 
