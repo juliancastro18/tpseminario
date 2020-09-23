@@ -3,7 +3,8 @@ from pygame.locals import *
 from minijuegos.scene import *
 from minijuegos.gubicadorpong import *
 from minijuegos.constantes import tamformas, configuration
-
+from scorefile.filemanager import ScoreFile
+import ui.highscore.highscore
 class Menu(Scene):
 
 	def __init__(self):
@@ -22,6 +23,7 @@ class Menu(Scene):
 
 		self._sonido_move = pygame.mixer.Sound('data\\sound\\menu\\move.wav')
 		self._sonido_select = pygame.mixer.Sound('data\\sound\\menu\\select.wav')
+		self.__file = ScoreFile()
 
 	def main(self):
 
@@ -83,6 +85,9 @@ class Menu(Scene):
 	def seleccionar_opcion(self):
 		if self.opcion == 1:
 			self._desplazamiento = True
+		if self.opcion ==2:
+			self.transicion()
+			ui.highscore.highscore.main(self.__file.__str__int__())
 		if self.opcion == 3:
 			self.transicion()
 			ubicadorctrl = self.controles()
