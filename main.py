@@ -25,6 +25,7 @@ def main():
     pygame.display.set_caption('5in1')
     icono = pygame.image.load("data\\img\\ico.png")
     pygame.display.set_icon(icono)
+    pygame.mouse.set_visible(False)
 
 
     while True: # loop infinito hasta que se cierre pygame
@@ -36,7 +37,7 @@ def main():
 
         barras_inicio = menu_principal.ubicador_pong.get_barras()
         bola_inicio = menu_principal.ubicador_pong.get_bola()
-        ubicador_inicio = ubicadorpong.UbicadorPong(30, barras = barras_inicio, bola_param = bola_inicio)
+        ubicador_inicio = ubicadorpong.UbicadorPong(50, barras = barras_inicio, bola_param = bola_inicio)
         admin.ejecutarJuego(ubicador_inicio)
 
         while admin.getEnJuego():

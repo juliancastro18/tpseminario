@@ -170,6 +170,9 @@ class UbicadorPong(Scene):
 	def get_posicion_bola(self):
 		return self._bola.getPosicionXY()
 
+	def desplazar_bola_x(self, x):
+		self._bola.rect.left += x
+
 	def get_bola(self):
 		return self._bola
 
