@@ -87,7 +87,9 @@ class Menu(Scene):
 			self._desplazamiento = True
 		if self.opcion ==2:
 			self.transicion()
-			ui.highscore.highscore.main(self.__file.__str__int__())
+			hiscore = ui.highscore.highscore.HighScore(self.__file.__str__int__())
+			ubicadorhiscore = self.hiscore(hiscore)
+			self.transicion(ubicador=ubicadorhiscore,funcion=hiscore.draw_hiscore,bola_visible=False)
 		if self.opcion == 3:
 			self.transicion()
 			ubicadorctrl = self.controles()
@@ -113,6 +115,19 @@ class Menu(Scene):
 		while tecla_presionada != True:
 			self.screen.fill(color.BLACK)
 			self.imprimir_controles()
+			ubicador_controles.process()
+			ubicador_controles.display_frame()
+			pygame.display.update()
+			tecla_presionada = self.detectar_key()
+		return ubicador_controles
+
+	def hiscore(self,hiscore : ui.highscore.highscore.HighScore):
+		ubicador_controles= ubicadorpong.UbicadorPong(190, fondo_transparente = True, bloqueo = True, tick = False)
+		ubicador_controles.ocultar_bola()
+		tecla_presionada = False
+		while tecla_presionada != True:
+			self.screen.fill(color.BLACK)
+			hiscore.draw_hiscore()
 			ubicador_controles.process()
 			ubicador_controles.display_frame()
 			pygame.display.update()

@@ -101,7 +101,7 @@ def main():
                 print("No se guarda y vuelve al menu")
         
         #PUNTUACIONES, LLAMAR CUANDO SEA NECESARIO
-        ui.highscore.highscore.main(score_file.__str__int__())
+        # ui.highscore.highscore.main(score_file.__str__int__())
         
         print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
         

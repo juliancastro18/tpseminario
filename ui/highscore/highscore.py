@@ -21,12 +21,11 @@ class HighScore(Scene):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self._state['alive'] = False
-
-    def display_frame(self):
+    def draw_hiscore(self):
         index = 0
-        x_name = 240
+        x_name = 235
         y_name = 200
-        x_score = 360
+        x_score = 355
         y_score = 200
         
         dy = 20
@@ -48,6 +47,8 @@ class HighScore(Scene):
                 self._draw_text(self.score_font,str_score,x_score,y_score + 30 + dy*index)
                 index+=1
             j+=1
+    def display_frame(self):
+        self.draw_hiscore()
         self._clock.tick(60)
         display.update()
         
