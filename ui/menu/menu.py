@@ -124,7 +124,7 @@ class Menu(Scene):
 
 	def game_over(self,game_over_):
 
-		ubicador_controles = ubicadorpong.UbicadorPong(190, fondo_transparente = True, bloqueo = True, tick = False)
+		ubicador_controles = ubicadorpong.UbicadorPong(190, fondo_transparente = True, bloqueo = True, tick = False, barras_desde_afuera = True)
 		ubicador_controles.ocultar_bola()
 		end = False
 	

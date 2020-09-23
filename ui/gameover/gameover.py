@@ -63,7 +63,7 @@ def main(score, menu : Menu):
     """
     # pygame.init()
     my_end = GameOver(score)
-    ubicador=menu.game_over(my_end)
+    ubicador = menu.game_over(my_end)
     menu.transicion(ubicador=ubicador,funcion=my_end.draw_texts,bola_visible=False)
     
     
