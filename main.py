@@ -27,12 +27,12 @@ def main():
     pygame.display.set_icon(icono)
     pygame.mouse.set_visible(False)
 
+    # instancio el administrador y el menu
+    admin = administrador.Administrador() # inicio el administrador de juegos
+    menu_principal = menu.Menu()
 
     while True: # loop infinito hasta que se cierre pygame
 
-        admin = administrador.Administrador() # inicio el administrador de juegos
-
-        menu_principal = menu.Menu()
         menu_principal.main()
 
         barras_inicio = menu_principal.ubicador_pong.get_barras()
@@ -74,7 +74,6 @@ def main():
 
             admin.agregarLoopContador()
 
-
         # << acá mostraría el score >>
         # apretando ESC vuelve al menu
         # apretando ENTER te pide nombre y guarda la puntuación, luego vuelve al menu
@@ -102,8 +101,12 @@ def main():
         
         #PUNTUACIONES, LLAMAR CUANDO SEA NECESARIO
         # ui.highscore.highscore.main(score_file.__str__int__())
+
+        # pongo el menu y el admin con sus valores iniciales
+        menu_principal.set_restart()
+        admin.set_restart()
         
-        print("FIN DEL JUEGO (se reincia porque no está implementado el menu)")
+
 
 #TO_DO_LIST:
 # Los que usan vs code pueden instalar: Todo Tree para ver esta clase de comentarios :)

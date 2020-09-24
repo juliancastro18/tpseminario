@@ -105,3 +105,8 @@ class Administrador():
 
 	def reproducirNuevoLoop(self):
 		self._sound_new_loop.play()
+
+	def set_restart(self):
+		self._enJuego = True
+		self._loopContador = 0
+		self._total_score = 0

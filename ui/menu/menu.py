@@ -29,9 +29,7 @@ class Menu(Scene):
 	def main(self):
 
 		self.ubicador_pong = ubicadorpong.UbicadorPong(190, fondo_transparente = True, bloqueo = True, tick = False)
-
 		while self.get_game_state()['playing']:
-
 			self.screen.fill(color.BLACK)
 			self.process()
 			self.display_frame()
@@ -188,3 +186,10 @@ class Menu(Scene):
 				return True
 			else:
 				return False
+
+	def set_restart(self):
+		self._state['playing'] = True
+		self._rect_titulo = pygame.Rect(0,0,0,0)
+		self.ubicador_pong = None
+		self._desp_x = 0
+		self._desplazamiento = False
