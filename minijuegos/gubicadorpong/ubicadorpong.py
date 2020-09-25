@@ -55,11 +55,11 @@ class UbicadorPong(Scene):
 		if self._tick:
 			self._clock.tick(self._fps)  # defino 60 frames por segundo como maximo
 
-        # para cada evento que reciba pygame...
-		for evento in pygame.event.get():
-			if evento.type == QUIT:
-				pygame.quit()
-				sys.exit()
+	        # para cada evento que reciba pygame...
+			for evento in pygame.event.get():
+				if evento.type == QUIT:
+					pygame.quit()
+					sys.exit()
 
 		self.mover_formas()
 		
