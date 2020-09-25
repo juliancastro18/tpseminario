@@ -33,6 +33,7 @@ class Game(Scene):
         self.textRect.center = (40,20)
         self.win = False
         self.score_to_win = 5 + loop*1
+        self.extra_score = loop
         self.sounds = []
         self.load_sounds()
 
@@ -63,7 +64,7 @@ class Game(Scene):
             if self.__snake.get_head().collider.colliderect(self.__green_squares[0]):
                 self.__green_squares.pop(0)
                 self.__snake.add_square()
-                self._score = 1
+                self._score = 1 + 1 *self.extra_score
             
 
             if len(self.__snake.body) > self.score_to_win:
