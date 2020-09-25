@@ -138,7 +138,7 @@ class Menu(Scene):
 		return ubicador_controles
 
 	def hiscore(self,hiscore : ui.highscore.highscore.HighScore):
-		ubicador_controles= ubicadorpong.UbicadorPong(190, fondo_transparente = True, bloqueo = True, tick = False)
+		ubicador_controles= ubicadorpong.UbicadorPong(140, fondo_transparente = True, bloqueo = True, tick = False)
 		ubicador_controles.ocultar_bola()
 		tecla_presionada = False
 		while tecla_presionada != True:

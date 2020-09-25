@@ -10,7 +10,7 @@ class HighScore(Scene):
         # self.title_txt = 'HIGH SCORE'
         self.tittle_font = font.Font('data\\font\\dpcomic.ttf',50)
         
-        self.score_font = font.Font('data\\font\\dpcomic.ttf',25)
+        self.score_font = font.Font('data\\font\\dpcomic.ttf',35)
         self.name_score = name_score
     
     def process(self):
@@ -23,16 +23,13 @@ class HighScore(Scene):
                     self._state['alive'] = False
     def draw_hiscore(self):
         index = 0
-        x_name = 235
-        y_name = 200
-        x_score = 355
-        y_score = 200
+        x_name = 206
+        y_name = 194
+        x_score = 370
         
-        dy = 20
+        dy = 30
         self.screen.fill(color.BLACK)
-        self._draw_text_center(self.tittle_font,'Hiscore',configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2-70)
-        self._draw_text(self.score_font, 'NAME', x_name, y_name)
-        self._draw_text(self.score_font,'SCORE',x_score,y_name)
+        self._draw_text_center(self.tittle_font,'HISCORE',configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2-78)
         j = 0
         for element in self.name_score:
             if j < 5:
@@ -42,9 +39,9 @@ class HighScore(Scene):
                 len_score = len(str_score)
                 str_score = '0'*(6-len_score) + str_score
                 
-                self._draw_text(self.score_font,'{}.'.format(index+1),x_name - 20,y_name + 30 + dy*index)
-                self._draw_text(self.score_font,name,x_name,230 + dy*index)
-                self._draw_text(self.score_font,str_score,x_score,y_score + 30 + dy*index)
+                self._draw_text(self.score_font,'{}.'.format(index+1),x_name - 30, y_name + dy*index)
+                self._draw_text(self.score_font,name,x_name, y_name + dy*index)
+                self._draw_text(self.score_font,str_score,x_score, y_name + dy*index)
                 index+=1
             j+=1
     def display_frame(self):
