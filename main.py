@@ -80,24 +80,21 @@ def main():
         score_file = ScoreFile()
         
         score = admin.getScore()
-        if score_file.check_min_score(score):
-            print('No entras en el top 10 y se va a el menu :P')
+        
+        name_and_save = ui.gameover.gameover.main(score=score, menu=menu_principal, top=score_file.check_top(score))
+        
+        name = name_and_save[0]
+        save = name_and_save[1]
+        if save and not name == "":
+            print("Se guarda y vuelve al menu")
+            score_file.save_score(name,score)
+            #TABLA DE PUNTUACIONES
+            for element in score_file.__str__int__():
+                print(element)
+            #clase que guarda en un archivo local las puntuaciones al estilo => name:score (por ejemplo)
+            score_file.override_file()
         else:
-            name_and_save = ui.gameover.gameover.main(score=score, menu=menu_principal)
-            
-            name = name_and_save[0]
-            save = name_and_save[1]
-            override = False
-            if save and not name == "":
-                print("Se guarda y vuelve al menu")
-                score_file.save_score(name,score,override=override)
-                #TABLA DE PUNTUACIONES
-                for element in score_file.__str__int__():
-                    print(element)
-                #clase que guarda en un archivo local las puntuaciones al estilo => name:score (por ejemplo)
-                score_file.override_file()
-            else:
-                print("No se guarda y vuelve al menu")
+            print("No se guarda y vuelve al menu")
         
         #PUNTUACIONES, LLAMAR CUANDO SEA NECESARIO
         # ui.highscore.highscore.main(score_file.__str__int__())

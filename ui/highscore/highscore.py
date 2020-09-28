@@ -7,10 +7,10 @@ from minijuegos.scene import Scene
 class HighScore(Scene):
     def __init__(self, name_score : list):
         super().__init__()
-        # self.title_txt = 'HIGH SCORE'
         self.tittle_font = font.Font('data\\font\\dpcomic.ttf',50)
         
         self.score_font = font.Font('data\\font\\dpcomic.ttf',35)
+        
         self.name_score = name_score
     
     def process(self):
@@ -21,6 +21,7 @@ class HighScore(Scene):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self._state['alive'] = False
+                    
     def draw_hiscore(self):
         index = 0
         x_name = 206
@@ -37,15 +38,19 @@ class HighScore(Scene):
                 score = element[1]
                 str_score = str(score)
                 len_score = len(str_score)
-                str_score = '0'*(6-len_score) + str_score
+                str_score = '0'*(6-len_score) + str_score #Esto lo hago para que visualmente una puntuacion de 100 se vea de esta manera 000100.
+                #python permite multiplicar caracteres, '0'*3 es lo mismo que '000'.
                 
                 self._draw_text(self.score_font,'{}.'.format(index+1),x_name - 30, y_name + dy*index)
                 self._draw_text(self.score_font,name,x_name, y_name + dy*index)
                 self._draw_text(self.score_font,str_score,x_score, y_name + dy*index)
+                #Uso a dy para dejar espacio entre las puntuaciones
                 index+=1
             j+=1
+            
     def display_frame(self):
         self.draw_hiscore()
+        #Aca separe el dibujado de la actualizacion de la pantalla, para poder incorporarlo al menu
         self._clock.tick(60)
         display.update()
         
