@@ -24,7 +24,7 @@ class InputBox:
     def handle_event(self, event):
         if event.type == pg.KEYDOWN:
             if self.active:
-                if event.key == pg.K_RETURN:
+                if event.key == pg.K_RETURN or event.key == pg.K_KP_ENTER:
                     self.end = True
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]#Lo que hace es generar un nuevo string sin el ultimo caracter
@@ -49,7 +49,7 @@ class InputBox:
         # Resize the box if the text is too long.
         width = max(200, self.txt_surface.get_width()+10)
         self.rect.w = width
-        
+        print(self.text)
         #Esto permite el parpadeo de la barra |
         #Lo hago apartir de un temporizador, cada 300 ms
         if self.blink_time==-1:

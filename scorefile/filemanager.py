@@ -8,7 +8,7 @@ class ScoreFile():
         result = True
         score_lst = self.__str__int__()
         #revisa la ultima posicion y se fija si entra en el top o no
-        result = player_score > score_lst[-1][1]
+        result = player_score > score_lst[-1][1] or len(score_lst)<5
         return result
      
     
