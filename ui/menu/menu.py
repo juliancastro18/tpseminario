@@ -61,7 +61,6 @@ class Menu(Scene):
 						self._sonido_move.play()
 						self.opcion += 1
 				if evento.key == pygame.K_RETURN:
-					self._sonido_select.play()
 					self.seleccionar_opcion()
 
 	def display_frame(self):
@@ -82,16 +81,19 @@ class Menu(Scene):
 		return text_rect
 
 	def seleccionar_opcion(self):
+		self._sonido_select.play()
 		if self.opcion == 1:
 			self._desplazamiento = True
 		if self.opcion ==2:
 			self.transicion()
 			hiscore = ui.highscore.highscore.HighScore(self.__file.__str__int__())
 			ubicadorhiscore = self.hiscore(hiscore)
+			self._sonido_select.play()
 			self.transicion(ubicador=ubicadorhiscore,funcion=hiscore.draw_hiscore,bola_visible=False)
 		if self.opcion == 3:
 			self.transicion()
 			ubicadorctrl = self.controles()
+			self._sonido_select.play()
 			self.transicion(ubicador=ubicadorctrl, funcion = self.imprimir_controles, bola_visible = False)
 		if self.opcion == 4:
 			self.transicion()
