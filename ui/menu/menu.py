@@ -60,7 +60,7 @@ class Menu(Scene):
 					if self.opcion < 4:
 						self._sonido_move.play()
 						self.opcion += 1
-				if evento.key == pygame.K_RETURN:
+				if evento.key == pygame.K_RETURN or evento.key == K_KP_ENTER:
 					self.seleccionar_opcion()
 
 	def display_frame(self):
