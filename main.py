@@ -2,6 +2,7 @@ import pygame, sys
 from pygame.locals import *
 
 from minijuegos.grapidroll import rapidroll
+from minijuegos.gladrillos import ladrillosgame
 from minijuegos.greverseroll import reverseroll
 from minijuegos.gsnake import snake_game
 from minijuegos.constantes import configuration, tamformas, color
@@ -53,11 +54,13 @@ def main():
             rapid = rapidroll.RapidRoll((600, 40), admin.getLoopContador())
             admin.ejecutarJuego(rapid)
             
-            # << acá iría el de los ladrillos >>
+            posAuxPelota = configuration.SCREEN_WIDTH/2-14, configuration.SCREEN_HEIGHT-59
+            posAuxPaleta = configuration.SCREEN_WIDTH/2-50, configuration.SCREEN_HEIGHT-30
+            ladrillos = ladrillosgame.Ladrillos(posAuxPelota, posAuxPaleta)
+            admin.ejecutarJuego(ladrillos)
             # para obtener las barras: rapid.getListaBarrasProxJuego()
             # para obtener la bola: rapid.getJugadorPosXY() o rapid.getJugadorBola()
             # para obtener la barra que moverá el jugador: rapid.getUltimaPlataforma()
-
             # tendría que pasarle al reverse roll la posicion de la bola que rompe los ladrillos al romper el ultimo
             # y la barra que maneja el jugador
 
