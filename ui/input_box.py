@@ -24,15 +24,15 @@ class InputBox:
     def handle_event(self, event):
         if event.type == pg.KEYDOWN:
             if self.active:
-                if event.key == pg.K_RETURN:
+                if event.key == pg.K_RETURN or event.key == pg.K_KP_ENTER:
                     self.end = True
                 elif event.key == pg.K_BACKSPACE:
-                    self.text = self.text[:-1]
+                    self.text = self.text[:-1]#Lo que hace es generar un nuevo string sin el ultimo caracter
                 elif event.key == pg.K_ESCAPE:
                     self.save = False
                     self.end = True
                 elif len(self.text)<self.limit_len_txt:
-                    self.text += event.unicode
+                    self.text += event.unicode #retorna el caracter de la tecla presionada en el evento
                     self.text = self.text.upper()
                 # Re-render the text.
                 self.txt_surface = self.__font.render(self.text, True, self.color)
@@ -40,30 +40,29 @@ class InputBox:
                 if event.key == pg.K_RETURN:
                     self.active = True
                 elif event.key == pg.K_ESCAPE:
-                    print("Vuelvo al menu :D")
                     self.save = False
                     self.end = True
                     
-        # Change the current color of the input box.
-        self.color = color.WHITE if self.active else color.WHITE
+        # self.color = color.WHITE if self.active else color.WHITE
             
     def update(self):
         # Resize the box if the text is too long.
         width = max(200, self.txt_surface.get_width()+10)
         self.rect.w = width
-        
+        print(self.text)
+        #Esto permite el parpadeo de la barra |
+        #Lo hago apartir de un temporizador, cada 300 ms
         if self.blink_time==-1:
             self.script_activated = not self.script_activated
             self.blink_time = pg.time.get_ticks() + 300
         elif self.blink_time < pg.time.get_ticks():
             self.blink_time=-1
+        
+        
         if self.script_activated and self.active:
             self.txt_surface = self.__font.render(self.text + self.limit_char, True, self.color)
         else:
             self.txt_surface = self.__font.render(self.text , True, self.color)
 
     def draw(self, screen):
-        # Blit the text.
         screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
-        # Blit the rect.
-        # pg.draw.rect(screen, self.color, self.rect, 2)

@@ -30,6 +30,7 @@ class Snake(GameObject):
         
     def load_sounds(self):
         self.sounds.append(mixer.Sound('data\\sound\\coin.wav'))
+        
     def get_head(self):
         return self.__head
     
@@ -162,10 +163,6 @@ class Snake(GameObject):
                 elif dt<0:
                     self.time=-1
         
-
-
-
-
     def get_len(self):
         return len(self.body)
         
