@@ -39,7 +39,9 @@ class Ladrillos(Scene):
             self._state['alive'] = self._bola.update()
 
             if self._bola.rect.colliderect(self._paletaJugador._rect):
-                self._bola.vel_y *= -1
+                if self._bola.rect.bottom <= self._paletaJugador._rect.top+self._bola.vel_y+2: #si la bola está por encima de la paleta
+                    self._bola.posY = self._paletaJugador._rect.top-(self._bola.radio*2) #posiciono la bola encima de la paleta
+                    self._bola.vel_y *= -1 #cambio de direccion
 
 
     def display_frame(self):

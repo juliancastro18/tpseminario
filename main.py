@@ -51,8 +51,8 @@ def main():
             # y tambien otro que devuelva una lista con las barras del pong
 
 
-            rapid = rapidroll.RapidRoll((600, 40), admin.getLoopContador())
-            admin.ejecutarJuego(rapid)
+            #rapid = rapidroll.RapidRoll((600, 40), admin.getLoopContador())
+            #admin.ejecutarJuego(rapid)
             
             posAuxPelota = configuration.SCREEN_WIDTH/2-14, configuration.SCREEN_HEIGHT-59
             posAuxPaleta = configuration.SCREEN_WIDTH/2-50, configuration.SCREEN_HEIGHT-30
