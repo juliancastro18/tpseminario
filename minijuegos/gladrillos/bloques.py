@@ -1,4 +1,9 @@
-class Bloques:
+import pygame
+from minijuegos.constantes import color, tamformas, configuration
+from minijuegos.gameobject import *
+from minijuegos.formas.barra import *
+
+class Bloques(Barra):
     def __init__(self, ventana):
         self.ventana = ventana
         self.tablero = [[1, 1, 1, 1],

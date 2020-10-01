@@ -8,8 +8,8 @@ class BolaLadrillos(Bola):
     def __init__(self, posXY):
 
         super().__init__(posXY)
-        self.vel_x = 0
-        self.vel_y = 0
+        self.vel_x = 5
+        self.vel_y = 5
 
     #METODOS
 

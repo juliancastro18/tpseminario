@@ -12,8 +12,6 @@ class Ladrillos(Scene):
         
         super().__init__()
         self._bola = BolaLadrillos(bolaPosXY)
-        self._bola.vel_x = 10
-        self._bola.vel_y = -5
         self._paletaJugador = Paleta(paletaPosXY)
 
     def process(self):
@@ -49,3 +47,6 @@ class Ladrillos(Scene):
 
     def getIsPaused(self):
         return self._state['pause']
+
+    def agregarScore(self, puntos = 1):
+        self._score += puntos
