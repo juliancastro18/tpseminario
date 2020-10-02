@@ -25,3 +25,5 @@ class Paleta(Barra):
             self._rect.left -= 7
             if self._rect.left < 0:
                 self._rect.left = 0
+                
+        self._posX, self._posY = self._rect.topleft

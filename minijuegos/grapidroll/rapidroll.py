@@ -16,7 +16,7 @@ class RapidRoll(Scene):
         self._contadorPlataformas = 0
         self._maximoPlataformas = 1 + (loop * 2) #setear en 10 + ... !
         self._velPlataformas = 3 + int(loop*0.5)
-        self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - (int(loop/2)*20)
+        self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - 60 # - (int(loop/2)*20)
         self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
         self._ultimaPlat = None
         self._degrade = pygame.image.load("data\\img\\gradient.png")

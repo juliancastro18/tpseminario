@@ -73,17 +73,6 @@ class Barra(GameObject):
         self._rect = pygame.Rect(self._posX, self._posY, self._ancho, self._alto)
 
 
-    @classmethod
-    #pasando una clase hija, creo clase padre
-    def new_from(cls, obj):
-        if issubclass(obj.__class__, Barra):
-            _new = cls(obj._esVertical, (obj._posX, obj._posY), obj.getLargo())
-            return _new
-        else:
-            raise TypeError('Se esperaba subclase de Barra, se obtuvo {}.'\
-                                .format(type(obj)))
-
-
     def update(self,*parametros):
         pass
 

@@ -9,15 +9,15 @@ from minijuegos.greverseroll.plataformamovil import *
 
 class ReverseRoll(Scene):
 
-    def __init__(self, posXY, loop = 0):
+    def __init__(self, posXY, primerPlat : Barra, loop = 0):
 
         super().__init__()
         self._bolaJugador = BolaReverseRoll(posXY, loop)
-        self._plataformas = []
         self._contadorPlataformas = 0
         self._maximoPlataformas = 10 + (loop * 3)
         self._velPlataformas = 3 + int(loop*0.5)
-        self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - 60 + (int(loop/4)*20)
+        self._plataformas = [Plataforma(self._velPlataformas, barra = primerPlat)]
+        self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - 60 # + (int(loop/4)*20)
         self._existeUltimaPlat = False
 
 
