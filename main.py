@@ -63,7 +63,7 @@ def main():
 
             if admin.getEnJuego():
 	            posJugadorAux = (rapid.getJugadorPosXY()[0], rapid.getJugadorPosXY()[1]-200) # LINEA PROVISIONAL!!!!!!
-	            reverse = reverseroll.ReverseRoll(posJugadorAux, admin.getLoopContador())
+	            reverse = reverseroll.ReverseRoll(ladrillos.getBolaPosXY(), admin.getLoopContador())
 	            admin.ejecutarJuego(reverse)
 
             if admin.getEnJuego():

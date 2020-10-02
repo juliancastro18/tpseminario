@@ -44,14 +44,20 @@ class Ladrillos(Scene):
 
             self.colisionTablero()
 
+            if len(self._tablero) == 0:
+                self._state['playing'] = False
+
     def colisionTablero(self):
         for bloque in self._tablero:
             if self._bola.rect.colliderect(bloque._rect):
                 self._tablero.remove(bloque)
+                self.agregarScore()
                 if self._bola.rect.top >= bloque._rect.bottom+self._bola.vel_y or self._bola.rect.bottom <= bloque._rect.top+self._bola.vel_y:
                     self._bola.vel_y *= -1
-                elif self._bola.rect.right >= bloque._rect.left+self._bola.vel_x or self._bola.rect.left <= bloque._rect.right+self._bola.vel_x:
+                    break
+                elif self._bola.rect.right >= bloque._rect.left or self._bola.rect.left <= bloque._rect.right:
                     self._bola.vel_x *= -1
+                    break
 
     def display_frame(self):
         self.screen.fill(color.BLACK)
@@ -66,3 +72,11 @@ class Ladrillos(Scene):
 
     def agregarScore(self, puntos = 1):
         self._score += puntos
+
+    #GETS PARA JUEGO SIGUIENTE
+
+    def getBolaPosXY(self):
+        return self._bola.getPosicionXY()
+
+    def getPaleta(self):
+        return self._paletaJugador
