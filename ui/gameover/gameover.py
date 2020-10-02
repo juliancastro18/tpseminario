@@ -10,7 +10,7 @@ class GameOver(Scene):
     def __init__(self, score : int, top : bool):
         super().__init__()
         self.input_box = InputBox(300,215,30,60,size_font=25, limit_char='|')
-        self.tittle_text = "Game over"
+        self.tittle_text = "GAME OVER"
         self.tittle_font = font.Font('data\\font\\dpcomic.ttf',50)
         self.name_font = font.Font('data\\font\\dpcomic.ttf',25)
         
@@ -27,8 +27,7 @@ class GameOver(Scene):
                 self.input_box.handle_event(event)
             else:
                 if event.type == pygame.KEYDOWN:
-                    if event.key==pygame.K_ESCAPE:
-                        self.input_box.end=True
+                    self.input_box.end=True
         if self.top:
             self.input_box.update()
 
@@ -42,7 +41,7 @@ class GameOver(Scene):
     def draw_texts(self):
         
         self.input_box.draw(self.screen)
-        self._draw_text_center(self.tittle_font,self.tittle_text,configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2 - 70)
+        self._draw_text_center(self.tittle_font,self.tittle_text,configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2-78)
         if self.top:
             self._draw_text(self.name_font,"NAME: ",240,220)
         self._draw_text(self.name_font,"SCORE: {}".format(self.score),240,280)

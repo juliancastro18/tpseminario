@@ -8,7 +8,7 @@ class Administrador():
 
 		# parametros generales
 		self._enJuego = True
-		self._loopContador = 0
+		self._loopContador = -1
 		self._clock = pygame.time.Clock()
 
 		# manejo de pausa
@@ -100,13 +100,11 @@ class Administrador():
 	def getScore(self):
 		return self._total_score
 
-	def agregarLoopContador(self):
-		self._loopContador += 1
-
-	def reproducirNuevoLoop(self):
+	def iniciarNuevoLoop(self):
 		self._sound_new_loop.play()
+		self._loopContador += 1
 
 	def set_restart(self):
 		self._enJuego = True
-		self._loopContador = 0
+		self._loopContador = -1
 		self._total_score = 0

@@ -43,7 +43,7 @@ def main():
 
         while admin.getEnJuego():
 
-            admin.reproducirNuevoLoop()
+            admin.iniciarNuevoLoop()
 
             # << acá iría el pong >>
             # el pong tendria que tener un metodo para obtener la pos de la bola cuando terminó de ejecutar
@@ -54,28 +54,25 @@ def main():
             rapid = rapidroll.RapidRoll((600, 40), admin.getLoopContador())
             admin.ejecutarJuego(rapid)
             
-            ladrillos = ladrillosgame.Ladrillos(rapid.getJugadorPosXY(), rapid.getUltimaPlataforma())
-            admin.ejecutarJuego(ladrillos)
+            if admin.getEnJuego():
+	            ladrillos = ladrillosgame.Ladrillos(rapid.getJugadorPosXY(), rapid.getUltimaPlataforma())
+	            admin.ejecutarJuego(ladrillos)
             # para obtener las barras: rapid.getListaBarrasProxJuego()
             # tendría que pasarle al reverse roll la posicion de la bola que rompe los ladrillos al romper el ultimo
             # y la barra que maneja el jugador
 
+            if admin.getEnJuego():
+	            posJugadorAux = (rapid.getJugadorPosXY()[0], rapid.getJugadorPosXY()[1]-200) # LINEA PROVISIONAL!!!!!!
+	            reverse = reverseroll.ReverseRoll(posJugadorAux, admin.getLoopContador())
+	            admin.ejecutarJuego(reverse)
 
-            posJugadorAux = (rapid.getJugadorPosXY()[0], rapid.getJugadorPosXY()[1]-200) # LINEA PROVISIONAL!!!!!!
-            reverse = reverseroll.ReverseRoll(posJugadorAux, admin.getLoopContador())
-            admin.ejecutarJuego(reverse)
-
+            if admin.getEnJuego():
+	            snake = snake_game.Game(loop=admin.getLoopContador(),ball_position=reverse.getJugadorPosXY(),
+	                                         player_pos=reverse.getUltimaPlataformaPosXY())
+	            admin.ejecutarJuego(snake)
             
-            snake = snake_game.Game(loop=admin.getLoopContador(),ball_position=reverse.getJugadorPosXY(),
-                                         player_pos=reverse.getUltimaPlataformaPosXY())
-            admin.ejecutarJuego(snake)
-            
 
-            admin.agregarLoopContador()
 
-        # << acá mostraría el score >>
-        # apretando ESC vuelve al menu
-        # apretando ENTER te pide nombre y guarda la puntuación, luego vuelve al menu
         score_file = ScoreFile()
         
         score = admin.getScore()
