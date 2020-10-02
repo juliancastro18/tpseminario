@@ -18,12 +18,10 @@ class Paleta(Barra):
 
     def update(self, esDerecha):         
         if esDerecha:
-            self._rect.right += 10
+            self._rect.right += 7
             if self._rect.right > configuration.SCREEN_WIDTH:
                 self._rect.right = configuration.SCREEN_WIDTH
         else:
-            self._rect.left -= 10
+            self._rect.left -= 7
             if self._rect.left < 0:
                 self._rect.left = 0
-        
-        self.centro= self._posX + self._ancho/2

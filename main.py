@@ -55,7 +55,7 @@ def main():
             admin.ejecutarJuego(rapid)
             
             if admin.getEnJuego():
-	            ladrillos = ladrillosgame.Ladrillos(rapid.getJugadorPosXY(), rapid.getUltimaPlataforma())
+	            ladrillos = ladrillosgame.Ladrillos(rapid.getJugadorPosXY(), rapid.getUltimaPlataforma(), rapid.getListaBarrasProxJuego())
 	            admin.ejecutarJuego(ladrillos)
             # para obtener las barras: rapid.getListaBarrasProxJuego()
             # tendría que pasarle al reverse roll la posicion de la bola que rompe los ladrillos al romper el ultimo

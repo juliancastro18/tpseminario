@@ -8,11 +8,12 @@ from minijuegos.gladrillos.paletaladrillos import *
 
 class Ladrillos(Scene):
     
-    def __init__(self, bolaPosXY, barra : Barra):
+    def __init__(self, bolaPosXY, barra : Barra, listaBarras : Barra):
         
         super().__init__()
         self._bola = BolaLadrillos(bolaPosXY)
         self._paletaJugador = Paleta(barra.getPosXY(), barra.getLargo())
+        self._tablero = listaBarras
 
     def process(self):
         self._clock.tick(self._fps) # defino 60 frames por segundo como maximo
@@ -46,6 +47,9 @@ class Ladrillos(Scene):
         self.screen.fill(color.BLACK)
         self._bola.draw(self.screen)
         self._paletaJugador.draw(self.screen)
+
+        for bloque in self._tablero:
+            bloque.draw(self.screen)
 
     def getIsPaused(self):
         return self._state['pause']

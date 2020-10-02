@@ -3,12 +3,12 @@ from minijuegos.constantes import color, tamformas, configuration
 from minijuegos.gameobject import *
 from minijuegos.formas.barra import *
 
-class Bloques(Barra):
-    def __init__(self, ventana):
-        self.ventana = ventana
-        self.tablero = [[1, 1, 1, 1],
-                        [1, 1, 1, 1],
-                        [1, 1, 1, 1]]
+class Tablero(Barra):
+    def __init__(self, listaBarras : Barra):
+
+        super().__init__(False, listaBarras[0].getPosXY, listaBarras[0].getLargo)
+        self.tablero = listaBarras
+
 
     def dibujar(self):
         for i in range(3):
