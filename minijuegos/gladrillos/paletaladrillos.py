@@ -6,10 +6,10 @@ from minijuegos.formas.barra import *
 class Paleta(Barra):
     
     #CONSTRUCTOR
-    def __init__(self, posXY):
+    def __init__(self, posXY, largo):
         
-        super().__init__(False, posXY, 120)
-        
+        super().__init__(False, posXY, largo)
+
         self.centro= self._posX + self._ancho/2
         self.izq= False
         self.der= False

@@ -1,18 +1,18 @@
 import pygame, sys
 from pygame.locals import *
 
-from minijuegos.constantes import color
+from minijuegos.constantes import color, configuration
 from minijuegos.scene import *
 from minijuegos.gladrillos.bolaladrillos import *
 from minijuegos.gladrillos.paletaladrillos import *
 
 class Ladrillos(Scene):
     
-    def __init__(self, bolaPosXY, paletaPosXY):
+    def __init__(self, bolaPosXY, barra : Barra):
         
         super().__init__()
         self._bola = BolaLadrillos(bolaPosXY)
-        self._paletaJugador = Paleta(paletaPosXY)
+        self._paletaJugador = Paleta(barra.getPosXY(), barra.getLargo())
 
     def process(self):
         self._clock.tick(self._fps) # defino 60 frames por segundo como maximo

@@ -112,7 +112,7 @@ class RapidRoll(Scene):
 
             # si llego al maximo de plataformas, agrego a la lista la ultima plataforma
             if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma() and self._ultimaPlat is None:
-                ultimaPlataforma = Plataforma(self._velPlataformas, self._largoPlataformas, posicionFinal = 380)
+                ultimaPlataforma = Plataforma(self._velPlataformas, tamformas.BARRA_LADO_MAYOR-60, posicionFinal = 440) #self._largoPlatformas
                 self._plataformas.append( ultimaPlataforma )
                 ultimaPlataforma.setUltimaPlataforma()
                 self._ultimaPlat = ultimaPlataforma
@@ -177,7 +177,7 @@ class RapidRoll(Scene):
         return self._bolaJugador.getPosicionXY()
 
     def getJugadorBola(self):
-        return Bola.new_from(self._bolaJugador)
+        return self._bolaJugador
 
     def getUltimaPlataforma(self):
-        return Barra.new_from(self._ultimaPlat)
+        return self._ultimaPlat
