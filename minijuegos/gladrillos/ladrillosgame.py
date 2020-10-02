@@ -50,6 +50,7 @@ class Ladrillos(Scene):
 
         for bloque in self._tablero:
             bloque.draw(self.screen)
+            print(bloque.getPosXY())
 
     def getIsPaused(self):
         return self._state['pause']

@@ -14,7 +14,7 @@ class RapidRoll(Scene):
         self._bolaJugador = BolaRapidRoll(posXY, loop)
         self._plataformas = []
         self._contadorPlataformas = 0
-        self._maximoPlataformas = 10 + (loop * 2)
+        self._maximoPlataformas = 1 + (loop * 2) #setear en 10 + ... !
         self._velPlataformas = 3 + int(loop*0.5)
         self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - (int(loop/2)*20)
         self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
@@ -169,8 +169,7 @@ class RapidRoll(Scene):
         listaBarras = []
         for plat in self._plataformas:
             if not plat.getUltimaPlataforma():
-                nuevaBarra = Barra.new_from(plat)
-                listaBarras.append(nuevaBarra)
+                listaBarras.append(plat)
         return listaBarras
 
     def getJugadorPosXY(self):
