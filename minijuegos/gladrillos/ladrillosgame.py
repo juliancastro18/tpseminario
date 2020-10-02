@@ -42,6 +42,16 @@ class Ladrillos(Scene):
                     self._bola.posY = self._paletaJugador._rect.top-(self._bola.radio*2) #posiciono la bola encima de la paleta
                     self._bola.vel_y *= -1 #cambio de direccion
 
+            self.colisionTablero()
+
+    def colisionTablero(self):
+        for bloque in self._tablero:
+            if self._bola.rect.colliderect(bloque._rect):
+                self._tablero.remove(bloque)
+                if self._bola.rect.top >= bloque._rect.bottom+self._bola.vel_y or self._bola.rect.bottom <= bloque._rect.top+self._bola.vel_y:
+                    self._bola.vel_y *= -1
+                elif self._bola.rect.right >= bloque._rect.left+self._bola.vel_x or self._bola.rect.left <= bloque._rect.right+self._bola.vel_x:
+                    self._bola.vel_x *= -1
 
     def display_frame(self):
         self.screen.fill(color.BLACK)
@@ -50,7 +60,6 @@ class Ladrillos(Scene):
 
         for bloque in self._tablero:
             bloque.draw(self.screen)
-            print(bloque.getPosXY())
 
     def getIsPaused(self):
         return self._state['pause']
