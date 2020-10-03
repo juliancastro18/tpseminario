@@ -106,4 +106,10 @@ class Plataforma(Barra):
         if not self._esColisionable or self._ultimaPlataforma and self._velY>0:
             self._desacelerar(self._posicionFinal)
 
-        self._rect.top -= self._velY
+        if self._velInicial < self._velY:
+            self._rect.top -= self._velInicial
+            self._velInicial = self._velInicial * 1.04
+        else:
+            self._rect.top -= self._velY
+
+        #self._rect.top -= self._velY

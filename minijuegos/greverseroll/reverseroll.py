@@ -16,7 +16,8 @@ class ReverseRoll(Scene):
         self._contadorPlataformas = 0
         self._maximoPlataformas = 10 + (loop * 3)
         self._velPlataformas = 3 + int(loop*0.5)
-        self._plataformas = [Plataforma(self._velPlataformas, barra = primerPlat)]
+        self._plataformas = []
+        self._agregar_primer_plat(primerPlat)
         self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - 60 # + (int(loop/4)*20)
         self._existeUltimaPlat = False
 
@@ -106,6 +107,10 @@ class ReverseRoll(Scene):
                 self._existeUltimaPlat = True
                 self.agregarScore()
 
+    def _agregar_primer_plat(self, plat):
+        primer_plat = Plataforma(self._velPlataformas, barra = plat)
+        primer_plat._velInicial = 0.5
+        self._plataformas.append(primer_plat)
 
     def agregarScore(self, puntos = 1):
         self._score += puntos

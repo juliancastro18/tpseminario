@@ -54,12 +54,16 @@ class Menu(Scene):
 			if evento.type == pygame.KEYDOWN:
 				if evento.key == pygame.K_UP:
 					if self.opcion > 1:
-						self._sonido_move.play()
 						self.opcion -= 1
+					else:
+						self.opcion = 4
+					self._sonido_move.play()
 				if evento.key == pygame.K_DOWN:
 					if self.opcion < 4:
-						self._sonido_move.play()
 						self.opcion += 1
+					else:
+						self.opcion = 1
+					self._sonido_move.play()
 				if evento.key == pygame.K_RETURN or evento.key == K_KP_ENTER:
 					self.seleccionar_opcion()
 
@@ -124,7 +128,7 @@ class Menu(Scene):
 
 	def game_over(self,game_over_):
 
-		ubicador_controles = ubicadorpong.UbicadorPong(180, fondo_transparente = True, bloqueo = True, tick = False, barras_desde_afuera = True)
+		ubicador_controles = ubicadorpong.UbicadorPong(136, fondo_transparente = True, bloqueo = True, tick = False, barras_desde_afuera = True)
 		ubicador_controles.ocultar_bola()
 		end = False
 	
@@ -137,9 +141,9 @@ class Menu(Scene):
 			end = game_over_.input_box.end
 			pygame.display.update()
 			self._clock.tick(60)
-			if ubicador_controles.get_game_state()['playing'] == True and end == True:
-				end = False
-				game_over_.input_box.end = False
+			#if ubicador_controles.get_game_state()['playing'] == True and end == True:
+				#end = False
+				#game_over_.input_box.end = False
 		return ubicador_controles
 
 	def hiscore(self,hiscore : ui.highscore.highscore.HighScore):

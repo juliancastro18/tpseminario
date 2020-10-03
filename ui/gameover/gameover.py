@@ -9,10 +9,11 @@ from ui.menu.menu import Menu
 class GameOver(Scene):
     def __init__(self, score : int, top : bool):
         super().__init__()
-        self.input_box = InputBox(300,215,30,60,size_font=25, limit_char='|')
+        self.input_box = InputBox(configuration.SCREEN_WIDTH//2+10,configuration.SCREEN_HEIGHT//2+70,30,60,size_font=30, limit_char='|')
         self.tittle_text = "GAME OVER"
-        self.tittle_font = font.Font('data\\font\\dpcomic.ttf',50)
-        self.name_font = font.Font('data\\font\\dpcomic.ttf',25)
+        self.tittle_font = font.Font('data\\font\\dpcomic.ttf',70)
+        self.name_font = font.Font('data\\font\\dpcomic.ttf',30)
+        self.rect_block = pygame.Rect(0, 340, 640, 100) 
         
         self.score = score
         self.top = top
@@ -41,10 +42,19 @@ class GameOver(Scene):
     def draw_texts(self):
         
         self.input_box.draw(self.screen)
-        self._draw_text_center(self.tittle_font,self.tittle_text,configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2-78)
+        pygame.draw.rect(self.screen, color.BLACK, self.rect_block) #para tapar lo que sobresale del "|"
+        self._draw_text_center(self.tittle_font,self.tittle_text,configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2-70)
+
         if self.top:
-            self._draw_text(self.name_font,"NAME: ",240,220)
-        self._draw_text(self.name_font,"SCORE: {}".format(self.score),240,280)
+            self._draw_text_center(self.name_font,"NEW HISCORE!",configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2-10)
+        else:
+            self._draw_text_center(self.name_font,"YOUR SCORE",configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2-10)
+        self._draw_text_center(self.tittle_font,"{}".format(self.score),configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2+30)
+
+        if self.top:
+            self._draw_text(self.name_font,"ENTER NAME: ",174,configuration.SCREEN_HEIGHT//2+75)
+        else:
+            self._draw_text_center(self.name_font,"PRESS ANY KEY",configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2+90)
         
     def _draw_text_center(self, font, text : str, x : int, y : int):
         text_Obj = font.render(text,0,color.WHITE,self.screen)
