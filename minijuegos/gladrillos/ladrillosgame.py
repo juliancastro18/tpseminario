@@ -41,6 +41,14 @@ class Ladrillos(Scene):
                 if self._bola.rect.bottom <= self._paletaJugador._rect.top+self._bola.vel_y+2: #si la bola está por encima de la paleta
                     self._bola.posY = self._paletaJugador._rect.top-(self._bola.radio*2) #posiciono la bola encima de la paleta
                     self._bola.vel_y *= -1 #cambio de direccion
+                
+                if self._bola.rect.midbottom < self._paletaJugador._rect.midtop:
+                    if self._bola.vel_x > 0:
+                        self._bola.vel_x *= -1
+
+                if self._bola.rect.midbottom > self._paletaJugador._rect.midtop:
+                    if self._bola.vel_x < 0:
+                        self._bola.vel_x *= -1
 
             self.colisionTablero()
 
