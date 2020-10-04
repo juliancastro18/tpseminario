@@ -1,18 +1,18 @@
-import pygame, sys
+import pygame, sys, math
 from pygame.locals import *
 
-from minijuegos.constantes import color, configuration
+from minijuegos.constantes import color, configuration, tamformas
 from minijuegos.scene import *
 from minijuegos.gladrillos.bolaladrillos import *
 from minijuegos.gladrillos.paletaladrillos import *
 
 class Ladrillos(Scene):
     
-    def __init__(self, bolaPosXY, barra : Barra, listaBarras : Barra):
-        
+    def __init__(self, bolaPosXY, barra : Barra, listaBarras : Barra, loop):        
         super().__init__()
-        self._bola = BolaLadrillos(bolaPosXY)
-        self._paletaJugador = Paleta(barra.getPosXY(), barra.getLargo())
+        self._vel_bola = 8 + loop #setea la vel constante, aumenta con cada loop 
+        self._bola = BolaLadrillos(bolaPosXY, self._vel_bola)
+        self._paletaJugador = Paleta(barra.getPosXY(), barra.getLargo(), self._vel_bola)
         self._tablero = listaBarras
 
     def process(self):
@@ -37,18 +37,19 @@ class Ladrillos(Scene):
 
             self._state['alive'] = self._bola.update()
 
+            # si la bola colisiona con la paleta
             if self._bola.rect.colliderect(self._paletaJugador._rect):
-                if self._bola.rect.bottom <= self._paletaJugador._rect.top+self._bola.vel_y+2: #si la bola está por encima de la paleta
-                    self._bola.posY = self._paletaJugador._rect.top-(self._bola.radio*2) #posiciono la bola encima de la paleta
-                    self._bola.vel_y *= -1 #cambio de direccion
-                
-                if self._bola.rect.midbottom < self._paletaJugador._rect.midtop:
-                    if self._bola.vel_x > 0:
-                        self._bola.vel_x *= -1
-
-                if self._bola.rect.midbottom > self._paletaJugador._rect.midtop:
-                    if self._bola.vel_x < 0:
-                        self._bola.vel_x *= -1
+                # calculo distancia de la bola al centro de la paleta
+                distancia_centro = self._bola.rect.midbottom[0] - self._paletaJugador._rect.midtop[0]
+                # obtengo el porcentaje de distancia (1 si esta en la punta, 0 en el centro)
+                porcentaje_dist = distancia_centro / (self._paletaJugador.getLargo() / 2)
+                # para sacar el angulo: a 90º se le resta (45º * el porcentaje_dist)
+                angulo = math.pi/2 - porcentaje_dist * (math.pi/4)
+                # seteo direcciones de la bola en relacion al angulo
+                self._bola.set_xy(angulo)
+                # si la bola está por encima de la mitad de la paleta, la hago rebotar
+                if self._bola.rect.bottom <= self._paletaJugador._rect.top+self._bola.mov_y+tamformas.BARRA_LADO_MENOR/2:
+                    self._bola.mov_y *= -1 # rebote
 
             self.colisionTablero()
 
@@ -60,11 +61,11 @@ class Ladrillos(Scene):
             if self._bola.rect.colliderect(bloque._rect):
                 self._tablero.remove(bloque)
                 self.agregarScore()
-                if self._bola.rect.top >= bloque._rect.bottom+self._bola.vel_y or self._bola.rect.bottom <= bloque._rect.top+self._bola.vel_y:
-                    self._bola.vel_y *= -1
+                if self._bola.rect.top >= bloque._rect.bottom+self._bola.mov_y or self._bola.rect.bottom <= bloque._rect.top+self._bola.mov_y:
+                    self._bola.mov_y *= -1
                     break
                 elif self._bola.rect.right >= bloque._rect.left or self._bola.rect.left <= bloque._rect.right:
-                    self._bola.vel_x *= -1
+                    self._bola.mov_x *= -1
                     break
 
     def display_frame(self):

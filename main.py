@@ -62,7 +62,8 @@ def main():
             
             # LADRILLOS
             if admin.getEnJuego():
-	            ladrillos = ladrillosgame.Ladrillos(rapid.getJugadorPosXY(), rapid.getUltimaPlataforma(), rapid.getListaBarrasProxJuego())
+	            ladrillos = ladrillosgame.Ladrillos(rapid.getJugadorPosXY(), rapid.getUltimaPlataforma(),
+                                                    rapid.getListaBarrasProxJuego(), admin.getLoopContador())
 	            admin.ejecutarJuego(ladrillos)
 
 	        # REVERSEROLL

@@ -11,7 +11,7 @@ class BolaRapidRoll(Bola):
 
         self.velYInicial = 0.5
         self.velY = 8 + int(loop*0.5)
-        self.velX = 10 + int(loop*0.5)
+        self.velX = 12 + int(loop*0.5)
         self.colisionando = False
 
     def update(self):

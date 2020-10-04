@@ -25,7 +25,7 @@ class HighScore(Scene):
     def draw_hiscore(self):
         index = 0
         x_name = 206
-        y_name = 194
+        y_name = 192
         x_score = 370
         
         dy = 30
