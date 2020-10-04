@@ -1,4 +1,4 @@
-import pygame, sys, math
+import pygame, sys, math, random
 from pygame.locals import *
 
 from minijuegos.constantes import color, configuration, tamformas
@@ -14,6 +14,7 @@ class Ladrillos(Scene):
         self._bola = BolaLadrillos(bolaPosXY, self._vel_bola)
         self._paletaJugador = Paleta(barra.getPosXY(), barra.getLargo(), self._vel_bola)
         self._tablero = listaBarras
+        self._ult_dist = 0
 
     def process(self):
         self._clock.tick(self._fps) # defino 60 frames por segundo como maximo
@@ -41,6 +42,11 @@ class Ladrillos(Scene):
             if self._bola.rect.colliderect(self._paletaJugador._rect):
                 # calculo distancia de la bola al centro de la paleta
                 distancia_centro = self._bola.rect.midbottom[0] - self._paletaJugador._rect.midtop[0]
+                if distancia_centro == 0 and self._ult_dist == 0: # con este if evito rebotes verticales infinitos
+                    if bool(random.getrandbits(1)):
+                        distancia_centro = 2
+                    else:
+                        distancia_centro = -2
                 # obtengo el porcentaje de distancia (1 si esta en la punta, 0 en el centro)
                 porcentaje_dist = distancia_centro / (self._paletaJugador.getLargo() / 2)
                 # para sacar el angulo: a 90º se le resta (45º * el porcentaje_dist)
@@ -50,6 +56,7 @@ class Ladrillos(Scene):
                 # si la bola está por encima de la mitad de la paleta, la hago rebotar
                 if self._bola.rect.bottom <= self._paletaJugador._rect.top+self._bola.mov_y+tamformas.BARRA_LADO_MENOR/2:
                     self._bola.mov_y *= -1 # rebote
+                self._ult_dist = distancia_centro
 
             self.colisionTablero()
 

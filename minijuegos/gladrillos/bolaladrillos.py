@@ -24,17 +24,17 @@ class BolaLadrillos(Bola):
         self.rect.x = self.posX
         self.rect.y = self.posY
 
-        if self.rect.left < 0:
-            self.mov_x *= -1
+        if self.rect.left <= 0:
             self.rect.left = 0
-
-        if self.rect.right > configuration.SCREEN_WIDTH:
             self.mov_x *= -1
-            self.rect.right = configuration.SCREEN_WIDTH
 
-        if self.rect.top < 0:
-            self.mov_y *= -1
+        if self.rect.right >= configuration.SCREEN_WIDTH:
+            self.rect.right = configuration.SCREEN_WIDTH
+            self.mov_x *= -1
+
+        if self.rect.top <= 0:
             self.rect.top = 0
+            self.mov_y *= -1
 
         #FIN DE JUEGO cuando la bola sale por abajo
         if self.rect.top > configuration.SCREEN_HEIGHT:
