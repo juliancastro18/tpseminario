@@ -15,6 +15,8 @@ class Ladrillos(Scene):
         self._paletaJugador = Paleta(barra.getPosXY(), barra.getLargo(), self._vel_bola)
         self._tablero = listaBarras
         self._ult_dist = 0
+        self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
+        self._sonidoLadrillo = pygame.mixer.Sound('data\\sound\\coin.wav')
 
     def process(self):
         self._clock.tick(self._fps) # defino 60 frames por segundo como maximo
@@ -40,13 +42,14 @@ class Ladrillos(Scene):
 
             # si la bola colisiona con la paleta
             if self._bola.rect.colliderect(self._paletaJugador._rect):
+                self._sonidoColision.play()
                 # calculo distancia de la bola al centro de la paleta
                 distancia_centro = self._bola.rect.midbottom[0] - self._paletaJugador._rect.midtop[0]
-                if distancia_centro == 0 and self._ult_dist == 0: # con este if evito rebotes verticales infinitos
+                if distancia_centro == self._ult_dist: # con este if evito rebotes verticales infinitos
                     if bool(random.getrandbits(1)):
-                        distancia_centro = 2
+                        distancia_centro += 2
                     else:
-                        distancia_centro = -2
+                        distancia_centro -= 2
                 # obtengo el porcentaje de distancia (1 si esta en la punta, 0 en el centro)
                 porcentaje_dist = distancia_centro / (self._paletaJugador.getLargo() / 2)
                 # para sacar el angulo: a 90º se le resta (45º * el porcentaje_dist)
@@ -66,12 +69,13 @@ class Ladrillos(Scene):
     def colisionTablero(self):
         for bloque in self._tablero:
             if self._bola.rect.colliderect(bloque._rect):
+                self._sonidoLadrillo.play()
                 self._tablero.remove(bloque)
                 self.agregarScore()
-                if self._bola.rect.top >= bloque._rect.bottom+self._bola.mov_y or self._bola.rect.bottom <= bloque._rect.top+self._bola.mov_y:
+                if self._bola.rect.top-self._bola.mov_y >= bloque._rect.bottom or self._bola.rect.bottom-self._bola.mov_y <= bloque._rect.top:
                     self._bola.mov_y *= -1
                     break
-                elif self._bola.rect.right >= bloque._rect.left or self._bola.rect.left <= bloque._rect.right:
+                else:
                     self._bola.mov_x *= -1
                     break
 
