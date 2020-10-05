@@ -3,6 +3,7 @@ from pygame.locals import *
 
 from minijuegos.constantes import configuration, tamformas, color
 from minijuegos.formas import barra, bola
+from minijuegos.gpong import pong
 from minijuegos.grapidroll import rapidroll
 from minijuegos.gladrillos import ladrillosgame
 from minijuegos.greverseroll import reverseroll
@@ -52,6 +53,8 @@ def main():
             admin.iniciarNuevoLoop()
 
             # PONG
+            pong_game = pong.Pong(75,(10, 225),(610, 225),(375, 250),admin.getLoopContador)
+            admin.ejecutarJuego(pong_game)
             # el pong tendria que tener un metodo para obtener la pos de la bola cuando terminó de ejecutar
             # y tambien otro que devuelva una lista con las barras del pong
 
