@@ -11,42 +11,44 @@ from minijuegos.meta import pause
 
 class Pong(Scene):
     
-    def __init__(self,largo,posXYJugador,posXYEnemy,posXYBola,loop): 
+    def __init__(self,barras,bola,loop): 
         super().__init__()
         self._velocidadBola = 5 + loop
-        self._player = Paddle(posXYJugador, largo)
-        self._enemy = Enemy(posXYEnemy, largo)
-        self._bola = BolaPong(posXYBola,self._velocidadBola)
+        self._player = Paddle(barras[0].getPosXY(), barras[0].getRect().height)
+        self._enemy = Enemy(barras[1].getPosXY(), barras[0].getRect().height)
+        self._bola = BolaPong(bola.getPosicionXY(),self._velocidadBola)
 
     def process(self):
         self._clock.tick(self._fps)
         
-        if not self.getIsPaused():
-            self._bola.update()
         #eventos
-        if self._state['playing']:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        self.togglePause()
-                if not self.getIsPaused():
-                    key = pygame.key.get_pressed()
-                    if(self._player._rect.top >= 0):
-                        if key[pygame.K_w]:
-                            self._player._rect.top += -self._player.speed
-                    if(self._player._rect.bottom <= configuration.SCREEN_HEIGHT):
-                        if key[pygame.K_s]:
-                            self._player._rect.bottom += self._player.speed
-            if not self.getIsPaused():
-                self._bola.reboteSuperiorInferior()
-                #colision
-                self._enemy.update(self._bola)
-                self._bola.colision(self._player,self._enemy,self)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == K_ESCAPE:
+                    self.togglePause()
+
+        if not self.getIsPaused():
+
+            self._bola.update()
+
+            key = pygame.key.get_pressed()
+            if(self._player._rect.top >= 0):
+                if key[pygame.K_UP]:
+                    self._player._rect.top += -self._player.speed
+            if(self._player._rect.bottom <= configuration.SCREEN_HEIGHT):
+                if key[pygame.K_DOWN]:
+                    self._player._rect.bottom += self._player.speed
+
+            self._bola.reboteSuperiorInferior()
+            #colision
+            self._enemy.update(self._bola)
+            self._bola.colision(self._player,self._enemy,self)
         
         self._state['playing'] = self._bola.bolaEnJuego()
+
         if self._state['playing'] == False:
             #Capturo pos bola para pasarsela al proximo juego
             posBola = (self._bola.getPosicionXY())
@@ -55,10 +57,6 @@ class Pong(Scene):
             #deberia retornar esta tupla
             posiciones = (posPlayer,posEnemy)
 
-            pygame.quit()
-            sys.exit()
-
-
             
     
     def display_frame(self):
@@ -66,7 +64,6 @@ class Pong(Scene):
         self._player.draw(self.screen)
         self._enemy.draw(self.screen)
         self._bola.draw(self.screen)
-        pygame.display.update()
 
 
     def getIsPaused(self):

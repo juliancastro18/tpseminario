@@ -45,7 +45,8 @@ def main():
         bola_inicio = menu_principal.ubicador_pong.get_bola()
 
         # UBICADOR INICIO
-        ubicador_inicio = ubicadorpong.UbicadorPong(50, barras = barras_inicio, bola_param = bola_inicio, tam_final=tamformas.BARRA_LADO_MAYOR-60)
+        dist_borde = tamformas.BARRA_LADO_MENOR*2
+        ubicador_inicio = ubicadorpong.UbicadorPong(dist_borde, barras = barras_inicio, bola_param = bola_inicio, tam_final=tamformas.BARRA_LADO_MAYOR-60)
         admin.ejecutarJuego(ubicador_inicio)
 
         while admin.getEnJuego():
@@ -53,7 +54,7 @@ def main():
             admin.iniciarNuevoLoop()
 
             # PONG
-            pong_game = pong.Pong(75,(10, 225),(610, 225),(375, 250),admin.getLoopContador)
+            pong_game = pong.Pong(ubicador_inicio.get_barras(),ubicador_inicio.get_bola(),admin.getLoopContador())
             admin.ejecutarJuego(pong_game)
             # el pong tendria que tener un metodo para obtener la pos de la bola cuando terminó de ejecutar
             # y tambien otro que devuelva una lista con las barras del pong
