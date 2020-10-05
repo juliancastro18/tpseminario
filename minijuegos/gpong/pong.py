@@ -11,11 +11,12 @@ from minijuegos.meta import pause
 
 class Pong(Scene):
     
-    def __init__(self,largo,posXYJugador,posXYEnemy,posXYBola,loop =0): 
+    def __init__(self,largo,posXYJugador,posXYEnemy,posXYBola,loop): 
         super().__init__()
+        self._velocidadBola = 5 + loop
         self._player = Paddle(posXYJugador, largo)
         self._enemy = Enemy(posXYEnemy, largo)
-        self._bola = BolaPong(posXYBola)
+        self._bola = BolaPong(posXYBola,self._velocidadBola)
 
     def process(self):
         self._clock.tick(self._fps)
@@ -43,7 +44,7 @@ class Pong(Scene):
                 self._bola.reboteSuperiorInferior()
                 #colision
                 self._enemy.update(self._bola)
-                self._bola.colision(self._player,self._enemy)
+                self._bola.colision(self._player,self._enemy,self)
         
         self._state['playing'] = self._bola.bolaEnJuego()
         if self._state['playing'] == False:
@@ -76,6 +77,8 @@ class Pong(Scene):
 
     def togglePause(self):
         self._state['pause'] ^= True
-
-
-
+    
+    def agregarScore(self, puntos = 1):
+        self._score += puntos
+ 
+    
