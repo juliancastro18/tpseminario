@@ -47,9 +47,9 @@ class Pong(Scene):
             self._enemy.update(self._bola)
             self._bola.colision(self._player,self._enemy,self)
         
-        self._state['playing'] = self._bola.bolaEnJuego()
-
-        if self._state['playing'] == False:
+        self._state['alive'] = self._bola.bolaEnJuego()
+        
+        if self._state['alive'] == False:
             #Capturo pos bola para pasarsela al proximo juego
             posBola = (self._bola.getPosicionXY())
             posPlayer = self._player.getPosXY()
