@@ -44,7 +44,7 @@ def main():
         bola_inicio = menu_principal.ubicador_pong.get_bola()
 
         # UBICADOR INICIO
-        ubicador_inicio = ubicadorpong.UbicadorPong(50, barras = barras_inicio, bola_param = bola_inicio)
+        ubicador_inicio = ubicadorpong.UbicadorPong(50, barras = barras_inicio, bola_param = bola_inicio, tam_final=tamformas.BARRA_LADO_MAYOR-60)
         admin.ejecutarJuego(ubicador_inicio)
 
         while admin.getEnJuego():

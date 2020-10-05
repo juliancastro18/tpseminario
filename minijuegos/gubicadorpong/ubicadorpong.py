@@ -14,7 +14,7 @@ class UbicadorPong(Scene):
 	# distancia_final_screen_left es la distancia a la que quedará la barra izq del borde izq de la pantalla
 	# fondo_transparente True se usa si se combina con otra screen
 	# bloqueo se usa cuando se combina con otra screen y se quiere tapar lo que esta atrás al juntarse las barras
-	def __init__(self, distancia_final_screen_left = None, barras : tuple = None, bola_param = None,
+	def __init__(self, distancia_final_screen_left = None, tam_final = None, barras : tuple = None, bola_param = None,
 		        fondo_transparente = False, bloqueo = False, tick = True, barras_desde_afuera = False):
 
 		super().__init__()
@@ -22,6 +22,9 @@ class UbicadorPong(Scene):
 		self._barra_derecha = None
 		self._barras_desde_afuera = barras_desde_afuera
 		self._set_barras(barras)
+
+		self._tam_final = tam_final
+		self._resta = 2
 
 		self._bloqueo_izq = None
 		self._bloqueo_der = None
@@ -62,6 +65,9 @@ class UbicadorPong(Scene):
 					sys.exit()
 
 		self.mover_formas()
+
+		if self._tam_final is not None:
+			self.redimensionar_formas()
 		
 		if self._pos_final_izq == self._barra_izquierda.getRect().left:
 			self._state['playing'] = False
@@ -171,6 +177,16 @@ class UbicadorPong(Scene):
 			self._bloqueo_izq.right = self._barra_izquierda.getRect().left + 2
 			self._bloqueo_der.left = self._barra_derecha.getRect().right - 2
 		#print(self._vel_actual, " // ", self._barra_izquierda.getRect().left, " // ", self._barra_derecha.getRect().right)
+
+	def redimensionar_formas(self):
+		if self._barra_izquierda._rect.height > self._tam_final:
+			self._barra_izquierda._rect = self._barra_izquierda.getRect().inflate(0, -self._resta)
+			self._barra_derecha._rect = self._barra_derecha.getRect().inflate(0, -self._resta)
+			self._resta = self._resta * 1.15
+
+		if self._barra_izquierda._rect.height < self._tam_final:
+			self._barra_izquierda._rect.height = self._tam_final
+			self._barra_derecha._rect.height = self._tam_final
 
 	def get_barras(self):
 		return (self._barra_izquierda, self._barra_derecha)

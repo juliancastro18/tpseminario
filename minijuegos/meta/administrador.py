@@ -8,7 +8,7 @@ class Administrador():
 
 		# parametros generales
 		self._enJuego = True
-		self._loopContador = 3
+		self._loopContador = -1
 		self._clock = pygame.time.Clock()
 
 		# manejo de pausa

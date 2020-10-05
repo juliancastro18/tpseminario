@@ -112,7 +112,8 @@ class RapidRoll(Scene):
 
             # si llego al maximo de plataformas, agrego a la lista la ultima plataforma
             if self._plataformas[len(self._plataformas)-1].permiteSiguientePlataforma() and self._ultimaPlat is None:
-                ultimaPlataforma = Plataforma(self._velPlataformas, tamformas.BARRA_LADO_MAYOR-60, posicionFinal = 440) #self._largoPlatformas
+                pos_fin = configuration.SCREEN_HEIGHT - (tamformas.BARRA_LADO_MENOR*2.5)
+                ultimaPlataforma = Plataforma(self._velPlataformas, tamformas.BARRA_LADO_MAYOR-60, posicionFinal = pos_fin) #self._largoPlatformas
                 self._plataformas.append( ultimaPlataforma )
                 ultimaPlataforma.setUltimaPlataforma()
                 self._ultimaPlat = ultimaPlataforma
