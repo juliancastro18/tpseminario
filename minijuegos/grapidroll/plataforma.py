@@ -30,7 +30,7 @@ class Plataforma(Barra):
 
     def setPrimerPlataforma(self):
         self._rect.right = configuration.SCREEN_WIDTH
-        self._rect.top = configuration.SCREEN_HEIGHT
+        self._rect.top = configuration.SCREEN_HEIGHT + (tamformas.BARRA_LADO_MENOR*2)
         self._velInicial = 0.5
 
     def setUltimaPlataforma(self):

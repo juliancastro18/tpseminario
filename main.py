@@ -56,8 +56,6 @@ def main():
             # PONG
             pong_game = pong.Pong(ubicador_inicio.get_barras(),ubicador_inicio.get_bola(),admin.getLoopContador())
             admin.ejecutarJuego(pong_game)
-            # el pong tendria que tener un metodo para obtener la pos de la bola cuando terminó de ejecutar
-            # y tambien otro que devuelva una lista con las barras del pong
 
             # RAPIDROLL
             if admin.getEnJuego():

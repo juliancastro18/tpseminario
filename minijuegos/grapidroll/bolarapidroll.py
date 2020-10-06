@@ -24,7 +24,7 @@ class BolaRapidRoll(Bola):
             self.rect.top += self.velY
 
         # si la bola no esta en la pantalla, se termina el juego
-        if self.rect.bottom < 0 or self.rect.top > configuration.SCREEN_HEIGHT:
+        if self.rect.bottom < 0 or self.rect.top > configuration.SCREEN_HEIGHT+(tamformas.BARRA_LADO_MENOR*2):
             return False
 
         return True

@@ -14,7 +14,7 @@ class ReverseRoll(Scene):
         super().__init__()
         self._bolaJugador = BolaReverseRoll(posXY, loop)
         self._contadorPlataformas = 0
-        self._maximoPlataformas = 10 + (loop * 3)
+        self._maximoPlataformas = 20 #+ (loop * 3)
         self._velPlataformas = 3 + int(loop*0.5)
         self._plataformas = []
         self._agregar_primer_plat(primerPlat)
@@ -100,8 +100,9 @@ class ReverseRoll(Scene):
             
             elif not self._existeUltimaPlat: # sino, agrego la ultima con sus características
 
-                ultimaPlataforma = Plataforma(self._velPlataformas, 75, posicionFinal = 380)
+                ultimaPlataforma = Plataforma(self._velPlataformas, 75, posicionFinal = configuration.SCREEN_HEIGHT/2-tamformas.BARRA_LADO_MENOR/2)
                 ultimaPlataforma.setUltimaPlataforma()
+                ultimaPlataforma._distanciaNext = configuration.SCREEN_HEIGHT
                 ultimaPlataforma.setGrosor(25)
                 self._plataformas.append( ultimaPlataforma )
                 self._existeUltimaPlat = True
