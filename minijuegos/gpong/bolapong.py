@@ -73,7 +73,6 @@ class BolaPong(Bola):
     def set_xy(self, angulo):
         self.dirX = math.cos(angulo) * self.speed
         self.dirY = math.sin(angulo) * self.speed
-        print(angulo)
 
     def angulo_random_ini(self):
         return random.uniform(-math.pi/8,math.pi/8)          
