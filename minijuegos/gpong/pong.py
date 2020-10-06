@@ -13,7 +13,7 @@ class Pong(Scene):
     
     def __init__(self,barras,bola,loop): 
         super().__init__()
-        self._velocidadBola = 14 + loop
+        self._velocidadBola = 8 + loop
         self._player = Paddle(barras[0].getPosXY(), barras[0].getRect().height, self._velocidadBola)
         self._enemy = Enemy(barras[1].getPosXY(), barras[0].getRect().height, self._velocidadBola)
         self._bola = BolaPong(bola.getPosicionXY(),self._velocidadBola)

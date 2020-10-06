@@ -42,12 +42,9 @@ class BolaPong(Bola):
     def colision(self,paddle,enemy,escena):
         if self.rect.colliderect(paddle._rect):
                 self.set_angulo(paddle)
-                #self.dirX *= -1
                 escena.agregarScore()
-                #print(escena._score)
         elif self.rect.colliderect(enemy._rect):
                 self.set_angulo(enemy)
-                #self.dirX *= -1
                 
             
     def set_angulo(self, barra):

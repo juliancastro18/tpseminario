@@ -8,7 +8,7 @@ class Enemy(Barra):
         super().__init__(True, posXY, largo)
         self.speed = vel_bola-2
         self._inicio = pygame.time.get_ticks()
-        self._distancia_reaccion = 150 + vel_bola
+        self._distancia_reaccion = 170 + vel_bola
 
     def update(self,bola):
         distancia_x = abs(self._rect.centerx - bola.rect.centerx)
