@@ -49,7 +49,6 @@ class Pong(Scene):
         self._state['alive'] = self._bola.bolaEnJuego()
 
         if (self._bola.verificarPuntos()):
-            print(self._bola.verificarPuntos())
             self._state['playing'] = False
 
         if self._state['alive'] == False:
