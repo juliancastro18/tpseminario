@@ -110,3 +110,6 @@ class Game(Scene):
             x = random.randint(20,configuration.SCREEN_WIDTH - 50)
             y = random.randint(20,configuration.SCREEN_HEIGHT - 50)
             self.__green_squares.append(Bola((x,y)))
+
+    def get_last_food(self):
+        return self.__green_squares[0]

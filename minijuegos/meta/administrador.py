@@ -24,10 +24,11 @@ class Administrador():
 		self.game_over_clip = pygame.mixer.Sound('data\\sound\\gameOver.ogg')
 		self._array_transicion = self._cargar_ruido()
 
-	def ejecutarJuego(self, juego):
+	def ejecutarJuego(self, juego, juego_sec=None):
 
 		while self._enJuego and juego.get_game_state()['playing']:
-
+			if juego_sec is not None:
+				juego_sec.display_frame()
 			juego.process() # proceso el juego
 			juego.display_frame() # lo dibujo en la pantalla
 			self._total_score += juego.get_score() * (self._loopContador+1) #actualizo score

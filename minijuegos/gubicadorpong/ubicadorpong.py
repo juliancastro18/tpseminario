@@ -70,7 +70,8 @@ class UbicadorPong(Scene):
 			self.redimensionar_formas()
 		
 		if self._pos_final_izq == self._barra_izquierda.getRect().left:
-			self._state['playing'] = False
+			if self._tam_final is None or self._tam_final == self._barra_izquierda.getLargo():
+				self._state['playing'] = False
 		
 
 
