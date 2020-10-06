@@ -50,6 +50,10 @@ class Pong(Scene):
         
         self._state['alive'] = self._bola.bolaEnJuego()
 
+        if (self._bola.verificarPuntos()):
+            print(self._bola.verificarPuntos())
+            self._state['playing'] = False
+
         if self._state['alive'] == False:
             #Capturo pos bola para pasarsela al proximo juego
             posBola = (self._bola.getPosicionXY())
