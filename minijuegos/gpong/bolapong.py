@@ -12,7 +12,6 @@ class BolaPong(Bola):
         self.dirX = 0
         self.speed = velocidad
         self.set_xy(self.angulo_random_ini())
-        self._ult_dist = 0
         
 
     def update(self):
@@ -51,19 +50,14 @@ class BolaPong(Bola):
         # calculo distancia de la bola al centro de la paleta
         distancia_centro = self.rect.midleft[1] - barra._rect.midleft[1]
 
-        if distancia_centro == self._ult_dist: # con este if evito rebotes verticales infinitos
-            if bool(random.getrandbits(1)):
-                distancia_centro += 2
-            else:
-                distancia_centro -= 2
-
         # obtengo el porcentaje de distancia (1 si esta en la punta, 0 en el centro)
         porcentaje_dist = distancia_centro / (barra.getLargo() / 2)
         # para sacar el angulo: a 90º se le resta (45º * el porcentaje_dist)
         if isinstance(barra, Paddle):
-            angulo = porcentaje_dist * (math.pi/3)
+            angulo = porcentaje_dist * (math.pi/4)
         else:
-            angulo = math.pi - porcentaje_dist * (math.pi/3)
+            angulo = math.pi - porcentaje_dist * (math.pi/4)
+
         # seteo direcciones de la bola en relacion al angulo
         self.set_xy(angulo)          
 
@@ -75,11 +69,11 @@ class BolaPong(Bola):
             if self.rect.right > barra._rect.left-self.dirX+tamformas.BARRA_LADO_MENOR/2:
                 self.dirX *= -1
 
-        self._ult_dist = distancia_centro
 
     def set_xy(self, angulo):
         self.dirX = math.cos(angulo) * self.speed
         self.dirY = math.sin(angulo) * self.speed
+        print(angulo)
 
     def angulo_random_ini(self):
         return random.uniform(-math.pi/8,math.pi/8)          

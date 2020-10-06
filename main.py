@@ -90,7 +90,7 @@ def main():
         name = name_and_save[0]
         save = name_and_save[1]
         if save and not name == "":
-            print("Se guarda y vuelve al menu")
+            #print("Se guarda y vuelve al menu")
             score_file.save_score(name,score)
             # TABLA DE PUNTUACIONES
             for element in score_file.__str__int__():
@@ -98,7 +98,8 @@ def main():
             # Clase que guarda en un archivo local las puntuaciones al estilo => name:score (por ejemplo)
             score_file.override_file()
         else:
-            print("No se guarda y vuelve al menu")
+            pass
+            #print("No se guarda y vuelve al menu")
         
         # PUNTUACIONES, LLAMAR CUANDO SEA NECESARIO
         # ui.highscore.highscore.main(score_file.__str__int__())

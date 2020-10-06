@@ -6,7 +6,7 @@ from minijuegos.formas.bola import *
 class Enemy(Barra):
     def __init__(self,posXY,largo,vel_bola):
         super().__init__(True, posXY, largo)
-        self.speed = vel_bola-2
+        self.speed = vel_bola
         self._inicio = pygame.time.get_ticks()
         self._distancia_reaccion = 170 + vel_bola
 

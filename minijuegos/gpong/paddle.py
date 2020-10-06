@@ -6,7 +6,7 @@ from minijuegos.formas.barra import *
 class Paddle(Barra):
     def __init__(self,posXY,largo,vel_bola):
         super().__init__(True, posXY, largo)
-        self.speed = vel_bola-2
+        self.speed = vel_bola
         
     def update(self):
         pass
