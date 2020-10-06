@@ -40,10 +40,10 @@ class BolaPong(Bola):
                 self.rect.centery = configuration.SCREEN_HEIGHT/2
                 self.speed = 0.25
                 self.set_xy(self.angulo_random_ini())
-                self._sonidoWin.play()
             else:
                 self.rect.right = configuration.SCREEN_WIDTH
             self.puntos += 1
+            self._sonidoWin.play()
         if self.rect.left < 0:
             sigue_enJuego = False
 
