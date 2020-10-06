@@ -17,15 +17,16 @@ class BolaPong(Bola):
         
 
     def update(self):
-        if self.bolaEnJuego():
-            #desplazamiento bola
-            self.rect.top += self.dirY * self.speed
-            self.rect.left += self.dirX * self.speed
-            
-            if self.speed < self.speed_max:
-                self.speed += self.speed
-            elif self.speed > self.speed_max:
-                self.speed  = self.speed_max
+        #desplazamiento bola
+        self.rect.top += self.dirY * self.speed
+        self.rect.left += self.dirX * self.speed
+        
+        if self.speed < self.speed_max:
+            self.speed += self.speed
+        elif self.speed > self.speed_max:
+            self.speed  = self.speed_max
+
+        self.reboteSuperiorInferior()
 
     
     def bolaEnJuego(self):
@@ -36,10 +37,10 @@ class BolaPong(Bola):
             self.rect.centery = configuration.SCREEN_HEIGHT/2
             self.speed = 0.25
             self.set_xy(self.angulo_random_ini())
-        if (self.rect.left < 0):
+        if self.rect.left < 0:
             sigue_enJuego = False
-        else:
-            return sigue_enJuego
+
+        return sigue_enJuego
 
         
 
@@ -57,11 +58,9 @@ class BolaPong(Bola):
     def colision(self,paddle,enemy,escena):
         if self.rect.colliderect(paddle._rect):
                 self.set_angulo(paddle)
-                self._sonidoColision.play()
                 escena.agregarScore()
         elif self.rect.colliderect(enemy._rect):
                 self.set_angulo(enemy)
-                self._sonidoColision.play()
                 
             
     def set_angulo(self, barra):
@@ -83,9 +82,15 @@ class BolaPong(Bola):
         if isinstance(barra, Paddle):
             if self.rect.left < barra._rect.right-self.dirX-tamformas.BARRA_LADO_MENOR/2:
                 self.dirX *= -1
+            else:
+                self.rect.left = barra._rect.right
+                self._sonidoColision.play()
         else:
             if self.rect.right > barra._rect.left-self.dirX+tamformas.BARRA_LADO_MENOR/2:
                 self.dirX *= -1
+            else:
+                self.rect.right = barra._rect.left
+                self._sonidoColision.play()
 
 
     def set_xy(self, angulo):

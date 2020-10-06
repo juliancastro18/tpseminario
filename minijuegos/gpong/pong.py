@@ -42,11 +42,9 @@ class Pong(Scene):
                 if key[pygame.K_DOWN]:
                     self._player._rect.bottom += self._player.speed
 
-            self._bola.reboteSuperiorInferior()
             #colision
             self._enemy.update(self._bola)
             self._bola.colision(self._player,self._enemy,self)
-            self._bola.bolaEnJuego()
         
         self._state['alive'] = self._bola.bolaEnJuego()
 
