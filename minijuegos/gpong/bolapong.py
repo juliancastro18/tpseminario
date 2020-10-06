@@ -23,7 +23,7 @@ class BolaPong(Bola):
         self.rect.left += self.dirX * self.speed
         
         if self.speed < self.speed_max:
-            self.speed += self.speed
+            self.speed += self.speed*0.1
         elif self.speed > self.speed_max:
             self.speed  = self.speed_max
 
@@ -33,12 +33,15 @@ class BolaPong(Bola):
     def bolaEnJuego(self):
         sigue_enJuego = True
         #comprobamos si la pelota esta o no en pantalla.
-        if self.rect.right > configuration.SCREEN_WIDTH:
+        if self.rect.right >= configuration.SCREEN_WIDTH:
+            if self.puntos<1:
+                self.rect.centerx = configuration.SCREEN_WIDTH/2
+                self.rect.centery = configuration.SCREEN_HEIGHT/2
+                self.speed = 0.25
+                self.set_xy(self.angulo_random_ini())
+            else:
+                self.rect.right = configuration.SCREEN_WIDTH
             self.puntos += 1
-            self.rect.centerx = configuration.SCREEN_WIDTH/2
-            self.rect.centery = configuration.SCREEN_HEIGHT/2
-            self.speed = 0.25
-            self.set_xy(self.angulo_random_ini())
         if self.rect.left < 0:
             sigue_enJuego = False
 

@@ -74,6 +74,9 @@ class Pong(Scene):
     def getIsPlaying(self):
         return self._state['playing']
 
+    def get_barras(self):
+        return [self._player, self._enemy]
+
     def togglePause(self):
         self._state['pause'] ^= True
     

@@ -8,14 +8,15 @@ from minijuegos.grapidroll.plataforma import *
 
 class RapidRoll(Scene):
 
-    def __init__(self, posXY, loop = 0):
+    def __init__(self, posXY, barras, loop = 0):
 
         super().__init__()
         self._bolaJugador = BolaRapidRoll(posXY, loop)
         self._plataformas = []
         self._contadorPlataformas = 0
-        self._maximoPlataformas = 1 + (loop * 2) #setear en 10 + ... !
+        self._maximoPlataformas = 10 + (loop * 2) #setear en 10 + ... !
         self._velPlataformas = 3 + int(loop*0.5)
+        self._agregar_plataformas(barras)
         self._largoPlataformas = tamformas.BARRA_LADO_MAYOR - 60 # - (int(loop/2)*20)
         self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
         self._ultimaPlat = None
@@ -164,6 +165,12 @@ class RapidRoll(Scene):
 
     def agregarScore(self, puntos = 1):
         self._score += puntos
+
+    def _agregar_plataformas(self, barras):
+        for b in barras:
+            plat_nueva = Plataforma(velY = self._velPlataformas, barra=b)
+            plat_nueva._velInicial = 0.5
+            self._plataformas.append(plat_nueva)
 
     # METODOS PARA QUE OTROS JUEGOS USEN SUS ELEMENTOS
     def getListaBarrasProxJuego(self):

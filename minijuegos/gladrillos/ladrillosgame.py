@@ -42,7 +42,6 @@ class Ladrillos(Scene):
 
             # si la bola colisiona con la paleta
             if self._bola.rect.colliderect(self._paletaJugador._rect):
-                self._sonidoColision.play()
                 # calculo distancia de la bola al centro de la paleta
                 distancia_centro = self._bola.rect.midbottom[0] - self._paletaJugador._rect.midtop[0]
                 if distancia_centro == self._ult_dist: # con este if evito rebotes verticales infinitos
@@ -58,6 +57,7 @@ class Ladrillos(Scene):
                 self._bola.set_xy(angulo)
                 # si la bola está por encima de la mitad de la paleta, la hago rebotar
                 if self._bola.rect.bottom <= self._paletaJugador._rect.top+self._bola.mov_y+tamformas.BARRA_LADO_MENOR/2:
+                    self._sonidoColision.play()
                     self._bola.mov_y *= -1 # rebote
                 self._ult_dist = distancia_centro
 

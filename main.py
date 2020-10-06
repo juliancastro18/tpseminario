@@ -61,7 +61,7 @@ def main():
 
             # RAPIDROLL
             if admin.getEnJuego():
-	            rapid = rapidroll.RapidRoll((600, 40), admin.getLoopContador())
+	            rapid = rapidroll.RapidRoll(pong_game._bola.getPosicionXY(), pong_game.get_barras(), admin.getLoopContador())
 	            admin.ejecutarJuego(rapid)
             
             # LADRILLOS
