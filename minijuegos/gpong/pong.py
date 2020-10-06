@@ -46,9 +46,10 @@ class Pong(Scene):
             #colision
             self._enemy.update(self._bola)
             self._bola.colision(self._player,self._enemy,self)
+            self._bola.bolaEnJuego()
         
         self._state['alive'] = self._bola.bolaEnJuego()
-        
+
         if self._state['alive'] == False:
             #Capturo pos bola para pasarsela al proximo juego
             posBola = (self._bola.getPosicionXY())
@@ -56,6 +57,7 @@ class Pong(Scene):
             posEnemy = self._enemy.getPosXY()
             #deberia retornar esta tupla
             posiciones = (posPlayer,posEnemy)
+
 
             
     def display_frame(self):
@@ -75,5 +77,6 @@ class Pong(Scene):
     
     def agregarScore(self, puntos = 1):
         self._score += puntos
+
  
     
