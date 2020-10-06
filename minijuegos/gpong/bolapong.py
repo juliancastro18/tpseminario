@@ -10,7 +10,7 @@ class BolaPong(Bola):
         super().__init__(posXY)
         self.dirY = 0
         self.dirX = 0
-        self.speed = 4
+        self.speed = 1
         self.speed_max = velocidad
         self.set_xy(self.angulo_random_ini())
         self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
@@ -19,8 +19,8 @@ class BolaPong(Bola):
     def update(self):
         if self.bolaEnJuego():
             #desplazamiento bola
-            self.rect.top += self.dirY
-            self.rect.left += self.dirX
+            self.rect.top += self.dirY * self.speed
+            self.rect.left += self.dirX * self.speed
             
             if self.speed < self.speed_max:
                 self.speed += self.speed
@@ -31,9 +31,10 @@ class BolaPong(Bola):
     def bolaEnJuego(self):
         sigue_enJuego = True
         #comprobamos si la pelota esta o no en pantalla.
-        if self.rect.right >= configuration.SCREEN_WIDTH:
+        if self.rect.right > configuration.SCREEN_WIDTH:
             self.rect.centerx = configuration.SCREEN_WIDTH/2
             self.rect.centery = configuration.SCREEN_HEIGHT/2
+            self.speed = 0.25
             self.set_xy(self.angulo_random_ini())
         if (self.rect.left < 0):
             sigue_enJuego = False
@@ -88,8 +89,8 @@ class BolaPong(Bola):
 
 
     def set_xy(self, angulo):
-        self.dirX = math.cos(angulo) * self.speed
-        self.dirY = math.sin(angulo) * self.speed
+        self.dirX = math.cos(angulo) 
+        self.dirY = math.sin(angulo) 
 
     def angulo_random_ini(self):
         return random.uniform(-math.pi/8,math.pi/8)          
