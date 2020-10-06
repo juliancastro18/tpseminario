@@ -14,6 +14,7 @@ class BolaPong(Bola):
         self.speed_max = velocidad
         self.set_xy(self.angulo_random_ini())
         self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
+        self._sonidoWin = pygame.mixer.Sound('data\\sound\\coin.wav')
         self.puntos = 0
         
 
@@ -38,6 +39,7 @@ class BolaPong(Bola):
             self.rect.centery = configuration.SCREEN_HEIGHT/2
             self.speed = 0.25
             self.set_xy(self.angulo_random_ini())
+            self._sonidoWin.play()
         if (self.rect.left < 0):
             sigue_enJuego = False
         else:
