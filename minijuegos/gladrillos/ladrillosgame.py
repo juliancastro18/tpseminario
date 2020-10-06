@@ -72,11 +72,11 @@ class Ladrillos(Scene):
                 self._sonidoLadrillo.play()
                 self._tablero.remove(bloque)
                 self.agregarScore()
-                if self._bola.rect.top-self._bola.mov_y >= bloque._rect.bottom or self._bola.rect.bottom-self._bola.mov_y <= bloque._rect.top:
-                    self._bola.mov_y *= -1
+                if self._bola.rect.right-self._bola.mov_x < bloque._rect.left or self._bola.rect.left+self._bola.mov_x > bloque._rect.right:
+                    self._bola.mov_x *= -1
                     break
                 else:
-                    self._bola.mov_x *= -1
+                    self._bola.mov_y *= -1
                     break
 
     def display_frame(self):
