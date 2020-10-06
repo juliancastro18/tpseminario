@@ -35,17 +35,17 @@ class Barra(GameObject):
     def getLargo(self):
         largo = 0
         if self._esVertical:
-            largo = self._alto
+            largo = self._rect.height
         else:
-            largo = self._ancho
+            largo = self._rect.width
         return largo
 
     def getGrosor(self):
         grosor = 0
         if self._esVertical:
-            grosor = self._ancho
+            grosor = self._rect.width
         else:
-            grosor = self._alto
+            grosor = self._rect.height
         return grosor
 
     def getPosXY(self):

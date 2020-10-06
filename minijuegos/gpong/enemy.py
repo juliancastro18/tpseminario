@@ -4,33 +4,37 @@ from minijuegos.formas.barra import *
 from minijuegos.formas.bola import *
 
 class Enemy(Barra):
-    def __init__(self,posXY,largo):
+    def __init__(self,posXY,largo,vel_bola):
         super().__init__(True, posXY, largo)
-        self.speed = 10
+        self.speed = vel_bola-2
         self._inicio = pygame.time.get_ticks()
+        self._distancia_reaccion = 150 + vel_bola
 
     def update(self,bola):
-        #hago de la velocidad la distancia, al menos que esté muy lejos
-        distancia_bola = abs(self._rect.centery - bola.rect.centery)
-        velocidad = self.speed
-        if distancia_bola < velocidad:
-            velocidad = distancia_bola
+        distancia_x = abs(self._rect.centerx - bola.rect.centerx)
 
-        # lo muevo si pasaron 100 ms desde el inicio (para evitar bug)
-        if pygame.time.get_ticks() - self._inicio > 100:
+        if distancia_x < self._distancia_reaccion:
+            #hago de la velocidad la distancia, al menos que esté lejos
+            distancia_bola = abs(self._rect.centery - bola.rect.centery)
+            velocidad = self.speed
+            if distancia_bola < velocidad:
+                velocidad = distancia_bola
 
-            #si la bola esta mas arriba que el centro de la paleta
-            if self._rect.centery < bola.rect.centery:
-                #la sigue
-                self._rect.top += velocidad
-            elif self._rect.centery > bola.rect.centery:
-                self._rect.bottom -= velocidad
+            # lo muevo si pasaron 100 ms desde el inicio (para evitar bug)
+            if pygame.time.get_ticks() - self._inicio > 100:
 
-            #el enemigo se detiene en la linea inferior o superior
-            if self._rect.bottom > configuration.SCREEN_HEIGHT:
-                self._rect.bottom = configuration.SCREEN_HEIGHT
-            elif self._rect.top < 0:
-                self._rect.top = 0
+                #si la bola esta mas arriba que el centro de la paleta
+                if self._rect.centery < bola.rect.centery:
+                    #la sigue
+                    self._rect.top += velocidad
+                elif self._rect.centery > bola.rect.centery:
+                    self._rect.bottom -= velocidad
+
+                #el enemigo se detiene en la linea inferior o superior
+                if self._rect.bottom > configuration.SCREEN_HEIGHT:
+                    self._rect.bottom = configuration.SCREEN_HEIGHT
+                elif self._rect.top < 0:
+                    self._rect.top = 0
 
 
 

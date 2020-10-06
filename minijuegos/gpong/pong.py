@@ -13,9 +13,9 @@ class Pong(Scene):
     
     def __init__(self,barras,bola,loop): 
         super().__init__()
-        self._velocidadBola = 5 + loop
-        self._player = Paddle(barras[0].getPosXY(), barras[0].getRect().height)
-        self._enemy = Enemy(barras[1].getPosXY(), barras[0].getRect().height)
+        self._velocidadBola = 14 + loop
+        self._player = Paddle(barras[0].getPosXY(), barras[0].getRect().height, self._velocidadBola)
+        self._enemy = Enemy(barras[1].getPosXY(), barras[0].getRect().height, self._velocidadBola)
         self._bola = BolaPong(bola.getPosicionXY(),self._velocidadBola)
 
     def process(self):
@@ -58,13 +58,11 @@ class Pong(Scene):
             posiciones = (posPlayer,posEnemy)
 
             
-    
     def display_frame(self):
         self.screen.fill(color.BLACK)       
         self._player.draw(self.screen)
         self._enemy.draw(self.screen)
         self._bola.draw(self.screen)
-
 
     def getIsPaused(self):
         return self._state['pause']
