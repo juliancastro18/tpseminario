@@ -15,6 +15,7 @@ class BolaRapidRoll(Bola):
         self.colisionando = False
 
     def update(self):
+        vivo = True
 
         # aceleracion inicial
         if self.velYInicial < self.velY:
@@ -25,9 +26,9 @@ class BolaRapidRoll(Bola):
 
         # si la bola no esta en la pantalla, se termina el juego
         if self.rect.bottom < 0 or self.rect.top > configuration.SCREEN_HEIGHT+(tamformas.BARRA_LADO_MENOR*2):
-            return False
+            vivo = False
 
-        return True
+        return vivo
 
     def setEnPlataforma(self, platPosY):
         self.rect.bottom = platPosY + 1

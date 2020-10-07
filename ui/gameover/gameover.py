@@ -9,7 +9,7 @@ from ui.menu.menu import Menu
 class GameOver(Scene):
     def __init__(self, score : int, top : bool):
         super().__init__()
-        self.input_box = InputBox(configuration.SCREEN_WIDTH//2+10,configuration.SCREEN_HEIGHT//2+70,30,60,size_font=30, limit_char='|')
+        self.input_box = InputBox(configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2+92,30,60,size_font=30, limit_char='|')
         self.tittle_text = "GAME OVER"
         self.tittle_font = font.Font('data\\font\\dpcomic.ttf',70)
         self.name_font = font.Font('data\\font\\dpcomic.ttf',30)
@@ -51,9 +51,7 @@ class GameOver(Scene):
             self._draw_text_center(self.name_font,"YOUR SCORE",configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2-10)
         self._draw_text_center(self.tittle_font,"{}".format(self.score),configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2+30)
 
-        if self.top:
-            self._draw_text(self.name_font,"ENTER NAME: ",174,configuration.SCREEN_HEIGHT//2+75)
-        else:
+        if not self.top:
             self._draw_text_center(self.name_font,"PRESS ANY KEY",configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2+90)
         
     def _draw_text_center(self, font, text : str, x : int, y : int):

@@ -88,10 +88,11 @@ class Plataforma(Barra):
             return False
 
     def colisionSuperior(self, bola):
-        if self._rect.colliderect(bola.rect):
+        colisiona = False
+        if self._rect.colliderect(bola.rect) and self._esVertical==False:
             if not bola.rect.collidepoint(self._rect.bottomleft) and not bola.rect.collidepoint(self._rect.bottomright):
-                return True
-        return False
+                colisiona = True
+        return colisiona
 
     def _desacelerar(self, posXFinal):
         distancia_comienzo_freno = 40

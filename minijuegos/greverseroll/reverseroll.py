@@ -89,7 +89,7 @@ class ReverseRoll(Scene):
                 # si la plataformaAnterior pide cierta distancia y no es una plataforma movil, agrego una movil
                 if plataformaAnterior.getDistanciaNext() >= 150 and not isinstance(plataformaAnterior, PlataformaMovil):
                     self._plataformas.append ( PlataformaMovil(self._velPlataformas, self._largoPlataformas) )
-                    self.agregarScore(2)
+                    self.agregarScore()
                 else:
                     plataforma_nueva = Plataforma(self._velPlataformas, self._largoPlataformas)
                     plataforma_nueva.checkPosX(plataformaAnterior.getLeft())
@@ -100,7 +100,7 @@ class ReverseRoll(Scene):
             
             elif not self._existeUltimaPlat: # sino, agrego la ultima con sus características
 
-                ultimaPlataforma = Plataforma(self._velPlataformas, 75, posicionFinal = configuration.SCREEN_HEIGHT/2-tamformas.BARRA_LADO_MENOR/2)
+                ultimaPlataforma = Plataforma(self._velPlataformas, 125, posicionFinal = configuration.SCREEN_HEIGHT/2-tamformas.BARRA_LADO_MENOR/2)
                 ultimaPlataforma.setUltimaPlataforma()
                 ultimaPlataforma._distanciaNext = configuration.SCREEN_HEIGHT
                 ultimaPlataforma.setGrosor(25)
@@ -113,7 +113,7 @@ class ReverseRoll(Scene):
         primer_plat._velInicial = 0.5
         self._plataformas.append(primer_plat)
 
-    def agregarScore(self, puntos = 1):
+    def agregarScore(self, puntos = 5):
         self._score += puntos
 
     def getIsPaused(self):

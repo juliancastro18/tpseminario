@@ -45,6 +45,9 @@ class RapidRoll(Scene):
                 self._bolaJugador.desplazamientoHorizontal(False)
             if key_input[pygame.K_RIGHT]:
                 self._bolaJugador.desplazamientoHorizontal(True)
+            if self._ultimaPlat is not None:
+                self._check_pos_bola()
+
 
             self.administradorPlataformas()
 
@@ -159,11 +162,18 @@ class RapidRoll(Scene):
                 cont += 1
         return cont
 
+    def _check_pos_bola(self):
+        if self._bolaJugador.rect.colliderect(self._ultimaPlat.getRect()):
+            if self._bolaJugador.rect.right < self._ultimaPlat.getRect().left +20:
+                self._bolaJugador.rect.right = self._ultimaPlat.getRect().left +20
+            elif self._bolaJugador.rect.left > self._ultimaPlat.getRect().right -20:
+                self._bolaJugador.rect.left = self._ultimaPlat.getRect().right -20
+
 
     def getIsPaused(self):
         return self._state['pause']
 
-    def agregarScore(self, puntos = 1):
+    def agregarScore(self, puntos = 5):
         self._score += puntos
 
     def _agregar_plataformas(self, barras):

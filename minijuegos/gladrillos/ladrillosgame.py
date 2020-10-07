@@ -90,7 +90,7 @@ class Ladrillos(Scene):
     def getIsPaused(self):
         return self._state['pause']
 
-    def agregarScore(self, puntos = 1):
+    def agregarScore(self, puntos = 5):
         self._score += puntos
 
     #GETS PARA JUEGO SIGUIENTE

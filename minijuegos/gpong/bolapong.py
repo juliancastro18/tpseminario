@@ -23,21 +23,20 @@ class BolaPong(Bola):
         #desplazamiento bola
         self.rect.top += self.dirY * self.speed
         self.rect.left += self.dirX * self.speed
-        
-        print(self.dirX * self.speed)
 
         if self.speed < self.speed_max:
-            self.speed += self.speed*0.1
+            self.speed = self.speed*1.1
         elif self.speed > self.speed_max:
             self.speed  = self.speed_max
 
         self.reboteSuperiorInferior()
 
     
-    def bolaEnJuego(self):
+    def bolaEnJuego(self, escena):
         sigue_enJuego = True
         #comprobamos si la pelota esta o no en pantalla.
         if self.rect.right >= configuration.SCREEN_WIDTH:
+            escena.agregarScore()
             if self.puntos<1:
                 self.rect.centerx = configuration.SCREEN_WIDTH/2
                 self.rect.centery = configuration.SCREEN_HEIGHT/2
@@ -70,10 +69,9 @@ class BolaPong(Bola):
             self.rect.top = 0
 
 
-    def colision(self,paddle,enemy,escena):
+    def colision(self,paddle,enemy):
         if self.rect.colliderect(paddle._rect):
                 self.set_angulo(paddle)
-                escena.agregarScore()
         elif self.rect.colliderect(enemy._rect):
                 self.set_angulo(enemy)
                 
@@ -97,13 +95,13 @@ class BolaPong(Bola):
 
         # si la bola excede la posicion de la barra, no rebota
         if isinstance(barra, Paddle):
-            if self.rect.left < barra._rect.right-self.dirX-tamformas.BARRA_LADO_MENOR/2:
+            if self.rect.left < barra._rect.right-(self.dirX*self.speed)-tamformas.BARRA_LADO_MENOR/2:
                 self.dirX *= -1
             else:
                 self.rect.left = barra._rect.right
                 self._sonidoColision.play()
         else:
-            if self.rect.right > barra._rect.left-self.dirX+tamformas.BARRA_LADO_MENOR/2:
+            if self.rect.right > barra._rect.left-(self.dirX*self.speed)+tamformas.BARRA_LADO_MENOR/2:
                 self.dirX *= -1
             else:
                 self.rect.right = barra._rect.left

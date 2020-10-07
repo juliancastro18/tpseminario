@@ -43,9 +43,9 @@ class Pong(Scene):
 
             #colision
             self._enemy.update(self._bola)
-            self._bola.colision(self._player,self._enemy,self)
+            self._bola.colision(self._player,self._enemy)
         
-        self._state['alive'] = self._bola.bolaEnJuego()
+        self._state['alive'] = self._bola.bolaEnJuego(self)
 
         if (self._bola.verificarPuntos()):
             self._state['playing'] = False
@@ -70,7 +70,7 @@ class Pong(Scene):
     def togglePause(self):
         self._state['pause'] ^= True
     
-    def agregarScore(self, puntos = 1):
+    def agregarScore(self, puntos = 50):
         self._score += puntos
 
  

@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, os
 from pygame.locals import *
 
 from minijuegos.constantes import configuration, tamformas, color
@@ -23,6 +23,7 @@ def main():
     pygame.mixer.init()
 
     # PYGAME INIT
+    os.environ['SDL_VIDEO_CENTERED'] = '1'
     pygame.init()
 
     # SETEO VENTANA
