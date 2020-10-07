@@ -70,10 +70,12 @@ class Administrador():
 		while len(score_str) < 6:
 			score_str = '0' + score_str
 
-		text_obj = self._font.render(score_str,0,color.BLACK,screen)
-		text_rect = text_obj.get_rect()
-		text_rect.topleft = (14,14)
-		screen.blit(text_obj, text_rect)
+		for i in range(-3,3):
+			for j in range(-3,3):
+				text_obj = self._font.render(score_str,0,color.BLACK,screen)
+				text_rect = text_obj.get_rect()
+				text_rect.topleft = (10+i,11+j)
+				screen.blit(text_obj, text_rect)
 
 		text_obj = self._font.render(score_str,0,color.WHITE,screen)
 		text_rect = text_obj.get_rect()
