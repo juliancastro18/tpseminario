@@ -14,6 +14,7 @@ from ui.menu import menu
 from scorefile.filemanager import ScoreFile
 import ui.gameover.gameover
 import ui.highscore.highscore
+# from minijuegos.gsnake.snake_game import loop
 
 def main():
 

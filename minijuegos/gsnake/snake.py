@@ -25,8 +25,12 @@ class Snake(GameObject):
 
     def __initial_body(self,x = 75, y = 25):
         self.body.insert(0, self.__head)
-        self.body.insert(0, Square(color=color.WHITE,pos=(x-25,y)))
-        self.body.insert(0, Square(color=color.WHITE,pos=(x-50,y)))
+        for i in range(25,101,25):
+            self.body.insert(0, Square(color=color.WHITE,pos=(x-i,y)))
+            # self.body.insert(0, Square(color=color.WHITE,pos=(x-25,y)))
+            # self.body.insert(0, Square(color=color.WHITE,pos=(x-50,y)))
+            # self.body.insert(0, Square(color=color.WHITE,pos=(x-75,y)))
+            # self.body.insert(0, Square(color=color.WHITE,pos=(x-100,y)))
         
     def load_sounds(self):
         self.sounds.append(mixer.Sound('data\\sound\\coin.wav'))
@@ -165,6 +169,8 @@ class Snake(GameObject):
         
     def get_len(self):
         return len(self.body)
+    
+    
         
     
     

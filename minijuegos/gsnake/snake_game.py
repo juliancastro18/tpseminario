@@ -32,7 +32,7 @@ class Game(Scene):
         self.textRect = self.score_text.get_rect()
         self.textRect.center = (40,20)
         self.win = False
-        self.score_to_win = 5 + loop*1
+        self.score_to_win = 7 + loop*1
         self.extra_score = loop
         self.sounds = []
         self.load_sounds()
@@ -113,3 +113,14 @@ class Game(Scene):
 
     def get_last_food(self):
         return self.__green_squares[0]
+
+def loop():
+    pygame.init()
+    snake = Game(player_pos=(300,300))
+    while snake.get_game_state()['playing']:
+        snake.process()
+        snake.display_frame()
+        pygame.display.update()
+        
+# loop()
+#minijuegos.gsnake.snake_game
