@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, math
 from pygame.locals import *
 
 from minijuegos.constantes import color
@@ -20,7 +20,6 @@ class Pong(Scene):
 
     def process(self):
         self._clock.tick(self._fps)
-        
         #eventos
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -50,14 +49,6 @@ class Pong(Scene):
 
         if (self._bola.verificarPuntos()):
             self._state['playing'] = False
-
-        if self._state['alive'] == False:
-            #Capturo pos bola para pasarsela al proximo juego
-            posBola = (self._bola.getPosicionXY())
-            posPlayer = self._player.getPosXY()
-            posEnemy = self._enemy.getPosXY()
-            #deberia retornar esta tupla
-            posiciones = (posPlayer,posEnemy)
 
 
             

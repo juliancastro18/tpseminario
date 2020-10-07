@@ -15,7 +15,7 @@ class Enemy(Barra):
     def update(self,bola):
         distancia_x = abs(self._rect.centerx - bola.rect.centerx)
 
-        if distancia_x < self._distancia_reaccion:
+        if distancia_x < self._distancia_reaccion or bola.recien_iniciada:
             if self._siguiendo_bola == False:
                 self._nuevo_offset()
                 self._siguiendo_bola = True

@@ -82,13 +82,13 @@ def main():
             # TRANSICION A PONG
             if admin.getEnJuego():
                 barra_izq = barra.Barra(True, (-tamformas.BARRA_LADO_MENOR,0), largo=configuration.SCREEN_HEIGHT)
-                barra_der = barra.Barra(True, (configuration.SCREEN_WIDTH+tamformas.BARRA_LADO_MENOR,0), largo=configuration.SCREEN_HEIGHT)
+                barra_der = barra.Barra(True, (configuration.SCREEN_WIDTH,0), largo=configuration.SCREEN_HEIGHT)
                 ubicador_fin = ubicadorpong.UbicadorPong(barras=(barra_izq,barra_der), fondo_transparente=True,
                                                         bloqueo = True, barras_desde_afuera = True)
                 ubicador_fin.ocultar_bola()
                 admin.ejecutarJuego(ubicador_fin, juego_sec=snake)
                 ubicador_inicio = ubicadorpong.UbicadorPong(barras=ubicador_fin.get_barras(), tam_final=pong_game.get_barras()[0].getLargo(),
-                                                        distancia_final_screen_left=pong_game.get_barras()[0]._rect.left)
+                                                        bloqueo = True, distancia_final_screen_left=pong_game.get_barras()[0]._rect.left)
                 admin.ejecutarJuego(ubicador_inicio)
             
 

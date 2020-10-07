@@ -16,6 +16,7 @@ class BolaPong(Bola):
         self._sonidoColision = pygame.mixer.Sound('data\\sound\\hit.wav')
         self._sonidoWin = pygame.mixer.Sound('data\\sound\\coin.wav')
         self.puntos = 0
+        self.recien_iniciada = True
         
 
     def update(self):
@@ -23,6 +24,8 @@ class BolaPong(Bola):
         self.rect.top += self.dirY * self.speed
         self.rect.left += self.dirX * self.speed
         
+        print(self.dirX * self.speed)
+
         if self.speed < self.speed_max:
             self.speed += self.speed*0.1
         elif self.speed > self.speed_max:
@@ -38,7 +41,8 @@ class BolaPong(Bola):
             if self.puntos<1:
                 self.rect.centerx = configuration.SCREEN_WIDTH/2
                 self.rect.centery = configuration.SCREEN_HEIGHT/2
-                self.speed = 0.25
+                self.speed = 1
+                self.recien_iniciada = True
                 self.set_xy(self.angulo_random_ini())
             else:
                 self.rect.right = configuration.SCREEN_WIDTH
@@ -75,6 +79,8 @@ class BolaPong(Bola):
                 
             
     def set_angulo(self, barra):
+        if self.recien_iniciada == True:
+            self.recien_iniciada = False
         # calculo distancia de la bola al centro de la paleta
         distancia_centro = self.rect.midleft[1] - barra._rect.midleft[1]
 

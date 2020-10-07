@@ -23,8 +23,8 @@ class Plataforma(Barra):
         self._posicionFinal = posicionFinal
 
     def randomPosX(self, largo):
-        cuartoDePantalla = int((configuration.SCREEN_WIDTH-largo)/4)
-        posX = cuartoDePantalla * randint(0, 4)
+        decimoDePantalla = int((configuration.SCREEN_WIDTH-largo)/10)
+        posX = decimoDePantalla * randint(0, 10)
         return posX
 
 
