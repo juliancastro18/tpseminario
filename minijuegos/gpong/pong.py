@@ -17,6 +17,7 @@ class Pong(Scene):
         self._player = Paddle(barras[0].getPosXY(), barras[0].getRect().height, self._velocidadBola)
         self._enemy = Enemy(barras[1].getPosXY(), barras[0].getRect().height, self._velocidadBola)
         self._bola = BolaPong(bola.getPosicionXY(),self._velocidadBola)
+        self._indicadores = self.cargar_indicadores()
 
     def process(self):
         self._clock.tick(self._fps)
@@ -50,13 +51,30 @@ class Pong(Scene):
         if (self._bola.verificarPuntos()):
             self._state['playing'] = False
 
-
             
     def display_frame(self):
         self.screen.fill(color.BLACK)       
         self._player.draw(self.screen)
         self._enemy.draw(self.screen)
         self._bola.draw(self.screen)
+        cont = 0
+        for ind in self._indicadores:
+            if (cont/2) < self._bola.get_puntos():
+                ind.draw(self.screen)
+                cont +=1
+
+    def cargar_indicadores(self):
+        lista_indicadores = []
+        largo = 26
+        for i in range(0,3):
+            ind = Barra(False, (10+((largo+2)*i), 4), largo)
+            ind.setGrosor(8)
+            ind._color = (0,0,0)
+            lista_indicadores.append(ind)
+            ind2 = Barra(False, (10+((largo+2)*i), 6), largo)
+            ind2.setGrosor(4)
+            lista_indicadores.append(ind2)
+        return lista_indicadores
 
     def getIsPaused(self):
         return self._state['pause']
@@ -65,12 +83,14 @@ class Pong(Scene):
         return self._state['playing']
 
     def get_barras(self):
-        return [self._player, self._enemy]
+        lista_aux = [self._player, self._enemy]
+        lista_aux.extend(self._indicadores)
+        return lista_aux
 
     def togglePause(self):
         self._state['pause'] ^= True
     
-    def agregarScore(self, puntos = 50):
+    def agregarScore(self, puntos = 35):
         self._score += puntos
 
  

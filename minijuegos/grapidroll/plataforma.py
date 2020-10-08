@@ -9,7 +9,7 @@ class Plataforma(Barra):
     def __init__(self, velY, largo = None, barra : Barra = None, colisionable = True, posicionFinal = 0):
 
         if barra is not None:
-            super().__init__(barra._esVertical, barra._rect.topleft, barra.getLargo())
+            super().__init__(barra._esVertical, barra._rect.topleft, largo=barra.getLargo(), grosor=barra.getGrosor())
         else:
             x = self.randomPosX(largo)
             y = configuration.SCREEN_HEIGHT+tamformas.BARRA_LADO_MENOR
@@ -109,9 +109,7 @@ class Plataforma(Barra):
             self._desacelerar(self._posicionFinal)
 
         if self._velInicial < self._velY:
-            self._rect.top -= self._velInicial
+            self._rect.top -= round(self._velInicial)
             self._velInicial = self._velInicial * 1.04
         else:
             self._rect.top -= self._velY
-
-        #self._rect.top -= self._velY

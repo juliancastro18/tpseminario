@@ -62,7 +62,7 @@ class ReverseRoll(Scene):
 
         for plat in self._plataformas:
             plat.draw(self.screen)
-            if plat.colisionSuperior(self._bolaJugador):
+            if plat._rect.colliderect(self._bolaJugador):
                 self._state['alive'] = False
 
         self._bolaJugador.draw(self.screen)

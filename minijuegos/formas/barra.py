@@ -6,7 +6,7 @@ from minijuegos.gameobject import *
 class Barra(GameObject):
 
 
-    def __init__(self, esVertical, posXY, largo = None):
+    def __init__(self, esVertical, posXY, largo = tamformas.BARRA_LADO_MAYOR, grosor = tamformas.BARRA_LADO_MENOR):
 
         super().__init__()
 
@@ -15,17 +15,11 @@ class Barra(GameObject):
         self._esVertical = esVertical
 
         if self._esVertical:  
-            self._ancho = tamformas.BARRA_LADO_MENOR
-            if largo is not None:
-                self._alto = largo
-            else:
-                self._alto = tamformas.BARRA_LADO_MAYOR
+            self._ancho = grosor
+            self._alto = largo
         else:
-            if largo is not None:
-                self._ancho = largo
-            else:
-                self._ancho = tamformas.BARRA_LADO_MAYOR
-            self._alto = tamformas.BARRA_LADO_MENOR
+            self._ancho = largo
+            self._alto = grosor
 
         self._posX, self._posY = posXY
 

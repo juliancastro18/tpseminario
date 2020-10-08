@@ -33,28 +33,35 @@ class BolaPong(Bola):
 
     
     def bolaEnJuego(self, escena):
+
         sigue_enJuego = True
         #comprobamos si la pelota esta o no en pantalla.
         if self.rect.right >= configuration.SCREEN_WIDTH:
-            escena.agregarScore()
-            if self.puntos<1:
-                self.rect.centerx = configuration.SCREEN_WIDTH/2
-                self.rect.centery = configuration.SCREEN_HEIGHT/2
-                self.speed = 1
-                self.recien_iniciada = True
-                self.set_xy(self.angulo_random_ini())
+            if self.puntos<2:
+                if self.rect.right > configuration.SCREEN_WIDTH + 80:
+                    self.rect.centerx = configuration.SCREEN_WIDTH/2
+                    self.rect.centery = configuration.SCREEN_HEIGHT/2
+                    self.speed = 1
+                    self.set_xy(self.angulo_random_ini())
+                    self.nuevo_punto(escena)
             else:
                 self.rect.right = configuration.SCREEN_WIDTH
-            self.puntos += 1
-            self._sonidoWin.play()
+                self.nuevo_punto(escena)
+
         if self.rect.left < 0:
             sigue_enJuego = False
 
         return sigue_enJuego
 
+    def nuevo_punto(self, escena):
+        self.recien_iniciada = True
+        self.puntos += 1
+        escena.agregarScore()
+        self._sonidoWin.play()
+
     def verificarPuntos(self):
         pasarJuego = False
-        if self.puntos >=2:
+        if self.puntos >=3:
             pasarJuego = True
         return pasarJuego
             
@@ -113,4 +120,7 @@ class BolaPong(Bola):
         self.dirY = math.sin(angulo) 
 
     def angulo_random_ini(self):
-        return random.uniform(-math.pi/8,math.pi/8)          
+        return random.uniform(-math.pi/8,math.pi/8)
+
+    def get_puntos(self):
+        return self.puntos     
