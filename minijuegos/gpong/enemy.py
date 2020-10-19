@@ -15,16 +15,17 @@ class Enemy(Barra):
     def update(self,bola):
         distancia_x = abs(self._rect.centerx - bola.rect.centerx)
 
-        if distancia_x < self._distancia_reaccion or bola.recien_iniciada:
+        if distancia_x < self._distancia_reaccion or (bola.recien_iniciada and distancia_x < self._distancia_reaccion+50):
             if self._siguiendo_bola == False:
                 self._nuevo_offset()
                 self._siguiendo_bola = True
 
             #hago de la velocidad la distancia, al menos que esté lejos
             distancia_bola = abs(self._rect.centery + self._offset - bola.rect.centery)
-            velocidad = self.speed
-            if distancia_bola < velocidad:
+            if distancia_bola < self.speed:
                 velocidad = distancia_bola
+            else:
+                velocidad = self.speed
 
             #si la bola esta mas arriba que el centro de la paleta
             if self._rect.centery + self._offset < bola.rect.centery:
