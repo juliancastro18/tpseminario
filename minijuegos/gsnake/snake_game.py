@@ -32,7 +32,7 @@ class Game(Scene):
         self.textRect = self.score_text.get_rect()
         self.textRect.center = (40,20)
         self.win = False
-        self.score_to_win = 7 + loop*1
+        self.score_to_win = 14 + loop*1
         self.extra_score = loop
         self.sounds = []
         self.load_sounds()
@@ -72,17 +72,17 @@ class Game(Scene):
             else:
                 if len(self.__green_squares)==0:
                     self.spawn_food()
-                    self.limit_time+=100
+                    # self.limit_time+=100
 
             self.update_score_text()
-            if self.time>self.limit_time:
-                self._state['alive'] = False
-            else:
+            # if self.time>self.limit_time:
+                # self._state['alive'] = False
+            # else:
                 # print(self.time)
-                self.time+=1
+                #self.time+=1
 
-            dt = self.limit_time - self.time
-            self.flicker = 1<dt<1000 and dt%8==0
+            # dt = self.limit_time - self.time
+            # self.flicker = 1<dt<1000 and dt%8==0
            
             
 
