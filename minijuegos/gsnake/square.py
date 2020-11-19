@@ -37,19 +37,15 @@ class Square(GameObject):
     def out_screen(self):
         out = False
         if self.__pos[0]<0:
-            # self.__pos = (configuration.SCREEN_WIDTH, self.__pos[1])
             out = True
             
         if self.__pos[0]>configuration.SCREEN_WIDTH - 25:
-            # self.__pos = (0, self.__pos[1])
             out = True
             
         if self.__pos[1]<0:
-            # self.__pos = (self.__pos[0], configuration.SCREEN_HEIGHT)
             out = True
             
         if self.__pos[1]>configuration.SCREEN_HEIGHT - 25:
-            # self.__pos = (self.__pos[0],0)
             out = True
         return out
 

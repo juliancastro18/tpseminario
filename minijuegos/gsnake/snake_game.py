@@ -9,11 +9,11 @@ from minijuegos.scene import Scene
 
 class Game(Scene):
     def __init__(self, player_pos = (0,0), ball_position = None, loop = 0):
-        # self.__game_state = {"done":False,"win":False, "snake_is_alive":True, "pause":False}
         super().__init__()
         self._state = {'alive':True, 'playing':True, 'pause':False}
         self.__clock = time.Clock()
         self.screen = display.set_mode(size=(configuration.SCREEN_WIDTH, configuration.SCREEN_HEIGHT))
+        
         self.__snake = Snake(pos=player_pos)
         self.__green_squares = []
         if ball_position==None:
@@ -31,6 +31,7 @@ class Game(Scene):
         self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,color.WHITE)
         self.textRect = self.score_text.get_rect()
         self.textRect.center = (40,20)
+        
         self.win = False
         self.score_to_win = 14 + loop*1
         self.extra_score = loop
@@ -72,17 +73,9 @@ class Game(Scene):
             else:
                 if len(self.__green_squares)==0:
                     self.spawn_food()
-                    # self.limit_time+=100
 
             self.update_score_text()
-            # if self.time>self.limit_time:
-                # self._state['alive'] = False
-            # else:
-                # print(self.time)
-                #self.time+=1
 
-            # dt = self.limit_time - self.time
-            # self.flicker = 1<dt<1000 and dt%8==0
            
             
 
@@ -90,7 +83,6 @@ class Game(Scene):
         self.score_text = self.font.render('Score: {}'.format(self.__snake.get_len()-3),True,color.WHITE)
         self.textRect = self.score_text.get_rect()
         self.textRect.center = (40,20)
-        # END LOGIC ZONE
         
             
         
@@ -100,8 +92,6 @@ class Game(Scene):
             for element in self.__green_squares:
                     element.draw(self.screen)
         self.__snake.draw(self.screen, pause=self._state['pause'])
-        # self.screen.blit(self.score_text, self.textRect)
-        # UPDATE
         self.__clock.tick(300 + self.extra_speed)
         
         

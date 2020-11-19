@@ -27,10 +27,6 @@ class Snake(GameObject):
         self.body.insert(0, self.__head)
         for i in range(25,101,25):
             self.body.insert(0, Square(color=color.WHITE,pos=(x-i,y)))
-            # self.body.insert(0, Square(color=color.WHITE,pos=(x-25,y)))
-            # self.body.insert(0, Square(color=color.WHITE,pos=(x-50,y)))
-            # self.body.insert(0, Square(color=color.WHITE,pos=(x-75,y)))
-            # self.body.insert(0, Square(color=color.WHITE,pos=(x-100,y)))
         
     def load_sounds(self):
         self.sounds.append(mixer.Sound('data\\sound\\coin.wav'))
@@ -91,7 +87,7 @@ class Snake(GameObject):
         self.__head.update()
         
         
-        
+        #Esto es para que los ojos sigan bien a la cabeza
         head_speed_x, head_speed_y = self.__head.get_speed()
         head_x, head_y = self.__head.get_pos()
         index = 0
@@ -151,9 +147,12 @@ class Snake(GameObject):
                 self.__head.set_speed(0,Snake._MAX_SPEED)
 
     def draw(self, screen, pause = False):
+        # Dibuja cada parte de su cuerpo
         for index in range(len(self.body)):
             if(self.body[index].draw(screen)):
                 self.__is_alive = False
+                
+        #Es el dibujado del parpadeo
         if pause:
             self.time=-1
         else:

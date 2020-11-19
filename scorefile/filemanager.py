@@ -44,12 +44,14 @@ class ScoreFile():
             index = 0
             len_of_scores = len(scores)
             lst = []
+            
             while(len_of_scores > index):
                 pos_of_delimiter = scores[index].find(':')
                 aux_name = scores[index][:pos_of_delimiter]
                 aux_score = int(scores[index][pos_of_delimiter + 1:] )
                 lst.append((aux_name,aux_score))
                 index+=1
+                
             return sorted(lst,key = lambda x : x[1],reverse = True)
         
     def override_file(self):
