@@ -72,12 +72,12 @@ class Administrador():
 
 		for i in range(-3,3):
 			for j in range(-3,3):
-				text_obj = self._font.render(score_str,0,color.BLACK,screen)
+				text_obj = self._font.render(score_str,0,color.BLACK)
 				text_rect = text_obj.get_rect()
 				text_rect.topleft = (10+i,11+j)
 				screen.blit(text_obj, text_rect)
 
-		text_obj = self._font.render(score_str,0,color.WHITE,screen)
+		text_obj = self._font.render(score_str,0,color.WHITE)
 		text_rect = text_obj.get_rect()
 		text_rect.topleft = (10,10)
 		screen.blit(text_obj, text_rect)

@@ -14,7 +14,6 @@ from ui.menu import menu
 from scorefile.filemanager import ScoreFile
 import ui.gameover.gameover
 import ui.highscore.highscore
-# from minijuegos.gsnake.snake_game import loop
 
 def main():
 
@@ -112,18 +111,11 @@ def main():
         else:
             pass
             #print("No se guarda y vuelve al menu")
-        
-        # PUNTUACIONES, LLAMAR CUANDO SEA NECESARIO
-        # ui.highscore.highscore.main(score_file.__str__int__())
 
         # RESETEO ADMIN Y MENU
         admin.set_restart()
         menu_principal.set_restart()
         
-
-# TO_DO_LIST:
-# Los que usan vs code pueden instalar: Todo Tree para ver esta clase de comentarios :)
-# TODO: Hacer la escena del high_score_local (eze)
 
 if __name__ == "__main__":
     main()

@@ -55,7 +55,7 @@ class GameOver(Scene):
             self._draw_text_center(self.name_font,"PRESS ANY KEY",configuration.SCREEN_WIDTH//2,configuration.SCREEN_HEIGHT//2+90)
         
     def _draw_text_center(self, font, text : str, x : int, y : int):
-        text_Obj = font.render(text,0,color.WHITE,self.screen)
+        text_Obj = font.render(text,0,color.WHITE)
         text_rect = text_Obj.get_rect()
         text_rect.center = (x,y)
         self.screen.blit(text_Obj, text_rect)
